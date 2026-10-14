@@ -2341,60 +2341,26 @@ body.locked{
   'use strict';
 
   /* =====================================
-     BEMORLAR — SHU YERNI TO‘LDIRING
-     (matnlarni KIRILLDA yozing)
+     BEMORLAR FIKRI — ADMIN PANELDAN BOSHQARILADI
 
-     Har bir bemor uchun { ... } bloki.
-       ism    — bemorning ismi, masalan 'Гулнора опа'
-       yosh   — yoshi (raqam), bilmasangiz: ''
-       shahar — shahar yoki viloyat, masalan 'Самарқанд'
-       rasm   — rasm havolasi (postimg.cc "Direct link")
-       izoh   — bemorning O‘Z so‘zlari, o‘zgartirmasdan
-       tel    — bemor raqami, masalan '+998901234567'
-                Raqam faqat bemor roziligi bilan yoziladi.
-                Rozilik bo‘lmasa: tel: ''
-       audio  — audio otziv fayli, masalan 'otziv1.mp3'
-                (faylni index.html yoniga GitHub'ga yuklang)
-                yoki to‘liq havola. Audio yo‘q bo‘lsa: audio: ''
+     SUPA_URL va SUPA_KEY — admin.html dagi bilan BIR XIL:
+       SUPA_URL — Supabase → Project Settings → API → Project URL
+       SUPA_KEY — Supabase → Project Settings → API → anon public key
+     Ular yozilgach, bemorlar admin.html orqali qo‘shiladi va
+     saytda darhol ko‘rinadi.
 
-     Faqat audio otziv bo‘lsa ham bo‘ladi: izoh: '' qoldiring,
-     kartochkada "Аудио отзив" belgisi va pleer chiqadi.
-
-     Quyidagi 3 ta blok — NAMUNA. Haqiqiy
-     ma’lumot bilan almashtiring yoki o‘chiring.
-     Birinchi 4 ta bemor ko‘rinadi, qolgani
-     "Яна беморлар фикри" tugmasida ochiladi.
+     PATIENTS — zaxira ro‘yxat. Supabase ulanmagan yoki javob
+     bermagan paytda shu ro‘yxat ko‘rsatiladi. Bo‘sh bo‘lsa,
+     bemorlar bo‘limi yashiriladi. Namuna:
+       { ism:'Гулнора опа', yosh:58, shahar:'Самарқанд',
+         rasm:'havola', izoh:'Беморнинг ўз сўзлари',
+         tel:'+998901234567', audio:'otziv1.mp3' }
   ===================================== */
 
-  const PATIENTS = [
-    {
-      ism:'Бемор исми',
-      yosh:'',
-      shahar:'Шаҳар',
-      rasm:'',
-      izoh:'Бу ерга беморнинг ўз сўзлари ёзилади.',
-      tel:'',
-      audio:''
-    },
-    {
-      ism:'Бемор исми',
-      yosh:'',
-      shahar:'Шаҳар',
-      rasm:'',
-      izoh:'Бу ерга беморнинг ўз сўзлари ёзилади.',
-      tel:'',
-      audio:''
-    },
-    {
-      ism:'Бемор исми',
-      yosh:'',
-      shahar:'Шаҳар',
-      rasm:'',
-      izoh:'Бу ерга беморнинг ўз сўзлари ёзилади.',
-      tel:'',
-      audio:''
-    }
-  ];
+  const SUPA_URL = https://tgbkpvxqtdqtwpdqyvqh.supabase.co'';
+  const SUPA_KEY = sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq'';
+
+  const PATIENTS = [];
 
   const SHOW_FIRST = 4;
 
@@ -2607,15 +2573,17 @@ body.locked{
      BEMOR KARTOCHKALARI
   ===================================== */
 
-  (function renderPatients(){
+  function renderPatients(source){
     const box = $('pts');
     const more = $('ptsMore');
-    const list = PATIENTS.filter(function(p){ return p && (p.izoh || p.ism || p.audio); });
+    const list = (source || []).filter(function(p){ return p && (p.izoh || p.ism || p.audio); });
+    box.innerHTML = '';
 
     if(!list.length){
       $('bemorlar').hidden = true;
       return;
     }
+    $('bemorlar').hidden = false;
 
     list.forEach(function(p, i){
       const card = document.createElement('article');
@@ -2672,6 +2640,7 @@ body.locked{
       }
 
       box.appendChild(card);
+      watchReveal(card);
     });
 
     if(list.length > SHOW_FIRST){
@@ -2684,27 +2653,69 @@ body.locked{
         more.hidden = true;
       });
     }
-  })();
+  }
 
 
   /* =====================================
      PAYDO BO‘LISH ANIMATSIYASI
   ===================================== */
 
-  const rv = document.querySelectorAll('.rv');
+  let revealIO = null;
+
   if('IntersectionObserver' in window && !reduced){
-    const io = new IntersectionObserver(function(es){
+    revealIO = new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting){
           e.target.classList.add('in');
-          io.unobserve(e.target);
+          revealIO.unobserve(e.target);
         }
       });
     }, { threshold:.12, rootMargin:'0px 0px -5% 0px' });
-    rv.forEach(function(el){ io.observe(el); });
-  }else{
-    rv.forEach(function(el){ el.classList.add('in'); });
   }
+
+  function watchReveal(el){
+    if(revealIO) revealIO.observe(el);
+    else el.classList.add('in');
+  }
+
+  document.querySelectorAll('.rv').forEach(watchReveal);
+
+
+  /* =====================================
+     BEMORLARNI YUKLASH (Supabase → zaxira ro‘yxat)
+  ===================================== */
+
+  function fromDb(r){
+    return {
+      ism:r.ism || '',
+      yosh:r.yosh == null ? '' : r.yosh,
+      shahar:r.shahar || '',
+      rasm:r.rasm || '',
+      izoh:r.izoh || '',
+      tel:r.ruxsat ? (r.tel || '') : '',
+      audio:r.audio || ''
+    };
+  }
+
+  (async function loadPatients(){
+    const base = String(SUPA_URL || '').replace(/\/+$/, '');
+    if(base && SUPA_KEY){
+      try{
+        const res = await fetch(
+          base + '/rest/v1/abh_patients?select=ism,yosh,shahar,rasm,izoh,tel,ruxsat,audio' +
+          '&korinadi=eq.true&order=tartib.asc,created_at.desc',
+          { headers:{ 'apikey':SUPA_KEY, 'Authorization':'Bearer ' + SUPA_KEY } }
+        );
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        renderPatients(data.map(fromDb));
+        return;
+      }catch(e){
+        console.warn('ABIHAYAT: bemorlar bazadan yuklanmadi —', e.message);
+      }
+    }
+    renderPatients(PATIENTS);
+  })();
 
 
   /* =====================================
