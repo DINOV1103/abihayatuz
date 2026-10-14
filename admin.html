@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A3A2F">
+<title>ABIHAYAT — admin</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --deep:#0A3A2F;
+  --em:#13906C;
+  --em-2:#0F7A5C;
+  --mint:#E8F5EF;
+  --mint-2:#D3EBDF;
+  --gold:#D9B45A;
+  --gold-3:#B88E2F;
+  --ink:#10211C;
+  --muted:#53625C;
+  --line:#DCE7E2;
+  --bg:#F3F7F5;
+  --alarm:#C0392B;
+  --font:'Onest', 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+[hidden]{
+  display:none !important;
+}
+
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.5;
+  padding-bottom:110px;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:2px;
+}
+
+.wrap{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:0 16px;
+}
+
+/* ---------- HEADER ---------- */
+
+.bar{
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:var(--deep);
+  color:#fff;
+}
+
+.bar .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  height:58px;
+}
+
+.brand{
+  font-weight:800;
+  letter-spacing:.06em;
+  font-size:17px;
+}
+
+.brand small{
+  margin-left:6px;
+  padding:2px 8px;
+  border-radius:8px;
+  background:rgba(217,180,90,.2);
+  color:#F3DC98;
+  font-size:12px;
+  letter-spacing:.02em;
+}
+
+.bar-actions{
+  display:flex;
+  gap:8px;
+}
+
+.bar a,
+.bar button{
+  display:inline-flex;
+  align-items:center;
+  min-height:38px;
+  padding:6px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background:transparent;
+  color:#fff;
+  font-size:14px;
+  font-weight:600;
+  text-decoration:none;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+/* ---------- UMUMIY ---------- */
+
+h1{
+  font-size:24px;
+  font-weight:800;
+  margin:22px 0 4px;
+  letter-spacing:-.01em;
+}
+
+h2{
+  font-size:18px;
+  font-weight:800;
+  margin:0 0 8px;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:14.5px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:18px;
+  margin-top:14px;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:50px;
+  padding:10px 18px;
+  border:0;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.btn-em{
+  background:linear-gradient(135deg, #1EB287, var(--em-2));
+  color:#fff;
+  box-shadow:0 10px 22px -12px rgba(15,122,92,.8);
+}
+
+.btn-gold{
+  background:linear-gradient(135deg, #FBE7AE, var(--gold) 55%, var(--gold-3));
+  color:#2B1F05;
+  box-shadow:0 10px 22px -12px rgba(184,142,47,.9);
+}
+
+.btn-line{
+  background:#fff;
+  color:var(--em-2);
+  border:1.5px solid var(--mint-2);
+}
+
+.btn-red{
+  background:#fff;
+  color:var(--alarm);
+  border:1.5px solid #F2C9C4;
+}
+
+.btn-block{
+  width:100%;
+}
+
+/* ---------- FORMA ELEMENTLARI ---------- */
+
+.field{
+  display:grid;
+  gap:6px;
+  margin-top:14px;
+}
+
+.field > span{
+  font-size:14px;
+  font-weight:700;
+}
+
+.field small{
+  color:var(--muted);
+  font-size:12.5px;
+}
+
+.inp,
+.ta{
+  width:100%;
+  min-height:52px;
+  padding:12px 14px;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  background:#F8FBFA;
+  color:var(--ink);
+  font-size:16px;
+  outline:none;
+  -webkit-appearance:none;
+  appearance:none;
+}
+
+.ta{
+  min-height:130px;
+  resize:vertical;
+  line-height:1.5;
+}
+
+.inp:focus,
+.ta:focus{
+  border-color:var(--em);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(19,144,108,.15);
+}
+
+.row2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.phone{
+  display:flex;
+  align-items:center;
+  min-height:52px;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  background:#F8FBFA;
+  overflow:hidden;
+}
+
+.phone:focus-within{
+  border-color:var(--em);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(19,144,108,.15);
+}
+
+.phone b{
+  padding:0 10px 0 14px;
+  border-right:1.5px solid var(--line);
+}
+
+.phone input{
+  flex:1;
+  min-width:0;
+  height:50px;
+  border:0;
+  outline:none;
+  background:transparent;
+  padding:0 14px 0 10px;
+  font-size:16px;
+  letter-spacing:.03em;
+}
+
+.phone.off{
+  opacity:.45;
+}
+
+.check{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  margin-top:14px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:var(--mint);
+  font-size:14.5px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.check input{
+  width:22px;
+  height:22px;
+  flex:none;
+  margin:1px 0 0;
+  accent-color:var(--em-2);
+}
+
+.media{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+  border:1.5px dashed var(--mint-2);
+  border-radius:16px;
+  background:#FAFDFC;
+}
+
+.media .thumb{
+  flex:none;
+  width:76px;
+  height:96px;
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--mint);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.media .thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.media-btns{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.media-btns .btn{
+  min-height:42px;
+  padding:8px 14px;
+  font-size:14px;
+}
+
+.media audio{
+  width:100%;
+  height:40px;
+  margin-top:8px;
+}
+
+.warn{
+  margin-top:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:#FFF4E0;
+  color:#7A4B00;
+  font-size:13px;
+  font-weight:600;
+}
+
+.err{
+  margin-top:12px;
+  padding:10px 14px;
+  border-radius:12px;
+  background:#FDECEA;
+  color:var(--alarm);
+  font-weight:700;
+  font-size:14px;
+}
+
+/* ---------- RO‘YXAT ---------- */
+
+.list-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.item{
+  display:grid;
+  grid-template-columns:68px 1fr;
+  gap:12px;
+  padding:14px;
+  margin-top:12px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+.item.is-hidden{
+  background:#F7F7F5;
+  border-style:dashed;
+}
+
+.item.is-hidden .item-photo,
+.item.is-hidden .item-main{
+  opacity:.55;
+}
+
+.item-photo{
+  width:68px;
+  height:86px;
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--mint);
+}
+
+.item-photo img,
+.item-photo svg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.item-name{
+  font-weight:800;
+  font-size:16px;
+}
+
+.item-meta{
+  color:var(--muted);
+  font-size:13.5px;
+}
+
+.item-text{
+  margin-top:4px;
+  font-size:14px;
+  color:#33433D;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:6px;
+}
+
+.badge{
+  padding:2px 8px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:700;
+  background:var(--mint);
+  color:var(--em-2);
+}
+
+.badge.hid{
+  background:#EEE;
+  color:#666;
+}
+
+.item-actions{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:1fr 1fr 2.2fr 1fr;
+  gap:6px;
+}
+
+.item-actions button{
+  min-height:42px;
+  padding:6px 8px;
+  border-radius:11px;
+  border:1.5px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  font-size:14px;
+  font-weight:600;
+  white-space:nowrap;
+  cursor:pointer;
+}
+
+.item-actions button:disabled{
+  opacity:.35;
+  cursor:default;
+}
+
+.item-actions .edit{
+  grid-column:1 / -1;
+  border-color:var(--mint-2);
+  background:var(--mint);
+  color:var(--em-2);
+  font-weight:700;
+}
+
+.item-actions .del{
+  color:var(--alarm);
+  border-color:#F2C9C4;
+}
+
+.empty{
+  text-align:center;
+  padding:34px 16px;
+  color:var(--muted);
+}
+
+/* ---------- OLDINDAN KO‘RISH (saytdagi kartochka) ---------- */
+
+.preview-label{
+  font-size:13px;
+  font-weight:700;
+  color:var(--muted);
+  margin:18px 0 6px;
+}
+
+.pt{
+  display:grid;
+  grid-template-columns:96px 1fr;
+  gap:14px;
+  padding:16px;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:0 20px 40px -30px rgba(10,58,47,.45);
+}
+
+.pt-photo{
+  width:96px;
+  height:122px;
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--mint);
+}
+
+.pt-photo img,
+.pt-photo svg{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.pt-q{
+  width:26px;
+  height:26px;
+  color:var(--gold);
+}
+
+.pt-text{
+  font-size:15.5px;
+  margin:2px 0 8px;
+  white-space:pre-line;
+}
+
+.pt-who{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.pt-who b{
+  color:var(--ink);
+}
+
+.pt-foot{
+  grid-column:1 / -1;
+  display:grid;
+  gap:8px;
+}
+
+.pt-foot:empty{
+  display:none;
+}
+
+.pt-pill{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:44px;
+  border-radius:999px;
+  background:var(--mint);
+  border:1.5px solid var(--mint-2);
+  color:var(--em-2);
+  font-size:14px;
+  font-weight:700;
+}
+
+.pt-audio-label{
+  display:inline-block;
+  margin:0 0 6px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#FBF3DE;
+  color:#6B5214;
+  font-size:12.5px;
+  font-weight:700;
+}
+
+/* ---------- SAQLASH PANELI ---------- */
+
+.savebar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:30;
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+}
+
+.savebar .wrap{
+  display:flex;
+  gap:10px;
+  padding:0;
+}
+
+.savebar .btn-em{
+  flex:1;
+}
+
+/* ---------- SOZLASH ---------- */
+
+.steps{
+  margin:10px 0 0;
+  padding-left:20px;
+}
+
+.steps li{
+  margin-bottom:10px;
+}
+
+.steps code{
+  padding:1px 6px;
+  border-radius:6px;
+  background:var(--mint);
+  font-size:13.5px;
+}
+
+.sql{
+  width:100%;
+  height:160px;
+  margin-top:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0B1A16;
+  color:#BFE5D4;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  font-size:12px;
+}
+
+/* ---------- TOAST / YUKLANISH ---------- */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:96px;
+  z-index:60;
+  max-width:92vw;
+  padding:12px 18px;
+  border-radius:14px;
+  background:var(--deep);
+  color:#fff;
+  font-weight:700;
+  font-size:14.5px;
+  transform:translate(-50%, 30px);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .3s, opacity .3s;
+}
+
+.toast.show{
+  transform:translate(-50%, 0);
+  opacity:1;
+}
+
+.toast.bad{
+  background:var(--alarm);
+}
+
+.busy{
+  position:fixed;
+  inset:0;
+  z-index:70;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  background:rgba(243,247,245,.85);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+  font-weight:700;
+}
+
+.spinner{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  border:4px solid var(--mint-2);
+  border-top-color:var(--em-2);
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{ transform:rotate(360deg); }
+}
+
+@media (min-width:700px){
+  .pt{
+    grid-template-columns:130px 1fr;
+  }
+
+  .pt-photo{
+    width:130px;
+    height:164px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <div class="brand">ABIHAYAT<small>admin</small></div>
+    <div class="bar-actions">
+      <a href="index.html#bemorlar" target="_blank" rel="noopener">Sayt</a>
+      <button type="button" id="logoutBtn" hidden>Chiqish</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= SOZLASH ================= -->
+  <section id="vSetup" hidden>
+    <h1>Bir martalik sozlash</h1>
+    <p class="muted">Admin panel ishlashi uchun Supabase ulash kerak. Bu 10 daqiqa oladi.</p>
+
+    <div class="card">
+      <ol class="steps">
+        <li><b>supabase.com</b> da yangi loyiha oching (bepul tarif yetadi).</li>
+        <li>Pastdagi SQL'ni nusxalang. Ichidagi <code>SIZNING_EMAIL@gmail.com</code> ni o‘z emailingizga almashtiring.</li>
+        <li>Supabase → <b>SQL Editor</b> → New query → SQL'ni qo‘ying → <b>Run</b>.</li>
+        <li><b>Authentication → Users → Add user</b>: o‘sha email va parol bilan foydalanuvchi yarating ("Auto confirm" yoqilgan bo‘lsin).</li>
+        <li><b>Authentication → Sign In / Providers</b>: "Allow new users to sign up" ni o‘chiring.</li>
+        <li><b>Project Settings → API</b> dan <b>Project URL</b> va <b>anon public</b> kalitni oling. Ularni <code>admin.html</code> va <code>index.html</code> dagi <code>SUPA_URL</code> va <code>SUPA_KEY</code> qatorlariga yozing.</li>
+      </ol>
+      <textarea class="sql" id="sqlBox" readonly></textarea>
+      <button class="btn btn-em btn-block" type="button" id="copySql" style="margin-top:10px">SQL'ni nusxalash</button>
+    </div>
+  </section>
+
+  <!-- ================= KIRISH ================= -->
+  <section id="vLogin" hidden>
+    <h1>Kirish</h1>
+    <p class="muted">Faqat admin uchun.</p>
+    <form class="card" id="loginForm" novalidate>
+      <label class="field">
+        <span>Email</span>
+        <input class="inp" type="email" id="lEmail" autocomplete="username" required>
+      </label>
+      <label class="field">
+        <span>Parol</span>
+        <input class="inp" type="password" id="lPass" autocomplete="current-password" required>
+      </label>
+      <div class="err" id="lErr" hidden></div>
+      <button class="btn btn-em btn-block" type="submit" id="lBtn" style="margin-top:18px">Kirish</button>
+    </form>
+  </section>
+
+  <!-- ================= RO‘YXAT ================= -->
+  <section id="vList" hidden>
+    <div class="list-head">
+      <div>
+        <h1>Bemorlar fikri</h1>
+        <p class="muted" id="listInfo">Yuklanmoqda...</p>
+      </div>
+    </div>
+    <button class="btn btn-gold btn-block" type="button" id="addBtn" style="margin-top:12px">+ Yangi bemor qo‘shish</button>
+    <div id="list"></div>
+  </section>
+
+  <!-- ================= QO‘SHISH / TAHRIRLASH ================= -->
+  <section id="vEdit" hidden>
+    <h1 id="editTitle">Yangi bemor</h1>
+    <p class="muted">Saytda kirill alifbosida ko‘rinadi. Lotincha yozsangiz, “Kirillga o‘girish” tugmasini bosing.</p>
+
+    <div class="preview-label">Saytda shunday ko‘rinadi:</div>
+    <div id="preview"></div>
+
+    <form class="card" id="editForm" novalidate>
+      <button class="btn btn-line btn-block" type="button" id="toCyrBtn">Lotin → Kirillga o‘girish</button>
+
+      <label class="field">
+        <span>Ismi *</span>
+        <input class="inp" type="text" id="fIsm" maxlength="60" placeholder="Гулнора опа">
+      </label>
+
+      <div class="row2">
+        <label class="field">
+          <span>Yoshi</span>
+          <input class="inp" type="number" id="fYosh" min="1" max="120" inputmode="numeric" placeholder="58">
+        </label>
+        <label class="field">
+          <span>Shahar / viloyat</span>
+          <input class="inp" type="text" id="fShahar" maxlength="40" placeholder="Самарқанд">
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Bemorning o‘z so‘zlari</span>
+        <textarea class="ta" id="fIzoh" maxlength="1200" placeholder="Беморнинг ўз сўзлари, ўзгартирмасдан"></textarea>
+        <small>Faqat audio otziv bo‘lsa, bo‘sh qoldirish mumkin.</small>
+      </label>
+
+      <div class="field">
+        <span>Rasmi</span>
+        <div class="media">
+          <div class="thumb" id="photoThumb">👤</div>
+          <div>
+            <div class="media-btns">
+              <label class="btn btn-line">
+                Rasm tanlash
+                <input type="file" id="fRasm" accept="image/*" hidden>
+              </label>
+              <button class="btn btn-red" type="button" id="rmPhoto" hidden>O‘chirish</button>
+            </div>
+            <small class="muted">Rasm o‘zi kichraytiriladi.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <span>Audio otziv</span>
+        <div class="media" style="display:block">
+          <div class="media-btns">
+            <label class="btn btn-line">
+              Audio tanlash
+              <input type="file" id="fAudio" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.opus,.amr" hidden>
+            </label>
+            <button class="btn btn-red" type="button" id="rmAudio" hidden>O‘chirish</button>
+          </div>
+          <audio id="audioPrev" controls preload="metadata" hidden></audio>
+          <div class="warn" id="audioWarn" hidden></div>
+        </div>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="fRuxsat">
+        <span>Bemor telefon raqamini saytga qo‘yishga <b>rozi</b></span>
+      </label>
+      <div class="field">
+        <span>Bemor raqami</span>
+        <div class="phone off" id="telWrap">
+          <b>+998</b>
+          <input type="tel" id="fTel" inputmode="numeric" placeholder="90 123 45 67" disabled>
+        </div>
+        <small>Rozilik belgisi bo‘lmasa, raqam saqlanmaydi.</small>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="fKorinadi" checked>
+        <span>Saytda ko‘rinsin</span>
+      </label>
+
+      <div class="err" id="eErr" hidden></div>
+    </form>
+  </section>
+
+</main>
+
+<div class="savebar" id="saveBar" hidden>
+  <div class="wrap">
+    <button class="btn btn-line" type="button" id="cancelBtn">Bekor qilish</button>
+    <button class="btn btn-em" type="button" id="saveBtn">Saqlash</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="busy" id="busy" hidden><div class="spinner"></div><div id="busyText">Saqlanmoqda...</div></div>
+
+<!-- Sozlash SQL'i (supabase-sozlash.sql bilan bir xil) -->
+<script type="text/plain" id="setupSql">-- ABIHAYAT — admin panel uchun Supabase sozlamasi
+-- 'SIZNING_EMAIL@gmail.com' ni o'z emailingizga almashtiring, keyin RUN.
+
+create table if not exists public.abh_admins (
+  email text primary key
+);
+
+alter table public.abh_admins enable row level security;
+
+insert into public.abh_admins (email)
+values ('SIZNING_EMAIL@gmail.com')
+on conflict (email) do nothing;
+
+create or replace function public.abh_is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.abh_admins a
+    where lower(a.email) = lower(coalesce(auth.jwt() ->> 'email', ''))
+  );
+$$;
+
+create table if not exists public.abh_patients (
+  id          uuid primary key default gen_random_uuid(),
+  created_at  timestamptz not null default now(),
+  ism         text not null,
+  yosh        integer,
+  shahar      text,
+  izoh        text,
+  rasm        text,
+  audio       text,
+  tel         text,
+  ruxsat      boolean not null default false,
+  korinadi    boolean not null default true,
+  tartib      integer not null default 0
+);
+
+alter table public.abh_patients enable row level security;
+
+drop policy if exists "abh_patients_read" on public.abh_patients;
+create policy "abh_patients_read"
+  on public.abh_patients for select
+  using (korinadi = true or public.abh_is_admin());
+
+drop policy if exists "abh_patients_insert" on public.abh_patients;
+create policy "abh_patients_insert"
+  on public.abh_patients for insert
+  with check (public.abh_is_admin());
+
+drop policy if exists "abh_patients_update" on public.abh_patients;
+create policy "abh_patients_update"
+  on public.abh_patients for update
+  using (public.abh_is_admin())
+  with check (public.abh_is_admin());
+
+drop policy if exists "abh_patients_delete" on public.abh_patients;
+create policy "abh_patients_delete"
+  on public.abh_patients for delete
+  using (public.abh_is_admin());
+
+insert into storage.buckets (id, name, public)
+values ('abihayat', 'abihayat', true)
+on conflict (id) do update set public = true;
+
+drop policy if exists "abh_files_select" on storage.objects;
+create policy "abh_files_select"
+  on storage.objects for select
+  to authenticated
+  using (bucket_id = 'abihayat' and public.abh_is_admin());
+
+drop policy if exists "abh_files_insert" on storage.objects;
+create policy "abh_files_insert"
+  on storage.objects for insert
+  to authenticated
+  with check (bucket_id = 'abihayat' and public.abh_is_admin());
+
+drop policy if exists "abh_files_update" on storage.objects;
+create policy "abh_files_update"
+  on storage.objects for update
+  to authenticated
+  using (bucket_id = 'abihayat' and public.abh_is_admin());
+
+drop policy if exists "abh_files_delete" on storage.objects;
+create policy "abh_files_delete"
+  on storage.objects for delete
+  to authenticated
+  using (bucket_id = 'abihayat' and public.abh_is_admin());
+</script>
+
+<script>
+(function(){
+  'use strict';
+
+  /* =====================================
+     SUPABASE — index.html dagi bilan BIR XIL bo‘lsin
+       SUPA_URL — Project Settings → API → Project URL
+       SUPA_KEY — Project Settings → API → anon public key
+  ===================================== */
+
+  const SUPA_URL = '';
+  const SUPA_KEY = '';
+
+  const TABLE = 'abh_patients';
+  const BUCKET = 'abihayat';
+  const SESSION_KEY = 'abh_admin_session';
+
+
+  const $ = function(id){ return document.getElementById(id); };
+  const BASE = String(SUPA_URL || '').replace(/\/+$/, '');
+
+  function esc(s){
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function onlyDigits(v){
+    return String(v || '').replace(/\D/g, '');
+  }
+
+  function fmtPhone9(d){
+    let out = d.slice(0, 2);
+    if(d.length > 2) out += ' ' + d.slice(2, 5);
+    if(d.length > 5) out += ' ' + d.slice(5, 7);
+    if(d.length > 7) out += ' ' + d.slice(7, 9);
+    return out;
+  }
+
+
+  /* =====================================
+     KO‘RINISHLAR
+  ===================================== */
+
+  const views = ['vSetup', 'vLogin', 'vList', 'vEdit'];
+
+  function show(id){
+    views.forEach(function(v){ $(v).hidden = v !== id; });
+    $('saveBar').hidden = id !== 'vEdit';
+    $('logoutBtn').hidden = !(id === 'vList' || id === 'vEdit');
+    window.scrollTo(0, 0);
+  }
+
+  let toastTimer = null;
+  function toast(msg, bad){
+    const t = $('toast');
+    t.textContent = msg;
+    t.classList.toggle('bad', !!bad);
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, bad ? 5000 : 2600);
+  }
+
+  function busy(on, text){
+    $('busy').hidden = !on;
+    if(text) $('busyText').textContent = text;
+  }
+
+
+  /* =====================================
+     KIRISH (Supabase Auth)
+  ===================================== */
+
+  let session = null;
+  try{ session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }catch(e){}
+
+  function saveSession(json){
+    session = {
+      access_token:json.access_token,
+      refresh_token:json.refresh_token,
+      expires_at:Date.now() + (Number(json.expires_in) || 3600) * 1000,
+      email:(json.user && json.user.email) || (session && session.email) || ''
+    };
+    try{ localStorage.setItem(SESSION_KEY, JSON.stringify(session)); }catch(e){}
+  }
+
+  function clearSession(){
+    session = null;
+    try{ localStorage.removeItem(SESSION_KEY); }catch(e){}
+  }
+
+  async function authCall(grant, body){
+    const res = await fetch(BASE + '/auth/v1/token?grant_type=' + grant, {
+      method:'POST',
+      headers:{ 'apikey':SUPA_KEY, 'Content-Type':'application/json' },
+      body:JSON.stringify(body)
+    });
+    const json = await res.json().catch(function(){ return {}; });
+    if(!res.ok || !json.access_token){
+      const msg = json.error_description || json.msg || json.message || ('Xato ' + res.status);
+      throw new Error(msg);
+    }
+    saveSession(json);
+    return json;
+  }
+
+  async function refreshSession(){
+    if(!session || !session.refresh_token) throw new Error('no session');
+    await authCall('refresh_token', { refresh_token:session.refresh_token });
+  }
+
+  async function accessToken(){
+    if(!session) throw new Error('no session');
+    if(Date.now() > session.expires_at - 60000) await refreshSession();
+    return session.access_token;
+  }
+
+  function friendlyError(status, json, fallback){
+    const raw = (json && (json.message || json.error || json.msg || json.error_description)) || '';
+    if(/row-level security|permission denied|Unauthorized|not allowed/i.test(raw) || status === 403){
+      return 'Ruxsat yo‘q. Kirgan emailingiz SQL’dagi admin email bilan bir xil ekanini tekshiring.';
+    }
+    if(status === 413 || /too large|exceeded/i.test(raw)){
+      return 'Fayl juda katta. Kichikroq fayl tanlang.';
+    }
+    return raw || fallback || ('Xato ' + status);
+  }
+
+  /* Token bilan so‘rov; muddati o‘tsa — bir marta yangilab qayta urinadi */
+  async function call(path, opts, retried){
+    opts = opts || {};
+    let token;
+    try{
+      token = await accessToken();
+    }catch(e){
+      logout(true);
+      throw new Error('Qaytadan kiring');
+    }
+
+    const headers = Object.assign({
+      'apikey':SUPA_KEY,
+      'Authorization':'Bearer ' + token
+    }, opts.headers || {});
+
+    let res;
+    try{
+      res = await fetch(BASE + path, Object.assign({}, opts, { headers:headers }));
+    }catch(e){
+      throw new Error('Internet aloqasini tekshiring');
+    }
+
+    if(res.status === 401 && !retried){
+      try{
+        await refreshSession();
+        return call(path, opts, true);
+      }catch(e){
+        logout(true);
+        throw new Error('Qaytadan kiring');
+      }
+    }
+
+    const text = await res.text();
+    let json = null;
+    try{ json = text ? JSON.parse(text) : null; }catch(e){}
+
+    if(!res.ok){
+      throw new Error(friendlyError(res.status, json));
+    }
+    return json;
+  }
+
+  function logout(silent){
+    clearSession();
+    show('vLogin');
+    if(!silent) toast('Chiqdingiz');
+  }
+
+  $('logoutBtn').addEventListener('click', function(){
+    if(session && session.access_token){
+      fetch(BASE + '/auth/v1/logout', {
+        method:'POST',
+        headers:{ 'apikey':SUPA_KEY, 'Authorization':'Bearer ' + session.access_token }
+      }).catch(function(){});
+    }
+    logout(false);
+  });
+
+  $('loginForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const email = $('lEmail').value.trim();
+    const pass = $('lPass').value;
+    $('lErr').hidden = true;
+    if(!email || !pass){
+      $('lErr').textContent = 'Email va parolni kiriting';
+      $('lErr').hidden = false;
+      return;
+    }
+    $('lBtn').disabled = true;
+    $('lBtn').textContent = 'Kirilmoqda...';
+    try{
+      await authCall('password', { email:email, password:pass });
+      $('lPass').value = '';
+      openList();
+    }catch(err){
+      $('lErr').textContent = /invalid/i.test(err.message)
+        ? 'Email yoki parol noto‘g‘ri'
+        : 'Kirib bo‘lmadi: ' + err.message;
+      $('lErr').hidden = false;
+    }finally{
+      $('lBtn').disabled = false;
+      $('lBtn').textContent = 'Kirish';
+    }
+  });
+
+
+  /* =====================================
+     MA’LUMOTLAR BAZASI
+  ===================================== */
+
+  const db = {
+    list:function(){
+      return call('/rest/v1/' + TABLE + '?select=*&order=tartib.asc,created_at.desc');
+    },
+    insert:function(row){
+      return call('/rest/v1/' + TABLE, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Prefer':'return=representation' },
+        body:JSON.stringify(row)
+      });
+    },
+    update:function(id, patch){
+      return call('/rest/v1/' + TABLE + '?id=eq.' + encodeURIComponent(id), {
+        method:'PATCH',
+        headers:{ 'Content-Type':'application/json', 'Prefer':'return=representation' },
+        body:JSON.stringify(patch)
+      });
+    },
+    remove:function(id){
+      return call('/rest/v1/' + TABLE + '?id=eq.' + encodeURIComponent(id), { method:'DELETE' });
+    }
+  };
+
+  const PUBLIC_PREFIX = BASE + '/storage/v1/object/public/' + BUCKET + '/';
+
+  async function uploadFile(blob, ext, contentType){
+    const name = 'bemorlar/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    await call('/storage/v1/object/' + BUCKET + '/' + name, {
+      method:'POST',
+      headers:{ 'Content-Type':contentType || blob.type || 'application/octet-stream', 'cache-control':'max-age=31536000' },
+      body:blob
+    });
+    return PUBLIC_PREFIX + name;
+  }
+
+  async function removeFile(url){
+    if(!url || url.indexOf(PUBLIC_PREFIX) !== 0) return;
+    const path = url.slice(PUBLIC_PREFIX.length);
+    try{
+      await call('/storage/v1/object/' + BUCKET, {
+        method:'DELETE',
+        headers:{ 'Content-Type':'application/json' },
+        body:JSON.stringify({ prefixes:[path] })
+      });
+    }catch(e){
+      console.warn('Fayl o‘chmadi:', path, e.message);
+    }
+  }
+
+
+  /* =====================================
+     RO‘YXAT
+  ===================================== */
+
+  let rows = [];
+
+  const AVATAR =
+    '<svg viewBox="0 0 110 138" aria-hidden="true"><rect width="110" height="138" fill="#E8F5EF"/>' +
+    '<circle cx="55" cy="54" r="22" fill="#BFDCCF"/><path d="M16 138c2-28 18-44 39-44s37 16 39 44z" fill="#BFDCCF"/></svg>';
+
+  function metaLine(r){
+    const m = [];
+    if(r.yosh) m.push(esc(r.yosh) + ' ёш');
+    if(r.shahar) m.push(esc(r.shahar));
+    return m.join(', ');
+  }
+
+  async function openList(){
+    show('vList');
+    $('listInfo').textContent = 'Yuklanmoqda...';
+    $('list').innerHTML = '';
+    try{
+      rows = await db.list() || [];
+      renderList();
+    }catch(err){
+      $('listInfo').textContent = '';
+      $('list').innerHTML = '<div class="err">' + esc(err.message) + '</div>';
+    }
+  }
+
+  function renderList(){
+    const visible = rows.filter(function(r){ return r.korinadi; }).length;
+    $('listInfo').textContent = rows.length
+      ? 'Jami ' + rows.length + ' ta, saytda ' + visible + ' ta ko‘rinadi'
+      : 'Hali bemor qo‘shilmagan';
+
+    const box = $('list');
+    box.innerHTML = '';
+
+    if(!rows.length){
+      box.innerHTML = '<div class="empty">Birinchi bemor fikrini qo‘shing.</div>';
+      return;
+    }
+
+    rows.forEach(function(r, i){
+      const el = document.createElement('article');
+      el.className = 'item' + (r.korinadi ? '' : ' is-hidden');
+      el.innerHTML =
+        '<div class="item-photo">' + (r.rasm ? '<img src="' + esc(r.rasm) + '" alt="" loading="lazy">' : AVATAR) + '</div>' +
+        '<div class="item-main">' +
+          '<div class="item-name">' + esc(r.ism) + '</div>' +
+          '<div class="item-meta">' + metaLine(r) + '</div>' +
+          (r.izoh ? '<div class="item-text">' + esc(r.izoh) + '</div>' : '') +
+          '<div class="badges">' +
+            (r.korinadi ? '' : '<span class="badge hid">Yashirin</span>') +
+            (r.audio ? '<span class="badge">🎧 Audio</span>' : '') +
+            (r.ruxsat && r.tel ? '<span class="badge">📞 Raqam</span>' : '') +
+          '</div>' +
+        '</div>' +
+        '<div class="item-actions">' +
+          '<button type="button" class="edit">✏️ Tahrirlash</button>' +
+          '<button type="button" class="up" aria-label="Yuqoriga"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+          '<button type="button" class="down" aria-label="Pastga"' + (i === rows.length - 1 ? ' disabled' : '') + '>↓</button>' +
+          '<button type="button" class="vis">' + (r.korinadi ? 'Yashirish' : 'Ko‘rsatish') + '</button>' +
+          '<button type="button" class="del" aria-label="O‘chirish">🗑</button>' +
+        '</div>';
+
+      el.querySelector('.edit').addEventListener('click', function(){ openEdit(r); });
+      el.querySelector('.up').addEventListener('click', function(){ move(i, -1); });
+      el.querySelector('.down').addEventListener('click', function(){ move(i, 1); });
+      el.querySelector('.vis').addEventListener('click', function(){ toggleVisible(r); });
+      el.querySelector('.del').addEventListener('click', function(){ removeRow(r); });
+
+      box.appendChild(el);
+    });
+  }
+
+  async function toggleVisible(r){
+    busy(true, 'Saqlanmoqda...');
+    try{
+      await db.update(r.id, { korinadi:!r.korinadi });
+      r.korinadi = !r.korinadi;
+      renderList();
+      toast(r.korinadi ? 'Saytda ko‘rsatildi' : 'Saytdan yashirildi');
+    }catch(err){
+      toast(err.message, true);
+    }finally{
+      busy(false);
+    }
+  }
+
+  async function removeRow(r){
+    if(!confirm('“' + r.ism + '” fikrini butunlay o‘chirasizmi?')) return;
+    busy(true, 'O‘chirilmoqda...');
+    try{
+      await db.remove(r.id);
+      await removeFile(r.rasm);
+      await removeFile(r.audio);
+      rows = rows.filter(function(x){ return x.id !== r.id; });
+      renderList();
+      toast('O‘chirildi');
+    }catch(err){
+      toast(err.message, true);
+    }finally{
+      busy(false);
+    }
+  }
+
+  async function move(i, dir){
+    const j = i + dir;
+    if(j < 0 || j >= rows.length) return;
+    busy(true, 'Tartib saqlanmoqda...');
+    try{
+      /* tartib raqamlari takrorlansa — avval 10, 20, 30... qilib tekislaymiz */
+      const seen = {};
+      const dup = rows.some(function(r){ if(seen[r.tartib]) return true; seen[r.tartib] = 1; return false; });
+      if(dup){
+        for(let k = 0; k < rows.length; k++){
+          const t = (k + 1) * 10;
+          if(rows[k].tartib !== t){
+            await db.update(rows[k].id, { tartib:t });
+            rows[k].tartib = t;
+          }
+        }
+      }
+      const a = rows[i], b = rows[j];
+      const ta = a.tartib, tb = b.tartib;
+      await db.update(a.id, { tartib:tb });
+      await db.update(b.id, { tartib:ta });
+      a.tartib = tb;
+      b.tartib = ta;
+      rows[i] = b;
+      rows[j] = a;
+      renderList();
+    }catch(err){
+      toast(err.message, true);
+      openList();
+    }finally{
+      busy(false);
+    }
+  }
+
+  $('addBtn').addEventListener('click', function(){ openEdit(null); });
+
+
+  /* =====================================
+     QO‘SHISH / TAHRIRLASH
+  ===================================== */
+
+  let editing = null;
+  let photo = { url:null, blob:null, removed:false, preview:null };
+  let audio = { url:null, file:null, removed:false, preview:null };
+
+  function revoke(o){
+    if(o.preview && o.preview.indexOf('blob:') === 0) URL.revokeObjectURL(o.preview);
+  }
+
+  function openEdit(r){
+    editing = r;
+    revoke(photo);
+    revoke(audio);
+    photo = { url:r ? r.rasm : null, blob:null, removed:false, preview:r ? r.rasm : null };
+    audio = { url:r ? r.audio : null, file:null, removed:false, preview:r ? r.audio : null };
+
+    $('editTitle').textContent = r ? 'Tahrirlash' : 'Yangi bemor';
+    $('fIsm').value = r ? r.ism || '' : '';
+    $('fYosh').value = r && r.yosh ? r.yosh : '';
+    $('fShahar').value = r ? r.shahar || '' : '';
+    $('fIzoh').value = r ? r.izoh || '' : '';
+    $('fRuxsat').checked = !!(r && r.ruxsat);
+    $('fTel').value = r && r.tel ? fmtPhone9(onlyDigits(r.tel).slice(-9)) : '';
+    $('fKorinadi').checked = r ? !!r.korinadi : true;
+    $('fRasm').value = '';
+    $('fAudio').value = '';
+    $('eErr').hidden = true;
+    $('audioWarn').hidden = true;
+    syncTel();
+    syncMedia();
+    renderPreview();
+    show('vEdit');
+  }
+
+  function syncTel(){
+    const on = $('fRuxsat').checked;
+    $('fTel').disabled = !on;
+    $('telWrap').classList.toggle('off', !on);
+  }
+
+  function syncMedia(){
+    $('photoThumb').innerHTML = photo.preview ? '<img src="' + esc(photo.preview) + '" alt="">' : '👤';
+    $('rmPhoto').hidden = !photo.preview;
+
+    const ap = $('audioPrev');
+    if(audio.preview){
+      if(ap.getAttribute('src') !== audio.preview) ap.src = audio.preview;
+      ap.hidden = false;
+    }else{
+      ap.removeAttribute('src');
+      ap.hidden = true;
+    }
+    $('rmAudio').hidden = !audio.preview;
+  }
+
+  function renderPreview(){
+    const ism = $('fIsm').value.trim() || 'Бемор исми';
+    const yosh = $('fYosh').value.trim();
+    const shahar = $('fShahar').value.trim();
+    const izoh = $('fIzoh').value.trim();
+    const telOn = $('fRuxsat').checked && onlyDigits($('fTel').value).length === 9;
+
+    const m = [];
+    if(yosh) m.push(esc(yosh) + ' ёш');
+    if(shahar) m.push(esc(shahar));
+
+    $('preview').innerHTML =
+      '<div class="pt">' +
+        '<div class="pt-photo">' + (photo.preview ? '<img src="' + esc(photo.preview) + '" alt="">' : AVATAR) + '</div>' +
+        '<div>' +
+          (izoh
+            ? '<svg class="pt-q" viewBox="0 0 24 24"><path d="M4 18v-5.5C4 8.4 6.2 5.7 10 5l.7 1.8C8.5 7.6 7.5 9 7.4 11H10v7zm10 0v-5.5c0-4.1 2.2-6.8 6-7.5l.7 1.8c-2.2.8-3.2 2.2-3.3 4.2H20v7z" fill="currentColor"/></svg>' +
+              '<p class="pt-text">' + esc(izoh) + '</p>'
+            : (audio.preview ? '<p class="pt-audio-label">🎧 Аудио отзив</p>' : '<p class="pt-text muted">Изоҳ ёзилмаган</p>')) +
+          '<div class="pt-who"><b>' + esc(ism) + '</b>' + (m.length ? ', ' + m.join(', ') : '') + '</div>' +
+        '</div>' +
+        '<div class="pt-foot">' +
+          (audio.preview ? '<div class="pt-pill">▶ Аудио отзив</div>' : '') +
+          (telOn ? '<div class="pt-pill">📞 Беморнинг рақамини кўрсатиш</div>' : '') +
+        '</div>' +
+      '</div>';
+  }
+
+  ['fIsm', 'fYosh', 'fShahar', 'fIzoh'].forEach(function(id){
+    $(id).addEventListener('input', renderPreview);
+  });
+
+  $('fRuxsat').addEventListener('change', function(){
+    syncTel();
+    renderPreview();
+    if($('fRuxsat').checked) $('fTel').focus();
+  });
+
+  $('fTel').addEventListener('input', function(){
+    let d = onlyDigits($('fTel').value);
+    if(d.length >= 12 && d.indexOf('998') === 0) d = d.slice(3);
+    $('fTel').value = fmtPhone9(d.slice(0, 9));
+    renderPreview();
+  });
+
+  /* Rasm: tanlangach kichraytiriladi (max 1000px, JPG) */
+  function compressImage(file){
+    return new Promise(function(resolve, reject){
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = function(){
+        const max = 1000;
+        const k = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+        const w = Math.round(img.naturalWidth * k);
+        const h = Math.round(img.naturalHeight * k);
+        const cv = document.createElement('canvas');
+        cv.width = w;
+        cv.height = h;
+        const ctx = cv.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        cv.toBlob(function(b){
+          if(b) resolve(b); else reject(new Error('Rasmni tayyorlab bo‘lmadi'));
+        }, 'image/jpeg', .82);
+      };
+      img.onerror = function(){
+        URL.revokeObjectURL(url);
+        reject(new Error('Bu rasm formati ochilmadi. JPG yoki PNG tanlang.'));
+      };
+      img.src = url;
+    });
+  }
+
+  $('fRasm').addEventListener('change', async function(){
+    const f = this.files && this.files[0];
+    if(!f) return;
+    busy(true, 'Rasm tayyorlanmoqda...');
+    try{
+      const blob = await compressImage(f);
+      revoke(photo);
+      photo.blob = blob;
+      photo.removed = false;
+      photo.preview = URL.createObjectURL(blob);
+      syncMedia();
+      renderPreview();
+    }catch(err){
+      toast(err.message, true);
+    }finally{
+      busy(false);
+      this.value = '';
+    }
+  });
+
+  $('rmPhoto').addEventListener('click', function(){
+    revoke(photo);
+    photo.blob = null;
+    photo.removed = true;
+    photo.preview = null;
+    syncMedia();
+    renderPreview();
+  });
+
+  $('fAudio').addEventListener('change', function(){
+    const f = this.files && this.files[0];
+    if(!f) return;
+    if(f.size > 25 * 1024 * 1024){
+      toast('Audio 25 MB dan katta. Qisqaroq yoki siqilgan fayl tanlang.', true);
+      this.value = '';
+      return;
+    }
+    const name = (f.name || '').toLowerCase();
+    const risky = /ogg|opus|amr|3gp|webm|wma/.test(name + ' ' + f.type);
+    $('audioWarn').hidden = !risky;
+    $('audioWarn').textContent = risky
+      ? 'Bu format iPhone’da ochilmasligi mumkin. MP3 yoki M4A tavsiya etiladi.'
+      : '';
+    revoke(audio);
+    audio.file = f;
+    audio.removed = false;
+    audio.preview = URL.createObjectURL(f);
+    syncMedia();
+    renderPreview();
+    this.value = '';
+  });
+
+  $('rmAudio').addEventListener('click', function(){
+    revoke(audio);
+    audio.file = null;
+    audio.removed = true;
+    audio.preview = null;
+    $('audioWarn').hidden = true;
+    syncMedia();
+    renderPreview();
+  });
+
+  $('cancelBtn').addEventListener('click', function(){
+    revoke(photo);
+    revoke(audio);
+    openList();
+  });
+
+  function formError(msg){
+    $('eErr').textContent = msg;
+    $('eErr').hidden = false;
+    $('eErr').scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  function audioExt(f){
+    const m = (f.name || '').toLowerCase().match(/\.([a-z0-9]{2,5})$/);
+    if(m) return m[1];
+    if(/mpeg|mp3/.test(f.type)) return 'mp3';
+    if(/mp4|m4a|aac/.test(f.type)) return 'm4a';
+    return 'audio';
+  }
+
+  $('saveBtn').addEventListener('click', async function(){
+    $('eErr').hidden = true;
+
+    const ism = $('fIsm').value.trim();
+    const yoshRaw = $('fYosh').value.trim();
+    const yosh = yoshRaw ? parseInt(yoshRaw, 10) : null;
+    const izoh = $('fIzoh').value.trim();
+    const ruxsat = $('fRuxsat').checked;
+    const telD = onlyDigits($('fTel').value);
+
+    if(ism.length < 2) return formError('Ismini kiriting.');
+    if(yoshRaw && (!yosh || yosh < 1 || yosh > 120)) return formError('Yoshini to‘g‘ri kiriting yoki bo‘sh qoldiring.');
+    if(!izoh && !audio.preview) return formError('Bemorning so‘zlarini yozing yoki audio otziv qo‘shing.');
+    if(ruxsat && telD.length !== 9) return formError('Bemor raqamini to‘liq kiriting: 9 ta raqam.');
+
+    const oldPhoto = editing ? editing.rasm : null;
+    const oldAudio = editing ? editing.audio : null;
+    const uploaded = [];
+
+    busy(true, 'Saqlanmoqda...');
+    try{
+      let rasm = photo.removed ? null : photo.url;
+      let aud = audio.removed ? null : audio.url;
+
+      if(photo.blob){
+        busy(true, 'Rasm yuklanmoqda...');
+        rasm = await uploadFile(photo.blob, 'jpg', 'image/jpeg');
+        uploaded.push(rasm);
+      }
+      if(audio.file){
+        busy(true, 'Audio yuklanmoqda...');
+        aud = await uploadFile(audio.file, audioExt(audio.file), audio.file.type || 'audio/mpeg');
+        uploaded.push(aud);
+      }
+
+      busy(true, 'Saqlanmoqda...');
+
+      const row = {
+        ism:ism,
+        yosh:yosh,
+        shahar:$('fShahar').value.trim() || null,
+        izoh:izoh || null,
+        rasm:rasm,
+        audio:aud,
+        tel:ruxsat ? '+998' + telD : null,
+        ruxsat:ruxsat,
+        korinadi:$('fKorinadi').checked
+      };
+
+      if(editing){
+        await db.update(editing.id, row);
+        if(oldPhoto && oldPhoto !== rasm) await removeFile(oldPhoto);
+        if(oldAudio && oldAudio !== aud) await removeFile(oldAudio);
+      }else{
+        const minT = rows.length ? Math.min.apply(null, rows.map(function(r){ return r.tartib || 0; })) : 10;
+        row.tartib = minT - 10;
+        await db.insert(row);
+      }
+
+      revoke(photo);
+      revoke(audio);
+      toast(editing ? 'O‘zgarishlar saqlandi' : 'Yangi bemor qo‘shildi');
+      await openList();
+    }catch(err){
+      /* saqlanmagan bo‘lsa — yuklangan fayllarni tozalaymiz */
+      for(let k = 0; k < uploaded.length; k++) await removeFile(uploaded[k]);
+      formError(err.message);
+    }finally{
+      busy(false);
+    }
+  });
+
+
+  /* =====================================
+     LOTIN → KIRILL
+  ===================================== */
+
+  const MULTI = { "o'":'ў', "g'":'ғ', 'sh':'ш', 'ch':'ч', 'yo':'ё', 'yu':'ю', 'ya':'я', 'ye':'е' };
+  const SINGLE = {
+    a:'а', b:'б', c:'с', d:'д', e:'е', f:'ф', g:'г', h:'ҳ', i:'и', j:'ж', k:'к', l:'л', m:'м',
+    n:'н', o:'о', p:'п', q:'қ', r:'р', s:'с', t:'т', u:'у', v:'в', w:'в', x:'х', y:'й', z:'з'
+  };
+  const LETTER = /[A-Za-zА-Яа-яЁёЎўҚқҒғҲҳ]/;
+
+  function caseLike(src, cyr){
+    if(src[0] !== src[0].toLowerCase()) return cyr.charAt(0).toUpperCase() + cyr.slice(1);
+    return cyr;
+  }
+
+  function toCyr(text){
+    const s = String(text || '').replace(/[ʻʼ‘’`´]/g, "'");
+    let out = '';
+    for(let i = 0; i < s.length; i++){
+      const two = s.substr(i, 2);
+      const low2 = two.toLowerCase();
+      const prev = i > 0 ? s[i - 1] : '';
+      const wordStart = !prev || !LETTER.test(prev);
+
+      /* yo'q → йўқ (y + o‘) */
+      if(low2 === 'yo' && s[i + 2] === "'"){
+        out += caseLike(s[i], 'й');
+        continue;
+      }
+
+      if(MULTI[low2] && two.length === 2){
+        out += caseLike(two, MULTI[low2]);
+        i++;
+        continue;
+      }
+
+      const ch = s[i];
+      const low = ch.toLowerCase();
+
+      if(low === 'e' && wordStart){
+        out += caseLike(ch, 'э');
+        continue;
+      }
+
+      if(ch === "'"){
+        const next = s[i + 1] || '';
+        out += (prev && LETTER.test(prev) && LETTER.test(next)) ? 'ъ' : ch;
+        continue;
+      }
+
+      out += SINGLE[low] ? caseLike(ch, SINGLE[low]) : ch;
+    }
+    return out;
+  }
+
+  $('toCyrBtn').addEventListener('click', function(){
+    ['fIsm', 'fShahar', 'fIzoh'].forEach(function(id){
+      $(id).value = toCyr($(id).value);
+    });
+    renderPreview();
+    toast('Kirillga o‘girildi. Matnni bir ko‘zdan kechiring.');
+  });
+
+
+  /* =====================================
+     ISHGA TUSHIRISH
+  ===================================== */
+
+  $('sqlBox').value = $('setupSql').textContent.trim();
+  $('copySql').addEventListener('click', async function(){
+    const box = $('sqlBox');
+    try{
+      await navigator.clipboard.writeText(box.value);
+    }catch(e){
+      box.focus();
+      box.select();
+      try{ document.execCommand('copy'); }catch(e2){}
+    }
+    toast('SQL nusxalandi');
+  });
+
+  if(!BASE || !SUPA_KEY){
+    show('vSetup');
+  }else if(session && session.refresh_token){
+    openList();
+  }else{
+    show('vLogin');
+  }
+
+})();
+</script>
+</body>
+</html>
