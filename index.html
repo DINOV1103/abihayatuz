@@ -14,6 +14,71 @@
 
 <script>document.documentElement.classList.add('js');</script>
 
+<!-- =====================================
+     SUPABASE — admin.html dagi bilan BIR XIL bo‘lsin
+       url — Supabase → Project Settings → API → Project URL
+       key — Supabase → Project Settings → API → anon public key
+
+     Sayt matnlari, rasmlar va videolar admin paneldan o‘zgartiriladi
+     (abh_content jadvali). So‘rov shu yerda, sahifa ochilishi bilan
+     boshlanadi. Baza javob bermasa — sahifa ko‘pi bilan 1 soniyada
+     asl matnlar bilan ochiladi.
+===================================== -->
+<link rel="preconnect" href="https://tgbkpvxqtdqtwpdqyvqh.supabase.co" crossorigin>
+<script>
+window.ABH_SUPA = {
+  url:'https://tgbkpvxqtdqtwpdqyvqh.supabase.co',
+  key:'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq'
+};
+(function(){
+  var root = document.documentElement;
+  var cached = false;
+  try{ cached = !!localStorage.getItem('abh_content_v1'); }catch(e){}
+  if(!cached){
+    root.classList.add('cms-wait');
+    setTimeout(function(){ root.classList.remove('cms-wait'); }, 1000);
+  }
+  window.ABH_CONTENT = null;
+  try{
+    var base = String(window.ABH_SUPA.url || '').replace(/\/+$/, '');
+    var key = window.ABH_SUPA.key;
+    if(base && key && window.fetch){
+      window.ABH_CONTENT = fetch(base + '/rest/v1/abh_content?select=key,value', {
+        headers:{ 'apikey':key, 'Authorization':'Bearer ' + key }
+      }).then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      });
+      window.ABH_CONTENT.catch(function(){});
+    }
+  }catch(e){}
+})();
+</script>
+<style>
+.cms-wait [data-e],
+.cms-wait [data-e-img],
+.cms-wait [data-e-tel]:not(a){
+  visibility:hidden;
+}
+
+.cms-preview{
+  position:fixed;
+  left:50%;
+  top:10px;
+  z-index:9999;
+  transform:translateX(-50%);
+  max-width:92vw;
+  padding:8px 16px;
+  border-radius:999px;
+  background:#C0392B;
+  color:#fff;
+  font:700 13px/1.3 'Onest', Arial, sans-serif;
+  text-align:center;
+  pointer-events:none;
+  box-shadow:0 10px 24px -12px rgba(0,0,0,.6);
+}
+</style>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1932,18 +1997,18 @@ body.locked{
 <body>
 
 <!-- ================= HEADER ================= -->
-<header class="top">
+<header class="top" data-e-group="Yuqori qism: logo va telefon">
   <div class="wrap">
-    <a class="logo" href="#" aria-label="ABIHAYAT">
+    <a class="logo" href="#" aria-label="ABIHAYAT" data-e="brand" data-e-label="Logo yozuvi (yuqorida va pastda)">
       ABIHAYAT
     </a>
-    <a class="hcall" href="tel:+998555155558" aria-label="Мутахассис билан тезда боғланинг: 55-515-55-58">
+    <a class="hcall" href="tel:+998555155558" aria-label="Мутахассис билан тезда боғланинг: 55-515-55-58" data-e-tel="phone">
       <span class="hcall-ic">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
       </span>
       <span class="hcall-txt">
-        <small>Мутахассис билан тезда боғланинг</small>
-        <b>55-515-55-58</b>
+        <small data-e="header.call" data-e-label="Telefon ustidagi yozuv">Мутахассис билан тезда боғланинг</small>
+        <b data-e-tel="phone" data-e-label="Telefon raqami (saytdagi hamma joyda birdan o‘zgaradi)">55-515-55-58</b>
       </span>
     </a>
   </div>
@@ -1952,43 +2017,43 @@ body.locked{
 <main>
 
   <!-- ================= HERO ================= -->
-  <section class="hero">
+  <section class="hero" data-e-group="Bosh qism (sahifa boshi)">
     <div class="wrap hero-grid">
       <div>
-        <div class="kicker">🇹🇷 Туркияда ишлаб чиқарилган</div>
-        <h1>ABIHAYAT — <span class="gold">Туркия табиий дамламаси</span></h1>
-        <p class="sub">
+        <div class="kicker" data-e="hero.kicker" data-e-label="Sarlavha ustidagi kichik yozuv">🇹🇷 Туркияда ишлаб чиқарилган</div>
+        <h1><span data-e="hero.title" data-e-label="Sarlavha — oq qismi">ABIHAYAT —</span> <span class="gold" data-e="hero.title_gold" data-e-label="Sarlavha — oltin rangli qismi">Туркия табиий дамламаси</span></h1>
+        <p class="sub" data-e="hero.text" data-e-label="Sarlavha ostidagi matn">
           Кекик, зайтун, долчин ва 67 турга яқин макро ва микроэлементлар асосидаги дамлама.
           Қандни назоратда ушлашда кундалик ёрдамчи.
         </p>
         <div class="hero-ctas">
           <a class="btn btn-gold shine" href="#murojaat" id="heroBtn">
             <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-            Батафсил маълумот олиш
+            <span data-e="hero.btn" data-e-label="Asosiy tugma">Батафсил маълумот олиш</span>
           </a>
           <a class="btn btn-glass" href="#bemorlar">
             <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18v-5.5C4 8.4 6.2 5.7 10 5l.7 1.8C8.5 7.6 7.5 9 7.4 11H10v7zm10 0v-5.5c0-4.1 2.2-6.8 6-7.5l.7 1.8c-2.2.8-3.2 2.2-3.3 4.2H20v7z" fill="currentColor"/></svg></span>
-            Беморлар фикри
+            <span data-e="hero.btn2" data-e-label="Ikkinchi tugma">Беморлар фикри</span>
           </a>
         </div>
         <ul class="facts">
-          <li><b>4 давлат</b>Ўзбекистон, Туркия, Россия, Тожикистон</li>
-          <li><b>3 сертификат</b>ISO 22000, GMP ва хавфсизлик</li>
-          <li><b>67 элемент</b>Макро ва микроэлементлар</li>
-          <li><b>Тезкор алоқа</b>Мутахассис билан тезда боғланинг</li>
+          <li><b data-e="hero.fact1_title" data-e-label="1-fakt — katta yozuv">4 давлат</b><span data-e="hero.fact1_text" data-e-label="1-fakt — kichik yozuv">Ўзбекистон, Туркия, Россия, Тожикистон</span></li>
+          <li><b data-e="hero.fact2_title" data-e-label="2-fakt — katta yozuv">3 сертификат</b><span data-e="hero.fact2_text" data-e-label="2-fakt — kichik yozuv">ISO 22000, GMP ва хавфсизлик</span></li>
+          <li><b data-e="hero.fact3_title" data-e-label="3-fakt — katta yozuv">67 элемент</b><span data-e="hero.fact3_text" data-e-label="3-fakt — kichik yozuv">Макро ва микроэлементлар</span></li>
+          <li><b data-e="hero.fact4_title" data-e-label="4-fakt — katta yozuv">Тезкор алоқа</b><span data-e="hero.fact4_text" data-e-label="4-fakt — kichik yozuv">Мутахассис билан тезда боғланинг</span></li>
         </ul>
       </div>
 
       <div class="hero-photo">
         <div class="frame">
           <div class="frame-in">
-            <img src="https://i.postimg.cc/XvgKPrPH/IMG-8373.jpg" alt="ABIHAYAT дамламаси" fetchpriority="high">
+            <img src="https://i.postimg.cc/XvgKPrPH/IMG-8373.jpg" alt="ABIHAYAT дамламаси" fetchpriority="high" data-e-img="hero.photo" data-e-label="Asosiy rasm">
           </div>
         </div>
 
         <div class="float-chip">
           <span class="flag" aria-hidden="true">🇹🇷</span>
-          <span><b>Асл маҳсулот</b>Туркия, сертификатли</span>
+          <span><b data-e="hero.chip_title" data-e-label="Rasm ustidagi belgi — qalin yozuv">Асл маҳсулот</b><span data-e="hero.chip_text" data-e-label="Rasm ustidagi belgi — kichik yozuv">Туркия, сертификатли</span></span>
         </div>
 
         <svg class="seal" viewBox="0 0 120 120" aria-hidden="true">
@@ -2003,7 +2068,7 @@ body.locked{
           <circle cx="60" cy="60" r="58" fill="url(#sealG)"/>
           <g class="seal-ring">
             <text font-family="Onest, Arial, sans-serif" font-size="10.5" font-weight="800" fill="#2B1F05" letter-spacing="1.4">
-              <textPath href="#sealPath">ТУРКИЯ • ОРИГИНАЛ • ABIHAYAT •</textPath>
+              <textPath href="#sealPath" data-e="hero.seal" data-e-label="Aylana muhr yozuvi" data-e-max="34">ТУРКИЯ • ОРИГИНАЛ • ABIHAYAT •</textPath>
             </text>
           </g>
           <circle cx="60" cy="60" r="27" fill="#0A3A2F"/>
@@ -2015,11 +2080,11 @@ body.locked{
   </section>
 
   <!-- ================= BEMORLAR FIKRI ================= -->
-  <section id="bemorlar">
+  <section id="bemorlar" data-e-group="Bemorlar fikri">
     <div class="wrap">
       <div class="head">
-        <h2 class="rv">Беморларимиз фикри</h2>
-        <p class="sub rv" style="--d:.08s">
+        <h2 class="rv" data-e="pts.title" data-e-label="Bo‘lim sarlavhasi">Беморларимиз фикри</h2>
+        <p class="sub rv" style="--d:.08s" data-e="pts.text" data-e-label="Sarlavha ostidagi matn">
           ABIHAYAT’ни қўллаган беморлар ўз сўзлари ва овози билан. Хоҳласангиз,
           уларга қўнғироқ қилиб, ўзингиз сўраб кўришингиз мумкин.
         </p>
@@ -2028,165 +2093,165 @@ body.locked{
       <div class="pts" id="pts"></div>
 
       <div class="pts-more">
-        <button class="btn btn-soft noic" type="button" id="ptsMore" hidden>Яна беморлар фикри</button>
+        <button class="btn btn-soft noic" type="button" id="ptsMore" hidden data-e="pts.more" data-e-label="“Yana ko‘rsatish” tugmasi">Яна беморлар фикри</button>
       </div>
 
-      <p class="consent">Беморлар фикри ва телефон рақамлари уларнинг розилиги билан жойлаштирилган.</p>
+      <p class="consent" data-e="pts.consent" data-e-label="Bo‘lim ostidagi izoh">Беморлар фикри ва телефон рақамлари уларнинг розилиги билан жойлаштирилган.</p>
     </div>
   </section>
 
   <!-- ================= VIDEO OTZIVLAR ================= -->
-  <section class="white" id="videolar">
+  <section class="white" id="videolar" data-e-group="Video otzivlar">
     <div class="wrap">
       <div class="head">
-        <h2 class="rv">Видео отзивлар</h2>
-        <p class="sub rv" style="--d:.08s">Кўриш учун видеони босинг.</p>
+        <h2 class="rv" data-e="videos.title" data-e-label="Bo‘lim sarlavhasi">Видео отзивлар</h2>
+        <p class="sub rv" style="--d:.08s" data-e="videos.text" data-e-label="Sarlavha ostidagi matn">Кўриш учун видеони босинг.</p>
       </div>
 
       <div class="videos">
-        <button class="vcard" type="button" data-yt="7sDq7lPrkgU" aria-label="Видео отзив 1"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl">Видео отзив 1</span></button>
-        <button class="vcard" type="button" data-yt="ok61jU6H34U" aria-label="Видео отзив 2"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl">Видео отзив 2</span></button>
-        <button class="vcard" type="button" data-yt="P6TwLCh0KMU" aria-label="Видео отзив 3"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl">Видео отзив 3</span></button>
-        <button class="vcard" type="button" data-yt="u__5ToiCrfc" aria-label="Видео отзив 4"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl">Видео отзив 4</span></button>
-        <button class="vcard" type="button" data-yt="pLwTQLleLPw" aria-label="Видео отзив 5"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl">Видео отзив 5</span></button>
+        <button class="vcard" type="button" data-yt="7sDq7lPrkgU" data-e-yt="video1" data-e-label="1-video (YouTube havolasi)" aria-label="Видео отзив 1"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl" data-e="video1.title" data-e-label="1-video nomi">Видео отзив 1</span></button>
+        <button class="vcard" type="button" data-yt="ok61jU6H34U" data-e-yt="video2" data-e-label="2-video (YouTube havolasi)" aria-label="Видео отзив 2"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl" data-e="video2.title" data-e-label="2-video nomi">Видео отзив 2</span></button>
+        <button class="vcard" type="button" data-yt="P6TwLCh0KMU" data-e-yt="video3" data-e-label="3-video (YouTube havolasi)" aria-label="Видео отзив 3"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl" data-e="video3.title" data-e-label="3-video nomi">Видео отзив 3</span></button>
+        <button class="vcard" type="button" data-yt="u__5ToiCrfc" data-e-yt="video4" data-e-label="4-video (YouTube havolasi)" aria-label="Видео отзив 4"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl" data-e="video4.title" data-e-label="4-video nomi">Видео отзив 4</span></button>
+        <button class="vcard" type="button" data-yt="pLwTQLleLPw" data-e-yt="video5" data-e-label="5-video (YouTube havolasi)" aria-label="Видео отзив 5"><span class="play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span><span class="vl" data-e="video5.title" data-e-label="5-video nomi">Видео отзив 5</span></button>
       </div>
     </div>
   </section>
 
   <!-- ================= MAHSULOT ================= -->
-  <section>
+  <section data-e-group="Mahsulot haqida">
     <div class="wrap split">
       <div class="photos rv">
-        <div><img src="https://i.postimg.cc/vHM2Z79X/photo-2026-04-12-19-45-38.jpg" alt="ABIHAYAT дамламаси" loading="lazy"></div>
-        <div><img src="https://i.postimg.cc/kX9YgN8c/photo-2026-04-12-20-16-35.jpg" alt="ABIHAYAT қадоғи" loading="lazy"></div>
-        <div><img src="https://i.postimg.cc/RV9pZ1fd/photo-2026-04-12-20-16-39.jpg" alt="ABIHAYAT маҳсулоти" loading="lazy"></div>
+        <div><img src="https://i.postimg.cc/vHM2Z79X/photo-2026-04-12-19-45-38.jpg" alt="ABIHAYAT дамламаси" loading="lazy" data-e-img="product.photo1" data-e-label="1-rasm (katta)"></div>
+        <div><img src="https://i.postimg.cc/kX9YgN8c/photo-2026-04-12-20-16-35.jpg" alt="ABIHAYAT қадоғи" loading="lazy" data-e-img="product.photo2" data-e-label="2-rasm"></div>
+        <div><img src="https://i.postimg.cc/RV9pZ1fd/photo-2026-04-12-20-16-39.jpg" alt="ABIHAYAT маҳсулоти" loading="lazy" data-e-img="product.photo3" data-e-label="3-rasm"></div>
       </div>
 
       <div>
-        <h2 class="rv">Маҳсулот ҳақида</h2>
-        <p class="sub rv" style="--d:.08s">
+        <h2 class="rv" data-e="product.title" data-e-label="Bo‘lim sarlavhasi">Маҳсулот ҳақида</h2>
+        <p class="sub rv" style="--d:.08s" data-e="product.text" data-e-label="Sarlavha ostidagi matn">
           ABIHAYAT — Туркияда ишлаб чиқарилган табиий дамлама. Шифокор тайинлаган
           даволаниш билан бирга, қандни назоратда ушлашда кундалик ёрдамчи сифатида қўлланилади.
         </p>
         <dl class="comp rv" style="--d:.14s">
-          <div><dt>Таркиби</dt><dd>Кекик, зайтун, долчин</dd></div>
-          <div><dt>Элементлар</dt><dd>67 турга яқин макро ва микроэлементлар</dd></div>
-          <div><dt>Қадоқ</dt><dd>Бир қутида 45 та пакет</dd></div>
-          <div><dt>Қўллаш</dt><dd>Эрталаб ва кечқурун, тўқ қоринга</dd></div>
-          <div><dt>Ишлаб чиқарилган</dt><dd>Туркия</dd></div>
-          <div><dt>Сертификатлар</dt><dd>ISO 22000, GMP ISO 22716, хавфсизлик сертификати</dd></div>
-          <div><dt>Тури</dt><dd>Дамлама. Дори воситаси ёки БФҚ эмас</dd></div>
+          <div><dt data-e="product.c1_name" data-e-label="1-qator — nomi">Таркиби</dt><dd data-e="product.c1_value" data-e-label="1-qator — qiymati">Кекик, зайтун, долчин</dd></div>
+          <div><dt data-e="product.c2_name" data-e-label="2-qator — nomi">Элементлар</dt><dd data-e="product.c2_value" data-e-label="2-qator — qiymati">67 турга яқин макро ва микроэлементлар</dd></div>
+          <div><dt data-e="product.c3_name" data-e-label="3-qator — nomi">Қадоқ</dt><dd data-e="product.c3_value" data-e-label="3-qator — qiymati">Бир қутида 45 та пакет</dd></div>
+          <div><dt data-e="product.c4_name" data-e-label="4-qator — nomi">Қўллаш</dt><dd data-e="product.c4_value" data-e-label="4-qator — qiymati">Эрталаб ва кечқурун, тўқ қоринга</dd></div>
+          <div><dt data-e="product.c5_name" data-e-label="5-qator — nomi">Ишлаб чиқарилган</dt><dd data-e="product.c5_value" data-e-label="5-qator — qiymati">Туркия</dd></div>
+          <div><dt data-e="product.c6_name" data-e-label="6-qator — nomi">Сертификатлар</dt><dd data-e="product.c6_value" data-e-label="6-qator — qiymati">ISO 22000, GMP ISO 22716, хавфсизлик сертификати</dd></div>
+          <div><dt data-e="product.c7_name" data-e-label="7-qator — nomi">Тури</dt><dd data-e="product.c7_value" data-e-label="7-qator — qiymati">Дамлама. Дори воситаси ёки БФҚ эмас</dd></div>
         </dl>
         <a class="btn btn-em shine rv" style="--d:.2s" href="#murojaat">
           <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-          Батафсил маълумот олиш
+          <span data-e="product.btn" data-e-label="Tugma">Батафсил маълумот олиш</span>
         </a>
       </div>
     </div>
   </section>
 
   <!-- ================= SERTIFIKATLAR ================= -->
-  <section class="white">
+  <section class="white" data-e-group="Sertifikatlar">
     <div class="wrap">
       <div class="head">
-        <h2 class="rv">Сертификатлар</h2>
-        <p class="sub rv" style="--d:.08s">Катталаштириш учун сертификатни босинг.</p>
+        <h2 class="rv" data-e="certs.title" data-e-label="Bo‘lim sarlavhasi">Сертификатлар</h2>
+        <p class="sub rv" style="--d:.08s" data-e="certs.text" data-e-label="Sarlavha ostidagi matn">Катталаштириш учун сертификатни босинг.</p>
       </div>
       <div class="certs">
         <button class="cert rv" type="button" data-full="https://i.postimg.cc/KvbPmvDK/IMG-20260513-184343-911.jpg">
-          <img src="https://i.postimg.cc/KvbPmvDK/IMG-20260513-184343-911.jpg" alt="ABIHAYAT хавфсизлик сертификати" loading="lazy">
-          <span>Хавфсизлик сертификати</span>
+          <img src="https://i.postimg.cc/KvbPmvDK/IMG-20260513-184343-911.jpg" alt="ABIHAYAT хавфсизлик сертификати" loading="lazy" data-e-img="cert1.img" data-e-label="1-sertifikat rasmi">
+          <span data-e="cert1.title" data-e-label="1-sertifikat nomi">Хавфсизлик сертификати</span>
         </button>
         <button class="cert rv" style="--d:.08s" type="button" data-full="https://i.postimg.cc/J48NR45H/ISO-22000-2018-GIDA-GU-VENLI-G-I-YO-NETI-M-SI-STEMI-06-10-2025.png">
-          <img src="https://i.postimg.cc/J48NR45H/ISO-22000-2018-GIDA-GU-VENLI-G-I-YO-NETI-M-SI-STEMI-06-10-2025.png" alt="ISO 22000 сертификати" loading="lazy">
-          <span>ISO 22000</span>
+          <img src="https://i.postimg.cc/J48NR45H/ISO-22000-2018-GIDA-GU-VENLI-G-I-YO-NETI-M-SI-STEMI-06-10-2025.png" alt="ISO 22000 сертификати" loading="lazy" data-e-img="cert2.img" data-e-label="2-sertifikat rasmi">
+          <span data-e="cert2.title" data-e-label="2-sertifikat nomi">ISO 22000</span>
         </button>
         <button class="cert rv" style="--d:.16s" type="button" data-full="https://i.postimg.cc/BQ3TJQBQ/GMP-I-YI-U-RETI-M-UYGULAMALARI-ISO-22716-2013-pdf-20260508-073515.png">
-          <img src="https://i.postimg.cc/BQ3TJQBQ/GMP-I-YI-U-RETI-M-UYGULAMALARI-ISO-22716-2013-pdf-20260508-073515.png" alt="GMP ISO 22716 сертификати" loading="lazy">
-          <span>GMP ISO 22716</span>
+          <img src="https://i.postimg.cc/BQ3TJQBQ/GMP-I-YI-U-RETI-M-UYGULAMALARI-ISO-22716-2013-pdf-20260508-073515.png" alt="GMP ISO 22716 сертификати" loading="lazy" data-e-img="cert3.img" data-e-label="3-sertifikat rasmi">
+          <span data-e="cert3.title" data-e-label="3-sertifikat nomi">GMP ISO 22716</span>
         </button>
       </div>
     </div>
   </section>
 
   <!-- ================= SAVOL-JAVOB ================= -->
-  <section>
+  <section data-e-group="Savol-javoblar">
     <div class="wrap">
       <div class="head">
-        <h2 class="rv">Кўп бериладиган саволлар</h2>
+        <h2 class="rv" data-e="faq.title" data-e-label="Bo‘lim sarlavhasi">Кўп бериладиган саволлар</h2>
       </div>
       <div class="faq rv" style="--d:.08s">
         <details>
-          <summary>ABIHAYAT дори воситасими?<span class="ring" aria-hidden="true"></span></summary>
-          <p>Йўқ. ABIHAYAT дори воситаси ёки БФҚ эмас. Бу Туркияда ишлаб чиқарилган табиий дамлама ва у даволаниш ўрнини босмайди.</p>
+          <summary><span data-e="faq1.q" data-e-label="1-savol">ABIHAYAT дори воситасими?</span><span class="ring" aria-hidden="true"></span></summary>
+          <p data-e="faq1.a" data-e-label="1-javob">Йўқ. ABIHAYAT дори воситаси ёки БФҚ эмас. Бу Туркияда ишлаб чиқарилган табиий дамлама ва у даволаниш ўрнини босмайди.</p>
         </details>
         <details>
-          <summary>Шифокор берган дориларни тўхтатсам бўладими?<span class="ring" aria-hidden="true"></span></summary>
-          <p>Йўқ. Дориларни фақат шифокорингиз билан маслаҳатлашиб ўзгартиринг. ABIHAYAT’ни бошлашдан олдин ҳам шифокорингизга айтинг.</p>
+          <summary><span data-e="faq2.q" data-e-label="2-savol">Шифокор берган дориларни тўхтатсам бўладими?</span><span class="ring" aria-hidden="true"></span></summary>
+          <p data-e="faq2.a" data-e-label="2-javob">Йўқ. Дориларни фақат шифокорингиз билан маслаҳатлашиб ўзгартиринг. ABIHAYAT’ни бошлашдан олдин ҳам шифокорингизга айтинг.</p>
         </details>
         <details>
-          <summary>Таркибида нима бор?<span class="ring" aria-hidden="true"></span></summary>
-          <p>Кекик, зайтун, долчин ва 67 турга яқин макро ва микроэлементлар.</p>
+          <summary><span data-e="faq3.q" data-e-label="3-savol">Таркибида нима бор?</span><span class="ring" aria-hidden="true"></span></summary>
+          <p data-e="faq3.a" data-e-label="3-javob">Кекик, зайтун, долчин ва 67 турга яқин макро ва микроэлементлар.</p>
         </details>
         <details>
-          <summary>Қандай қўлланилади?<span class="ring" aria-hidden="true"></span></summary>
-          <p>Бир қутида 45 та пакет бор. Эрталаб ва кечқурун, тўқ қоринга ичилади. Батафсил тартибни мутахассис тушунтириб беради.</p>
+          <summary><span data-e="faq4.q" data-e-label="4-savol">Қандай қўлланилади?</span><span class="ring" aria-hidden="true"></span></summary>
+          <p data-e="faq4.a" data-e-label="4-javob">Бир қутида 45 та пакет бор. Эрталаб ва кечқурун, тўқ қоринга ичилади. Батафсил тартибни мутахассис тушунтириб беради.</p>
         </details>
         <details>
-          <summary>Қандай қилиб батафсил маълумот оламан?<span class="ring" aria-hidden="true"></span></summary>
-          <p>Пастдаги формага исм ва рақамингизни қолдиринг ёки 55-515-55-58 рақамига қўнғироқ қилинг. Мутахассис тезда боғланади.</p>
+          <summary><span data-e="faq5.q" data-e-label="5-savol">Қандай қилиб батафсил маълумот оламан?</span><span class="ring" aria-hidden="true"></span></summary>
+          <p data-e="faq5.a" data-e-label="5-javob (ichida telefon raqami bor — raqam o‘zgarsa, bu yerda ham yangilang)">Пастдаги формага исм ва рақамингизни қолдиринг ёки 55-515-55-58 рақамига қўнғироқ қилинг. Мутахассис тезда боғланади.</p>
         </details>
       </div>
     </div>
   </section>
 
   <!-- ================= MUROJAAT ================= -->
-  <section class="order" id="murojaat">
+  <section class="order" id="murojaat" data-e-group="Ariza formasi">
     <div class="wrap order-grid">
       <div>
-        <h2>Мутахассис билан тезда боғланинг</h2>
-        <p class="sub">Маълумотларингизни қолдиринг. Мутахассис қўнғироқ қилиб, ABIHAYAT ҳақида батафсил маълумот беради ва саволларингизга жавоб беради.</p>
+        <h2 data-e="order.title" data-e-label="Bo‘lim sarlavhasi">Мутахассис билан тезда боғланинг</h2>
+        <p class="sub" data-e="order.text" data-e-label="Sarlavha ostidagi matn">Маълумотларингизни қолдиринг. Мутахассис қўнғироқ қилиб, ABIHAYAT ҳақида батафсил маълумот беради ва саволларингизга жавоб беради.</p>
         <ul class="order-points">
           <li>
             <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            Мутахассис тезда қўнғироқ қилади
+            <span data-e="order.point1" data-e-label="1-afzallik">Мутахассис тезда қўнғироқ қилади</span>
           </li>
           <li>
             <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            Асл Туркия маҳсулоти, сертификатлари билан
+            <span data-e="order.point2" data-e-label="2-afzallik">Асл Туркия маҳсулоти, сертификатлари билан</span>
           </li>
           <li>
             <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="#F3DC98"/></svg></span>
-            <span>Телефон орқали: <a href="tel:+998555155558">55-515-55-58</a></span>
+            <span><span data-e="order.point3" data-e-label="3-afzallik (raqam oldidagi yozuv)">Телефон орқали:</span> <a href="tel:+998555155558" data-e-tel="phone">55-515-55-58</a></span>
           </li>
         </ul>
       </div>
 
       <div class="panel">
-        <h3>Батафсил маълумот олинг</h3>
-        <p class="panel-sub">Мутахассис сизга тез орада қўнғироқ қилади.</p>
+        <h3 data-e="form.title" data-e-label="Forma sarlavhasi">Батафсил маълумот олинг</h3>
+        <p class="panel-sub" data-e="form.sub" data-e-label="Forma sarlavhasi ostidagi matn">Мутахассис сизга тез орада қўнғироқ қилади.</p>
 
         <div class="wheel-teaser">
           <span class="gift" aria-hidden="true">🎁</span>
-          <span>Ариза юборгач, омад барабани очилади</span>
+          <span data-e="form.teaser" data-e-label="Baraban haqida eslatma">Ариза юборгач, омад барабани очилади</span>
           <span class="chips"><b class="c20">20%</b><b class="c50">50%</b></span>
         </div>
 
         <form class="form" id="leadForm" novalidate>
-          <label class="lbl" for="fName">Исмингиз</label>
+          <label class="lbl" for="fName" data-e="form.name_label" data-e-label="Ism maydoni nomi">Исмингиз</label>
           <input class="field" type="text" id="fName" name="name" autocomplete="name" maxlength="60" required>
-          <div class="err" id="eName">Исмингизни киритинг</div>
+          <div class="err" id="eName" data-e="form.name_err" data-e-label="Ism yozilmasa chiqadigan xato">Исмингизни киритинг</div>
 
-          <label class="lbl" for="fPhone">Телефон рақамингиз</label>
+          <label class="lbl" for="fPhone" data-e="form.phone_label" data-e-label="Telefon maydoni nomi">Телефон рақамингиз</label>
           <div class="phone" id="fPhoneWrap">
             <label class="phone-code" for="fPhone">+998</label>
             <input type="tel" id="fPhone" name="phone" placeholder="90 123 45 67" autocomplete="tel-national" inputmode="numeric" required>
           </div>
-          <div class="err" id="ePhone">Рақамни тўлиқ киритинг: 9 та рақам</div>
+          <div class="err" id="ePhone" data-e="form.phone_err" data-e-label="Raqam to‘liq bo‘lmasa chiqadigan xato">Рақамни тўлиқ киритинг: 9 та рақам</div>
 
-          <label class="lbl" for="fRegion">Вилоятингиз</label>
+          <label class="lbl" for="fRegion" data-e="form.region_label" data-e-label="Viloyat maydoni nomi">Вилоятингиз</label>
           <select class="select" id="fRegion" name="region" required>
-            <option value="" selected disabled>Вилоятни танланг</option>
+            <option value="" selected disabled data-e="form.region_ph" data-e-label="Viloyat tanlanmaganda turadigan yozuv">Вилоятни танланг</option>
             <option>Тошкент шаҳри</option>
             <option>Тошкент вилояти</option>
             <option>Андижон вилояти</option>
@@ -2202,25 +2267,25 @@ body.locked{
             <option>Сирдарё вилояти</option>
             <option>Сурхондарё вилояти</option>
           </select>
-          <div class="err" id="eRegion">Вилоятни танланг</div>
+          <div class="err" id="eRegion" data-e="form.region_err" data-e-label="Viloyat tanlanmasa chiqadigan xato">Вилоятни танланг</div>
 
           <input type="text" id="fCompany" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
           <button class="btn btn-em shine" type="submit" id="fSubmit">
             <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-            <span class="btn-label">Батафсил маълумот олиш</span>
+            <span class="btn-label" data-e="form.btn" data-e-label="Yuborish tugmasi">Батафсил маълумот олиш</span>
           </button>
-          <p class="privacy">Маълумотларингиз фақат мутахассис қўнғироғи учун ишлатилади.</p>
+          <p class="privacy" data-e="form.privacy" data-e-label="Tugma ostidagi izoh">Маълумотларингиз фақат мутахассис қўнғироғи учун ишлатилади.</p>
         </form>
 
         <div class="done" id="done" role="status">
           <div class="done-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5l4.2 4L18.5 8" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <h3>Аризангиз қабул қилинди</h3>
+          <h3 data-e="done.title" data-e-label="Ariza qabul qilingach — sarlavha">Аризангиз қабул қилинди</h3>
           <div class="prize-line" id="donePrize" hidden></div>
           <p id="doneText">Мутахассис тез орада қўнғироқ қилиб, батафсил маълумот беради.</p>
           <button class="btn btn-gold shine" type="button" id="doneSpin" hidden>
             <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v19M2.5 12h19M5.3 5.3l13.4 13.4M18.7 5.3L5.3 18.7" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></span>
-            Барабанни айлантириш
+            <span data-e="done.spin" data-e-label="Ariza qabul qilingach — baraban tugmasi">Барабанни айлантириш</span>
           </button>
         </div>
       </div>
@@ -2229,38 +2294,38 @@ body.locked{
 
 </main>
 
-<footer class="foot">
+<footer class="foot" data-e-group="Pastki qism (footer)">
   <div class="wrap">
-    <div class="logo">
+    <div class="logo" data-e="brand">
       ABIHAYAT
     </div>
-    <p><strong>ABIHAYAT дори воситаси ёки БФҚ эмас ва даволаниш ўрнини босмайди.</strong>
-      Шифокор тайинлаган дориларни ўзбошимчалик билан тўхтатманг.
-      Беморлар фикри шахсий тажрибага асосланган, натижалар ҳар бир организмда турлича бўлади.</p>
-    <p>Мутахассис билан тезда боғланинг: <a href="tel:+998555155558">55-515-55-58</a></p>
-    <p>© 2026 ABIHAYAT</p>
+    <p><strong data-e="foot.warn_bold" data-e-label="Ogohlantirish — qalin qismi">ABIHAYAT дори воситаси ёки БФҚ эмас ва даволаниш ўрнини босмайди.</strong>
+      <span data-e="foot.warn" data-e-label="Ogohlantirish — davomi">Шифокор тайинлаган дориларни ўзбошимчалик билан тўхтатманг.
+      Беморлар фикри шахсий тажрибага асосланган, натижалар ҳар бир организмда турлича бўлади.</span></p>
+    <p><span data-e="foot.call" data-e-label="Telefon oldidagi yozuv">Мутахассис билан тезда боғланинг:</span> <a href="tel:+998555155558" data-e-tel="phone">55-515-55-58</a></p>
+    <p data-e="foot.copy" data-e-label="Eng pastdagi yozuv">© 2026 ABIHAYAT</p>
   </div>
 </footer>
 
 <!-- STICKY -->
-<div class="sticky hide" id="sticky">
-  <a class="call-round" href="tel:+998555155558" aria-label="Мутахассис билан тезда боғланинг">
+<div class="sticky hide" id="sticky" data-e-group="Telefonda pastda turadigan tugma">
+  <a class="call-round" href="tel:+998555155558" data-e-tel="phone" aria-label="Мутахассис билан тезда боғланинг">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
   </a>
   <a class="btn btn-em shine" href="#murojaat">
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
-    Батафсил маълумот олиш
+    <span data-e="sticky.btn" data-e-label="Tugma">Батафсил маълумот олиш</span>
   </a>
 </div>
 
 <!-- ================= PORLAB CHIQUVCHI BARABAN ================= -->
-<div class="stage" id="stage" hidden>
+<div class="stage" id="stage" hidden data-e-group="Omad barabani">
   <div class="stage-card" role="dialog" aria-modal="true" aria-labelledby="wheelTitle">
     <button class="x" type="button" id="stageClose" aria-label="Ёпиш">×</button>
 
     <div class="step on" id="stepWheel">
       <h3 id="wheelTitle">Барабанингиз тайёр!</h3>
-      <p class="note">Бир марта айлантириш мумкин. Омад!</p>
+      <p class="note" data-e="wheel.note" data-e-label="Baraban sarlavhasi ostidagi yozuv">Бир марта айлантириш мумкин. Омад!</p>
 
       <div class="wheel-zone" id="wheelZone">
         <div class="rays" aria-hidden="true"></div>
@@ -2312,18 +2377,18 @@ body.locked{
 
       <button class="btn btn-gold shine" type="button" id="spinBtn">
         <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v19M2.5 12h19M5.3 5.3l13.4 13.4M18.7 5.3L5.3 18.7" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg></span>
-        <span class="btn-label">Айлантириш</span>
+        <span class="btn-label" data-e="wheel.spin" data-e-label="Aylantirish tugmasi">Айлантириш</span>
       </button>
-      <p class="tiny">Ҳар бир иштирокчига 20% ёки 50% чегирма.</p>
+      <p class="tiny" data-e="wheel.tiny" data-e-label="Tugma ostidagi kichik yozuv">Ҳар бир иштирокчига 20% ёки 50% чегирма.</p>
     </div>
 
     <div class="step" id="stepWin">
       <div class="win-emoji" aria-hidden="true">🎉</div>
       <h3 id="winTitle">Табриклаймиз!</h3>
       <div class="win-num" id="winNum">50%</div>
-      <div class="win-sub">чегирма ютдингиз!</div>
+      <div class="win-sub" data-e="win.sub" data-e-label="Yutuq foizi ostidagi yozuv">чегирма ютдингиз!</div>
       <p class="win-text" id="winText"></p>
-      <button class="btn btn-gold shine noic" type="button" id="winOk">Ажойиб!</button>
+      <button class="btn btn-gold shine noic" type="button" id="winOk" data-e="win.ok" data-e-label="Yutuq oynasidagi tugma">Ажойиб!</button>
     </div>
   </div>
 </div>
@@ -2336,6 +2401,31 @@ body.locked{
   <img id="lbImg" alt="Сертификат">
 </div>
 
+<!-- =====================================
+     ARIZADAN KEYIN KO‘RINADIGAN MATNLAR
+     Admin paneldan tahrirlanadi. {ism}, {tel}, {chegirma} —
+     o‘rniga mijoz ismi, raqami va chegirmasi avtomatik qo‘yiladi.
+===================================== -->
+<template id="eTexts">
+  <div data-e-group="Bemorlar fikri">
+    <span data-e="t.pt_call" data-e-label="Bemor kartochkasidagi raqam tugmasi">Беморнинг рақамини кўрсатиш</span>
+  </div>
+  <div data-e-group="Ariza formasi">
+    <span data-e="t.sending" data-e-label="Yuborilayotganda tugmadagi yozuv">Юборилмоқда...</span>
+    <span data-e="t.send_error" data-e-label="Ariza yuborilmasa chiqadigan xabar">Ариза юборилмади. Интернет алоқасини текшириб, қайта босинг.</span>
+    <span data-e="t.done_wait" data-e-label="Ariza qabul qilingach — baraban aylantirilmagan bo‘lsa">Мутахассис тез орада қўнғироқ қилиб, батафсил маълумот беради. Ҳозир барабанни айлантириб, чегирмангизни олинг!</span>
+    <span data-e="t.done_prize" data-e-label="Ariza qabul qilingach — chegirma qatori ({chegirma})">Чегирмангиз: {chegirma}</span>
+    <span data-e="t.done_prize_text" data-e-label="Ariza qabul qilingach — chegirma olingan bo‘lsa">Мутахассис тез орада қўнғироқ қилиб, батафсил маълумот беради ва чегирмани қўшади.</span>
+  </div>
+  <div data-e-group="Omad barabani">
+    <span data-e="t.wheel_title" data-e-label="Baraban sarlavhasi ({ism} — mijoz ismi)">Барабанингиз тайёр, {ism}!</span>
+    <span data-e="t.wheel_spinning" data-e-label="Aylanayotganda tugmadagi yozuv">Айланмоқда...</span>
+    <span data-e="t.win_title" data-e-label="Yutuq sarlavhasi ({ism} — mijoz ismi)">Табриклаймиз, {ism}!</span>
+    <span data-e="t.win_again" data-e-label="Qayta kirganda yutuq sarlavhasi ({ism})">{ism}, сиз аллақачон ютгансиз!</span>
+    <span data-e="t.win_text" data-e-label="Yutuq matni ({tel} — raqam, {chegirma} — chegirma)">Мутахассис тез орада +998 {tel} рақамига қўнғироқ қилиб, батафсил маълумот беради ва {chegirma} чегирмани қўшади.</span>
+  </div>
+</template>
+
 <script>
 (function(){
   'use strict';
@@ -2343,11 +2433,10 @@ body.locked{
   /* =====================================
      BEMORLAR FIKRI — ADMIN PANELDAN BOSHQARILADI
 
-     SUPA_URL va SUPA_KEY — admin.html dagi bilan BIR XIL:
-       SUPA_URL — Supabase → Project Settings → API → Project URL
-       SUPA_KEY — Supabase → Project Settings → API → anon public key
-     Ular yozilgach, bemorlar admin.html orqali qo‘shiladi va
-     saytda darhol ko‘rinadi.
+     SUPA_URL va SUPA_KEY sahifa boshidagi (head) ABH_SUPA dan
+     olinadi — ularni o‘sha yerda yozing (admin.html dagi bilan
+     BIR XIL). Shundan keyin bemorlar admin.html orqali qo‘shiladi
+     va saytda darhol ko‘rinadi.
 
      PATIENTS — zaxira ro‘yxat. Supabase ulanmagan yoki javob
      bermagan paytda shu ro‘yxat ko‘rsatiladi. Bo‘sh bo‘lsa,
@@ -2357,8 +2446,8 @@ body.locked{
          tel:'+998901234567', audio:'otziv1.mp3' }
   ===================================== */
 
-  const SUPA_URL = 'https://tgbkpvxqtdqtwpdqyvqh.supabase.co';
-  const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
+  const SUPA_URL = (window.ABH_SUPA && window.ABH_SUPA.url) || '';
+  const SUPA_KEY = (window.ABH_SUPA && window.ABH_SUPA.key) || '';
 
   const PATIENTS = [];
 
@@ -2412,6 +2501,277 @@ body.locked{
     if(d.length !== 12) return String(raw || '');
     return '+' + d.slice(0, 3) + ' ' + d.slice(3, 5) + ' ' + d.slice(5, 8) + ' ' + d.slice(8, 10) + ' ' + d.slice(10, 12);
   }
+
+
+  /* =====================================
+     SAYT MATNLARI, RASMLAR, VIDEOLAR — ADMIN PANELDAN
+
+     HTML dagi belgili joylar abh_content jadvalidagi qiymat bilan
+     almashtiriladi:
+       data-e     — matn
+       data-e-img — rasm
+       data-e-yt  — YouTube video
+       data-e-tel — telefon raqami (matni va tel: havolasi)
+     Himoya:
+       • matn faqat MATN sifatida qo‘yiladi (HTML emas) — sahifa
+         tuzilishi buzilmaydi;
+       • qiymat bo‘sh, noto‘g‘ri yoki baza javob bermasa — shu HTML
+         dagi asl matn/rasm/video qoladi;
+       • yangi rasm ochilmasa — asl rasm qaytadi.
+     index.html?korish=1 — admin paneldagi saqlanmagan o‘zgarishlarni
+     oldindan ko‘rish (faqat o‘sha admin brauzerida ishlaydi).
+  ===================================== */
+
+  const CMS_CACHE = 'abh_content_v1';
+  const CMS_DRAFT = 'abh_content_draft';
+  const PREVIEW = /[?&]korish=1(&|$)/.test(window.location.search);
+  const TEXTS = {};
+  const TEXT_DEFAULTS = {};
+  const slots = [];
+  let telDefault = '';
+
+  function own(o, k){
+    return !!o && Object.prototype.hasOwnProperty.call(o, k);
+  }
+
+  function oneLine(v){
+    return String(v == null ? '' : v).replace(/\s+/g, ' ').trim();
+  }
+
+  function okText(v, multi){
+    if(typeof v !== 'string') return '';
+    const t = multi
+      ? v.replace(/\r\n?/g, '\n').split('\n').map(oneLine).join('\n').replace(/\n{3,}/g, '\n\n').trim()
+      : oneLine(v);
+    return t.length <= 2000 ? t : '';
+  }
+
+  function okImg(v){
+    if(typeof v !== 'string') return '';
+    if(v.length <= 2000 && /^https:\/\/[^\s"'<>\\]+$/i.test(v)) return v;
+    if(PREVIEW && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+\/=]+$/.test(v)) return v;
+    return '';
+  }
+
+  function okYt(v){
+    return typeof v === 'string' && /^[A-Za-z0-9_-]{11}$/.test(v) ? v : '';
+  }
+
+  function telParts(v){
+    const show = oneLine(v);
+    let d = onlyDigits(show);
+    if(d.length === 12 && d.indexOf('998') === 0) d = d.slice(3);
+    return show.length <= 30 && d.length === 9 ? { show:show, d:d } : null;
+  }
+
+  function setText(el, text){
+    if(text.indexOf('\n') < 0){
+      el.textContent = text;
+      return;
+    }
+    el.textContent = '';
+    text.split('\n').forEach(function(line, i){
+      if(i) el.appendChild(document.createElement('br'));
+      el.appendChild(document.createTextNode(line));
+    });
+  }
+
+  function setVideoThumb(card){
+    card.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + card.getAttribute('data-yt') + '/hqdefault.jpg")';
+  }
+
+  function collectSlots(){
+    document.querySelectorAll('[data-e],[data-e-img],[data-e-yt],[data-e-tel]').forEach(function(el){
+      const leaf = !el.children.length;
+
+      if(el.hasAttribute('data-e')){
+        const key = el.getAttribute('data-e');
+        if(!leaf){
+          console.warn('ABIHAYAT: ichida teg bor, tahrirlanmaydi —', key);
+          return;
+        }
+        const def = oneLine(el.textContent);
+        slots.push({ el:el, kind:'text', key:key, multi:el.tagName === 'P', def:def, cur:def });
+        if(!own(TEXT_DEFAULTS, key)) TEXT_DEFAULTS[key] = def;
+
+      }else if(el.hasAttribute('data-e-img')){
+        const src = el.getAttribute('src') || '';
+        const holder = el.closest('[data-full]');
+        slots.push({
+          el:el, kind:'img', key:el.getAttribute('data-e-img'), def:src, cur:src,
+          holder:holder, full:holder ? holder.getAttribute('data-full') : ''
+        });
+
+      }else if(el.hasAttribute('data-e-yt')){
+        const id = el.getAttribute('data-yt') || '';
+        slots.push({ el:el, kind:'yt', key:el.getAttribute('data-e-yt'), def:id, cur:id });
+
+      }else{
+        if(leaf && !telDefault) telDefault = oneLine(el.textContent);
+        slots.push({ el:el, kind:'tel', key:el.getAttribute('data-e-tel'), leaf:leaf, cur:null });
+      }
+    });
+
+    slots.forEach(function(s){ if(s.kind === 'tel') s.cur = telDefault; });
+
+    const tpl = $('eTexts');
+    if(tpl && tpl.content){
+      tpl.content.querySelectorAll('[data-e]').forEach(function(el){
+        const key = el.getAttribute('data-e');
+        if(!own(TEXT_DEFAULTS, key)) TEXT_DEFAULTS[key] = oneLine(el.textContent);
+      });
+    }
+  }
+
+  function showImg(s, url){
+    const el = s.el;
+    el.onerror = url === s.def ? null : function(){
+      el.onerror = null;
+      console.warn('ABIHAYAT: rasm ochilmadi, asl rasm qo‘yildi —', url);
+      s.cur = s.def;
+      el.setAttribute('src', s.def);
+      if(s.holder) s.holder.setAttribute('data-full', s.full);
+    };
+    el.setAttribute('src', url);
+    if(s.holder) s.holder.setAttribute('data-full', url === s.def ? s.full : url);
+  }
+
+  function applySlot(s, v){
+    if(s.kind === 'text'){
+      const want = okText(v, s.multi) || s.def;
+      if(want === s.cur) return;
+      s.cur = want;
+      setText(s.el, want);
+      if(s.el.classList.contains('vl') && s.el.parentNode){
+        s.el.parentNode.setAttribute('aria-label', want);
+      }
+
+    }else if(s.kind === 'img'){
+      const want = okImg(v) || s.def;
+      if(want === s.cur) return;
+      s.cur = want;
+      showImg(s, want);
+
+    }else if(s.kind === 'yt'){
+      const want = okYt(v) || s.def;
+      if(want === s.cur) return;
+      s.cur = want;
+      s.el.setAttribute('data-yt', want);
+      setVideoThumb(s.el);
+
+    }else if(s.kind === 'tel'){
+      const p = telParts(v) || telParts(telDefault);
+      if(!p || p.show === s.cur) return;
+      const prev = s.cur;
+      s.cur = p.show;
+      if(s.el.tagName === 'A'){
+        s.el.setAttribute('href', 'tel:+998' + p.d);
+        const label = s.el.getAttribute('aria-label');
+        if(label && prev && label.indexOf(prev) > -1){
+          s.el.setAttribute('aria-label', label.split(prev).join(p.show));
+        }
+        if(s.leaf) s.el.textContent = p.show;
+      }else{
+        s.el.textContent = p.show;
+      }
+    }
+  }
+
+  function applyContent(map){
+    slots.forEach(function(s){
+      try{
+        applySlot(s, own(map, s.key) ? map[s.key] : null);
+      }catch(e){
+        console.warn('ABIHAYAT: qo‘yib bo‘lmadi —', s.key, e);
+      }
+    });
+    Object.keys(TEXTS).forEach(function(k){ delete TEXTS[k]; });
+    if(map){
+      Object.keys(map).forEach(function(k){
+        const v = okText(map[k], false);
+        if(v) TEXTS[k] = v;
+      });
+    }
+  }
+
+  function rowsToMap(rows){
+    const map = {};
+    (Array.isArray(rows) ? rows : []).forEach(function(r){
+      if(r && typeof r.key === 'string' && typeof r.value === 'string') map[r.key] = r.value;
+    });
+    return map;
+  }
+
+  /* JS ko‘rsatadigan matnlar: {ism}, {tel}, {chegirma} o‘rniga qiymat qo‘yiladi */
+  function tx(key, vars){
+    let s = (own(TEXTS, key) && TEXTS[key]) || (own(TEXT_DEFAULTS, key) && TEXT_DEFAULTS[key]) || '';
+    if(!s){
+      try{
+        const tpl = $('eTexts');
+        const el = tpl && tpl.content && tpl.content.querySelector('[data-e="' + key + '"]');
+        if(el) s = oneLine(el.textContent);
+      }catch(e){}
+    }
+    if(vars){
+      Object.keys(vars).forEach(function(k){ s = s.split('{' + k + '}').join(String(vars[k])); });
+    }
+    return s;
+  }
+
+  function lsRead(k){
+    try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; }
+  }
+
+  function cmsReady(){
+    document.documentElement.classList.remove('cms-wait');
+  }
+
+  function previewBadge(found){
+    const b = document.createElement('div');
+    b.className = 'cms-preview';
+    b.textContent = found
+      ? 'Oldindan ko‘rish — o‘zgarishlar hali saytga saqlanmagan'
+      : 'Oldindan ko‘rish uchun o‘zgarish topilmadi';
+    document.body.appendChild(b);
+  }
+
+  async function cmsInit(){
+    collectSlots();
+
+    if(PREVIEW){
+      const draft = lsRead(CMS_DRAFT);
+      applyContent(draft && draft.map);
+      cmsReady();
+      previewBadge(!!(draft && draft.map));
+      return;
+    }
+
+    /* Avval oldingi tashrifdagi nusxa — sahifa darhol to‘g‘ri ko‘rinadi */
+    const cached = lsRead(CMS_CACHE);
+    if(cached && cached.map){
+      applyContent(cached.map);
+      cmsReady();
+    }
+
+    if(!window.ABH_CONTENT){
+      cmsReady();
+      return;
+    }
+
+    try{
+      const map = rowsToMap(await window.ABH_CONTENT);
+      applyContent(map);
+      try{ localStorage.setItem(CMS_CACHE, JSON.stringify({ t:Date.now(), map:map })); }catch(e){}
+    }catch(e){
+      console.warn('ABIHAYAT: sayt matnlari bazadan yuklanmadi —', e && e.message);
+    }
+    cmsReady();
+  }
+
+  cmsInit().catch(function(e){
+    console.warn('ABIHAYAT: sayt matnlari qo‘yilmadi —', e);
+    cmsReady();
+  });
 
 
   /* =====================================
@@ -2608,7 +2968,7 @@ body.locked{
         '</div>' +
         '<div class="pt-foot">' +
           (onlyDigits(p.tel).length >= 9
-            ? '<button class="pt-call" type="button">' + PHONE_ICON + 'Беморнинг рақамини кўрсатиш</button>'
+            ? '<button class="pt-call" type="button">' + PHONE_ICON + esc(tx('t.pt_call')) + '</button>'
             : '') +
         '</div>';
 
@@ -2731,10 +3091,11 @@ body.locked{
   }
 
   document.querySelectorAll('.vcard').forEach(function(card){
-    const id = card.getAttribute('data-yt');
-    card.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + id + '/hqdefault.jpg")';
+    setVideoThumb(card);
     card.addEventListener('click', function(){
       if(card.classList.contains('playing')) return;
+      /* ID bosilgan paytda o‘qiladi — admin paneldan almashtirilgan bo‘lishi mumkin */
+      const id = card.getAttribute('data-yt');
       stopVideos();
       pauseAudios(null);
       const f = document.createElement('iframe');
@@ -3024,10 +3385,8 @@ body.locked{
   function refreshDone(){
     const has = lead && lead.prize;
     $('donePrize').hidden = !has;
-    $('donePrize').textContent = has ? 'Чегирмангиз: ' + lead.prize : '';
-    $('doneText').textContent = has
-      ? 'Мутахассис тез орада қўнғироқ қилиб, батафсил маълумот беради ва чегирмани қўшади.'
-      : 'Мутахассис тез орада қўнғироқ қилиб, батафсил маълумот беради. Ҳозир барабанни айлантириб, чегирмангизни олинг!';
+    $('donePrize').textContent = has ? tx('t.done_prize', { chegirma:lead.prize }) : '';
+    $('doneText').textContent = has ? tx('t.done_prize_text') : tx('t.done_wait');
     $('doneSpin').hidden = !!has;
   }
 
@@ -3079,7 +3438,7 @@ body.locked{
     sending = true;
     fSubmit.disabled = true;
     const old = fLabel.textContent;
-    fLabel.textContent = 'Юборилмоқда...';
+    fLabel.textContent = tx('t.sending');
 
     const r = await tg('sendMessage', {
       chat_id:CHAT_ID,
@@ -3093,7 +3452,7 @@ body.locked{
     fLabel.textContent = old;
 
     if(!r.ok){
-      alert('Ариза юборилмади. Интернет алоқасини текшириб, қайта босинг.');
+      alert(tx('t.send_error'));
       return;
     }
 
@@ -3197,13 +3556,13 @@ body.locked{
       return;
     }
 
-    $('wheelTitle').textContent = 'Барабанингиз тайёр, ' + lead.name + '!';
+    $('wheelTitle').textContent = tx('t.wheel_title', { ism:lead.name });
     showStep('stepWheel');
     zone.classList.remove('lit', 'won');
     void zone.offsetWidth;
     zone.classList.add('lit');
     spinBtn.disabled = false;
-    spinLabel.textContent = 'Айлантириш';
+    spinLabel.textContent = tx('wheel.spin') || spinLabel.textContent;
     setTimeout(function(){ try{ spinBtn.focus({ preventScroll:true }); }catch(e){} }, 400);
     if(!reduced) burst(.5, .42, 70);
   }
@@ -3243,7 +3602,7 @@ body.locked{
     if(spinning || !lead || lead.prize) return;
     spinning = true;
     spinBtn.disabled = true;
-    spinLabel.textContent = 'Айланмоқда...';
+    spinLabel.textContent = tx('t.wheel_spinning');
     zone.classList.add('spinning');
 
     const prize = pickPrize();
@@ -3292,12 +3651,8 @@ body.locked{
 
   function showWin(already){
     showStep('stepWin');
-    $('winTitle').textContent = already
-      ? lead.name + ', сиз аллақачон ютгансиз!'
-      : 'Табриклаймиз, ' + lead.name + '!';
-    $('winText').textContent =
-      'Мутахассис тез орада +998 ' + formatPhone(lead.digits) +
-      ' рақамига қўнғироқ қилиб, батафсил маълумот беради ва ' + lead.prize + ' чегирмани қўшади.';
+    $('winTitle').textContent = tx(already ? 't.win_again' : 't.win_title', { ism:lead.name });
+    $('winText').textContent = tx('t.win_text', { tel:formatPhone(lead.digits), chegirma:lead.prize });
     countUp($('winNum'), parseInt(lead.prize, 10) || 0, 1100);
     refreshDone();
     if(!already) celebrate();
