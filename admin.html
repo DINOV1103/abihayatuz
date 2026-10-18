@@ -5171,6 +5171,12 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
     const d5 = dzDetails(box, '👁  Ko‘rinish va harakat', false);
     dzRange(d5, 'Shaffoflik', { min:0, max:100, step:5, unit:'%' }, g('op'), s('op'), function(){ return comp.op; });
     dzRange(d5, 'Eng katta kengligi', { min:40, max:1200, step:10, unit:'px' }, g('mw'), s('mw'), function(){ return Math.round(n.getBoundingClientRect().width); });
+    /* katakli joylashuvda (rasmlar, kartochkalar) — butun qatorni egallash */
+    const par = n.parentElement;
+    if(par && /grid/.test(dz.win.getComputedStyle(par).display)){
+      dzSwitch(d5, 'Butun kenglikni egallasin', function(){ return !!st().span; }, function(v){ set('span', v ? 1 : null); },
+        'Yonidagi rasm yoki kartochkalarni yashirganingizda, qolgani butun joyni egallaydi.');
+    }
     dzSeg(d5, 'Yashirish', [['', 'Ko‘rinsin'], ['all', 'Hamma joyda'], ['m', 'Telefonda'], ['d', 'Kompyuterda']], g('hide'), s('hide'), '');
     dzSeg(d5, 'Harakat', [['', 'Yo‘q'], ['float', 'Suzish'], ['pulse', 'Puls'], ['glow', 'Nur'], ['shake', 'Silkinish']], g('fx'), s('fx'), '');
 
