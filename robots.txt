@@ -1,0 +1,6 @@
+# ABIHAYAT — rasmiy sayt
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://abihayatuz-lake.vercel.app/sitemap.xml
