@@ -61,6 +61,11 @@ window.ABH_SUPA = {
   visibility:hidden;
 }
 
+/* birinchi tashrifda: dizayn (ranglar) kelguncha sahifa ko‘rinmaydi — ko‘pi bilan 1 soniya */
+.cms-wait body{
+  opacity:0;
+}
+
 .cms-preview{
   position:fixed;
   left:50%;
@@ -84,8 +89,9 @@ window.ABH_SUPA = {
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://i.ytimg.com">
 
-<!-- Facebook Pixel -->
+<!-- Facebook Pixel (admin paneldagi ko‘rinishda ishlamaydi) -->
 <script>
+if(!/[?&](korish|tahrir)=1(&|$)/.test(location.search)){
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -93,11 +99,13 @@ t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','1669087454197560');
 fbq('track','PageView');
+}
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1669087454197560&ev=PageView&noscript=1" alt=""></noscript>
 
 <style>
 :root{
+  /* ===== DIZAYN — admin paneldan o‘zgartiriladi (abh_content: design.*) ===== */
   --deep:#0A3A2F;
   --deep-2:#0E4D3E;
   --em:#13906C;
@@ -111,10 +119,69 @@ fbq('track','PageView');
   --muted:#53625C;
   --line:#DCE7E2;
   --bg:#F7FAF8;
+  --card:#FFFFFF;
+  --foot:#06231C;
+  --on-dark:#FFFFFF;
   --alarm:#C0392B;
+
+  /* asosiy ranglardan hosil bo‘ladigan ranglar (admin o‘zi hisoblaydi) */
+  --em-3:#1EB287;
+  --gold-4:#FBE7AE;
+  --on-gold:#2B1F05;
+  --on-gold-2:#1C1606;
+  --dk-txt:#C9DDD5;
+  --dk-txt-2:#B9D0C7;
+  --dk-txt-3:#A9C4BA;
+  --foot-txt:#97AFA6;
+  --field:#F5F9F7;
+  --gold-bg:#FBF3DE;
+  --gold-ink:#6B5214;
+  --wave:#A8CDBE;
+  --vbg:#0B1A16;
+  --ok:#2E9E6B;
+  --tz-1:#FFF8E4;
+  --tz-2:#FBEFCF;
+  --tz-line:#F0DDA5;
+  --tz-ink:#4A3810;
+  --bulb:#FFF3C4;
+  --bulb-off:#9C7424;
+  --hub-hi:#FFF6D6;
+  --seg-g:#D2A947;
+  --seg-e:#0A5A45;
+  --mint-3:#BFDCCF;
+  --night:#041611;
+
+  /* rgba(...) uchun */
+  --deep-rgb:10,58,47;
+  --em-rgb:19,144,108;
+  --em-2-rgb:15,122,92;
+  --em-3-rgb:30,178,135;
+  --gold-rgb:217,180,90;
+  --gold-2-rgb:243,220,152;
+  --on-gold-2-rgb:28,22,6;
+  --card-rgb:255,255,255;
+  --alarm-rgb:192,57,43;
+  --night-rgb:4,22,17;
+
   --font:'Onest', 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-h:var(--font);
+  --fs:1;
+  --fs-h:1;
+  --w-h:800;
+  --ls-h:-.02em;
+  --tt-h:none;
+  --lh:1.6;
+  --rad:1;
+  --sp:1;
+  --gut:20px;
+  --maxw:1140px;
+  --btn-r:999px;
+  --btn-h:60px;
+  --btn-w:700;
+  --btn-tt:none;
+
   --ease:cubic-bezier(.2,.75,.2,1);
-  --shadow:0 24px 50px -30px rgba(10,58,47,.45);
+  --shadow:0 24px 50px -30px rgba(var(--deep-rgb),.45);
 }
 
 *,
@@ -138,8 +205,8 @@ body{
   background:var(--bg);
   color:var(--ink);
   font-family:var(--font);
-  font-size:17px;
-  line-height:1.6;
+  font-size:calc(17px * var(--fs));
+  line-height:var(--lh);
   padding-bottom:84px;
 }
 
@@ -164,13 +231,22 @@ button{
 
 .wrap{
   width:100%;
-  max-width:1140px;
+  max-width:var(--maxw);
   margin:0 auto;
-  padding:0 20px;
+  padding:0 var(--gut);
+}
+
+main{
+  display:flex;
+  flex-direction:column;
+}
+
+main > *{
+  min-width:0;
 }
 
 section{
-  padding:64px 0;
+  padding:calc(64px * var(--sp)) 0;
 }
 
 section[id]{
@@ -181,18 +257,20 @@ h1,
 h2,
 h3{
   margin:0;
-  font-weight:800;
-  letter-spacing:-.02em;
+  font-family:var(--font-h);
+  font-weight:var(--w-h);
+  letter-spacing:var(--ls-h);
+  text-transform:var(--tt-h);
   line-height:1.12;
 }
 
 h1{
-  font-size:clamp(32px, 8.4vw, 56px);
+  font-size:calc(clamp(32px, 8.4vw, 56px) * var(--fs-h));
   margin-bottom:18px;
 }
 
 h2{
-  font-size:clamp(27px, 6.6vw, 40px);
+  font-size:calc(clamp(27px, 6.6vw, 40px) * var(--fs-h));
   margin-bottom:12px;
 }
 
@@ -202,12 +280,12 @@ p{
 
 .sub{
   color:var(--muted);
-  font-size:18px;
+  font-size:calc(18px * var(--fs));
   max-width:58ch;
 }
 
 .white{
-  background:#fff;
+  background:var(--card);
 }
 
 /* ================= TUGMALAR ================= */
@@ -218,13 +296,14 @@ p{
   align-items:center;
   justify-content:center;
   gap:12px;
-  min-height:60px;
+  min-height:var(--btn-h);
   padding:8px 28px 8px 8px;
   border:0;
-  border-radius:999px;
+  border-radius:var(--btn-r);
   font-family:var(--font);
-  font-size:17px;
-  font-weight:700;
+  font-size:calc(17px * var(--fs));
+  font-weight:var(--btn-w);
+  text-transform:var(--btn-tt);
   line-height:1.2;
   text-decoration:none;
   text-align:left;
@@ -264,24 +343,24 @@ p{
 }
 
 .btn-em{
-  background:linear-gradient(135deg, #1EB287 0%, var(--em) 45%, var(--em-2) 100%);
-  color:#fff;
-  box-shadow:0 16px 30px -14px rgba(15,122,92,.75), inset 0 1px 0 rgba(255,255,255,.35);
+  background:linear-gradient(135deg, var(--em-3) 0%, var(--em) 45%, var(--em-2) 100%);
+  color:var(--on-dark);
+  box-shadow:0 16px 30px -14px rgba(var(--em-2-rgb),.75), inset 0 1px 0 rgba(255,255,255,.35);
 }
 
 .btn-gold{
-  background:linear-gradient(135deg, #FBE7AE 0%, var(--gold) 52%, var(--gold-3) 100%);
-  color:#1C1606;
-  box-shadow:0 16px 34px -14px rgba(217,180,90,.85), inset 0 1px 0 rgba(255,255,255,.65);
+  background:linear-gradient(135deg, var(--gold-4) 0%, var(--gold) 52%, var(--gold-3) 100%);
+  color:var(--on-gold-2);
+  box-shadow:0 16px 34px -14px rgba(var(--gold-rgb),.85), inset 0 1px 0 rgba(255,255,255,.65);
 }
 
 .btn-gold .ic{
-  background:rgba(28,22,6,.12);
+  background:rgba(var(--on-gold-2-rgb),.12);
 }
 
 .btn-glass{
   background:rgba(255,255,255,.08);
-  color:#fff;
+  color:var(--on-dark);
   border:1px solid rgba(255,255,255,.28);
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
@@ -292,10 +371,10 @@ p{
 }
 
 .btn-soft{
-  background:#fff;
+  background:var(--card);
   color:var(--em-2);
   border:1.5px solid var(--mint-2);
-  box-shadow:0 10px 24px -18px rgba(10,58,47,.5);
+  box-shadow:0 10px 24px -18px rgba(var(--deep-rgb),.5);
 }
 
 .btn-soft .ic{
@@ -333,10 +412,10 @@ p{
   position:sticky;
   top:0;
   z-index:40;
-  background:rgba(255,255,255,.9);
+  background:rgba(var(--card-rgb),.9);
   backdrop-filter:blur(14px) saturate(1.3);
   -webkit-backdrop-filter:blur(14px) saturate(1.3);
-  border-bottom:1px solid rgba(10,58,47,.08);
+  border-bottom:1px solid rgba(var(--deep-rgb),.08);
 }
 
 .top .wrap{
@@ -351,16 +430,17 @@ p{
   display:flex;
   align-items:center;
   gap:9px;
+  font-family:var(--font-h);
   color:var(--deep);
   font-weight:800;
-  font-size:18px;
+  font-size:calc(18px * var(--fs));
   letter-spacing:.05em;
   text-decoration:none;
   flex:none;
 }
 
 .top .logo{
-  font-size:21px;
+  font-size:calc(21px * var(--fs));
   letter-spacing:.08em;
   background:linear-gradient(90deg, var(--deep) 0%, var(--em) 100%);
   -webkit-background-clip:text;
@@ -383,11 +463,11 @@ p{
   width:40px;
   height:40px;
   border-radius:50%;
-  background:linear-gradient(135deg, #1EB287, var(--em-2));
+  background:linear-gradient(135deg, var(--em-3), var(--em-2));
   display:flex;
   align-items:center;
   justify-content:center;
-  color:#fff;
+  color:var(--on-dark);
 }
 
 .hcall-ic svg{
@@ -419,14 +499,14 @@ p{
 .hcall-txt small{
   max-width:140px;
   margin-bottom:2px;
-  font-size:10.5px;
+  font-size:calc(10.5px * var(--fs));
   font-weight:600;
   line-height:1.15;
   color:var(--muted);
 }
 
 .hcall-txt b{
-  font-size:16.5px;
+  font-size:calc(16.5px * var(--fs));
   font-weight:800;
   white-space:nowrap;
 }
@@ -436,11 +516,11 @@ p{
 .hero{
   position:relative;
   overflow:hidden;
-  padding:40px 0 64px;
-  color:#fff;
+  padding:calc(40px * var(--sp)) 0 calc(64px * var(--sp));
+  color:var(--on-dark);
   background:
-    radial-gradient(80% 55% at 90% 0%, rgba(30,178,135,.38) 0%, transparent 62%),
-    radial-gradient(70% 50% at 0% 100%, rgba(217,180,90,.22) 0%, transparent 60%),
+    radial-gradient(80% 55% at 90% 0%, rgba(var(--em-3-rgb),.38) 0%, transparent 62%),
+    radial-gradient(70% 50% at 0% 100%, rgba(var(--gold-rgb),.22) 0%, transparent 60%),
     var(--deep);
 }
 
@@ -469,22 +549,22 @@ p{
   padding:7px 14px;
   margin-bottom:18px;
   border-radius:999px;
-  background:rgba(217,180,90,.14);
-  border:1px solid rgba(217,180,90,.45);
+  background:rgba(var(--gold-rgb),.14);
+  border:1px solid rgba(var(--gold-rgb),.45);
   color:var(--gold-2);
-  font-size:14px;
+  font-size:calc(14px * var(--fs));
   font-weight:700;
 }
 
 .hero h1 .gold{
-  background:linear-gradient(100deg, #FBE7AE 0%, var(--gold) 50%, #F3DC98 100%);
+  background:linear-gradient(100deg, var(--gold-4) 0%, var(--gold) 50%, var(--gold-2) 100%);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
 
 .hero .sub{
-  color:#C9DDD5;
+  color:var(--dk-txt);
   margin-bottom:28px;
 }
 
@@ -510,22 +590,22 @@ p{
 
 .facts li{
   padding:14px;
-  border-radius:18px;
+  border-radius:calc(18px * var(--rad));
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter:blur(6px);
   -webkit-backdrop-filter:blur(6px);
-  font-size:13.5px;
+  font-size:calc(13.5px * var(--fs));
   line-height:1.35;
-  color:#B9D0C7;
+  color:var(--dk-txt-2);
 }
 
 .facts b{
   display:block;
   margin-bottom:3px;
-  font-size:19px;
+  font-size:calc(19px * var(--fs));
   font-weight:800;
-  color:#fff;
+  color:var(--on-dark);
 }
 
 .hero-photo{
@@ -537,13 +617,13 @@ p{
 
 .frame{
   padding:5px;
-  border-radius:34px;
-  background:linear-gradient(140deg, #FBE7AE, var(--gold) 40%, rgba(217,180,90,.2) 70%, var(--gold));
-  box-shadow:0 40px 80px -30px rgba(0,0,0,.6), 0 0 80px -20px rgba(217,180,90,.45);
+  border-radius:calc(34px * var(--rad));
+  background:linear-gradient(140deg, var(--gold-4), var(--gold) 40%, rgba(var(--gold-rgb),.2) 70%, var(--gold));
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.6), 0 0 80px -20px rgba(var(--gold-rgb),.45);
 }
 
 .frame-in{
-  border-radius:29px;
+  border-radius:calc(29px * var(--rad));
   overflow:hidden;
   aspect-ratio:4 / 5;
   background:var(--deep-2);
@@ -563,23 +643,23 @@ p{
   align-items:center;
   gap:10px;
   padding:10px 14px;
-  border-radius:18px;
-  background:rgba(255,255,255,.94);
+  border-radius:calc(18px * var(--rad));
+  background:rgba(var(--card-rgb),.94);
   color:var(--ink);
   box-shadow:0 18px 34px -16px rgba(0,0,0,.55);
-  font-size:13px;
+  font-size:calc(13px * var(--fs));
   line-height:1.25;
   animation:bob 5s ease-in-out infinite;
 }
 
 .float-chip b{
   display:block;
-  font-size:15px;
+  font-size:calc(15px * var(--fs));
   color:var(--em-2);
 }
 
 .float-chip .flag{
-  font-size:26px;
+  font-size:calc(26px * var(--fs));
   line-height:1;
 }
 
@@ -623,8 +703,8 @@ p{
   grid-template-columns:104px 1fr;
   gap:16px;
   padding:18px;
-  border-radius:26px;
-  background:#fff;
+  border-radius:calc(26px * var(--rad));
+  background:var(--card);
   border:1px solid var(--line);
   box-shadow:var(--shadow);
 }
@@ -632,7 +712,7 @@ p{
 .pt-photo{
   width:104px;
   height:132px;
-  border-radius:18px;
+  border-radius:calc(18px * var(--rad));
   overflow:hidden;
   background:var(--mint);
 }
@@ -656,13 +736,13 @@ p{
 }
 
 .pt-text{
-  font-size:16.5px;
+  font-size:calc(16.5px * var(--fs));
   line-height:1.55;
   margin:0 0 10px;
 }
 
 .pt-who{
-  font-size:14.5px;
+  font-size:calc(14.5px * var(--fs));
   color:var(--muted);
 }
 
@@ -688,9 +768,9 @@ p{
   margin:0 0 8px;
   padding:5px 12px;
   border-radius:999px;
-  background:#FBF3DE;
-  color:#6B5214;
-  font-size:13px;
+  background:var(--gold-bg);
+  color:var(--gold-ink);
+  font-size:calc(13px * var(--fs));
   font-weight:700;
 }
 
@@ -706,7 +786,7 @@ p{
   border:1.5px solid var(--mint-2);
   background:var(--mint);
   color:var(--em-2);
-  font-size:15px;
+  font-size:calc(15px * var(--fs));
   font-weight:700;
   white-space:nowrap;
   text-decoration:none;
@@ -719,10 +799,10 @@ p{
 }
 
 .pt-call.shown{
-  background:linear-gradient(135deg, #1EB287, var(--em-2));
+  background:linear-gradient(135deg, var(--em-3), var(--em-2));
   border-color:transparent;
-  color:#fff;
-  font-size:16px;
+  color:var(--on-dark);
+  font-size:calc(16px * var(--fs));
   letter-spacing:.02em;
 }
 
@@ -740,7 +820,7 @@ p{
 
 .consent{
   margin-top:18px;
-  font-size:13px;
+  font-size:calc(13px * var(--fs));
   color:var(--muted);
   text-align:center;
 }
@@ -762,13 +842,13 @@ p{
   height:46px;
   border:0;
   border-radius:50%;
-  background:linear-gradient(135deg, #1EB287, var(--em-2));
-  color:#fff;
+  background:linear-gradient(135deg, var(--em-3), var(--em-2));
+  color:var(--on-dark);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  box-shadow:0 8px 16px -8px rgba(15,122,92,.8);
+  box-shadow:0 8px 16px -8px rgba(var(--em-2-rgb),.8);
 }
 
 .ap-btn svg{
@@ -784,15 +864,15 @@ p{
   align-items:center;
   gap:2px;
   cursor:pointer;
-  border-radius:6px;
+  border-radius:calc(6px * var(--rad));
 }
 
 .ap-wave i{
   flex:1;
   min-width:2px;
   height:var(--h);
-  border-radius:2px;
-  background:#A8CDBE;
+  border-radius:calc(2px * var(--rad));
+  background:var(--wave);
 }
 
 .ap-wave i.on{
@@ -808,7 +888,7 @@ p{
 }
 
 .ap-time{
-  font-size:12.5px;
+  font-size:calc(12.5px * var(--fs));
   font-weight:700;
   color:var(--em-2);
   font-variant-numeric:tabular-nums;
@@ -817,11 +897,11 @@ p{
 
 .ap-rate{
   border:0;
-  border-radius:8px;
+  border-radius:calc(8px * var(--rad));
   padding:2px 8px;
-  background:#fff;
+  background:var(--card);
   color:var(--em-2);
-  font-size:12px;
+  font-size:calc(12px * var(--fs));
   font-weight:800;
   cursor:pointer;
 }
@@ -835,8 +915,8 @@ p{
   gap:14px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  padding:8px 20px 18px;
-  margin:26px -20px 0;
+  padding:8px var(--gut) 18px;
+  margin:26px calc(-1 * var(--gut)) 0;
   scrollbar-width:none;
 }
 
@@ -849,10 +929,10 @@ p{
   scroll-snap-align:start;
   aspect-ratio:9 / 16;
   border:0;
-  border-radius:24px;
+  border-radius:calc(24px * var(--rad));
   overflow:hidden;
   padding:0;
-  background:#0B1A16 center / cover no-repeat;
+  background:var(--vbg) center / cover no-repeat;
   cursor:pointer;
   box-shadow:var(--shadow);
 }
@@ -861,7 +941,7 @@ p{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, transparent 50%, rgba(5,25,20,.8) 100%);
+  background:linear-gradient(180deg, transparent 50%, rgba(var(--night-rgb),.8) 100%);
 }
 
 .vcard .play{
@@ -899,9 +979,9 @@ p{
   right:14px;
   bottom:14px;
   z-index:2;
-  color:#fff;
+  color:var(--on-dark);
   font-weight:700;
-  font-size:14px;
+  font-size:calc(14px * var(--fs));
   text-align:left;
 }
 
@@ -935,7 +1015,7 @@ p{
 }
 
 .photos div{
-  border-radius:22px;
+  border-radius:calc(22px * var(--rad));
   overflow:hidden;
   aspect-ratio:3 / 4;
   background:var(--mint);
@@ -956,8 +1036,8 @@ p{
 .comp{
   margin:20px 0 26px;
   padding:6px 18px;
-  border-radius:22px;
-  background:#fff;
+  border-radius:calc(22px * var(--rad));
+  background:var(--card);
   border:1px solid var(--line);
 }
 
@@ -975,13 +1055,13 @@ p{
 .comp dt{
   flex:0 0 122px;
   font-weight:700;
-  font-size:15.5px;
+  font-size:calc(15.5px * var(--fs));
 }
 
 .comp dd{
   margin:0;
   color:var(--muted);
-  font-size:15.5px;
+  font-size:calc(15.5px * var(--fs));
 }
 
 /* ================= SERTIFIKATLAR ================= */
@@ -999,9 +1079,9 @@ p{
   width:100%;
   padding:0;
   border:1px solid var(--line);
-  border-radius:18px;
+  border-radius:calc(18px * var(--rad));
   overflow:hidden;
-  background:#fff;
+  background:var(--card);
   aspect-ratio:3 / 4;
   cursor:zoom-in;
   box-shadow:var(--shadow);
@@ -1025,10 +1105,10 @@ p{
   right:6px;
   bottom:6px;
   padding:6px;
-  border-radius:12px;
-  background:rgba(10,58,47,.88);
-  color:#fff;
-  font-size:11.5px;
+  border-radius:calc(12px * var(--rad));
+  background:rgba(var(--deep-rgb),.88);
+  color:var(--on-dark);
+  font-size:calc(11.5px * var(--fs));
   font-weight:700;
   line-height:1.25;
 }
@@ -1043,8 +1123,8 @@ p{
 }
 
 .faq details{
-  border-radius:20px;
-  background:#fff;
+  border-radius:calc(20px * var(--rad));
+  background:var(--card);
   border:1px solid var(--line);
   transition:border-color .2s, box-shadow .2s;
 }
@@ -1058,7 +1138,7 @@ p{
   position:relative;
   padding:18px 64px 18px 20px;
   font-weight:700;
-  font-size:17px;
+  font-size:calc(17px * var(--fs));
   line-height:1.4;
   cursor:pointer;
   list-style:none;
@@ -1087,7 +1167,7 @@ p{
   top:18px;
   width:14px;
   height:2.5px;
-  border-radius:2px;
+  border-radius:calc(2px * var(--rad));
   background:var(--em-2);
   transition:transform .3s var(--ease);
 }
@@ -1111,10 +1191,10 @@ p{
 .order{
   position:relative;
   overflow:hidden;
-  color:#fff;
+  color:var(--on-dark);
   background:
-    radial-gradient(70% 60% at 100% 0%, rgba(30,178,135,.35) 0%, transparent 60%),
-    radial-gradient(60% 50% at 0% 100%, rgba(217,180,90,.2) 0%, transparent 60%),
+    radial-gradient(70% 60% at 100% 0%, rgba(var(--em-3-rgb),.35) 0%, transparent 60%),
+    radial-gradient(60% 50% at 0% 100%, rgba(var(--gold-rgb),.2) 0%, transparent 60%),
     var(--deep);
 }
 
@@ -1137,11 +1217,11 @@ p{
 }
 
 .order h2{
-  color:#fff;
+  color:var(--on-dark);
 }
 
 .order .sub{
-  color:#C9DDD5;
+  color:var(--dk-txt);
 }
 
 .order-points{
@@ -1163,12 +1243,12 @@ p{
   flex:none;
   width:36px;
   height:36px;
-  border-radius:12px;
+  border-radius:calc(12px * var(--rad));
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(217,180,90,.16);
-  border:1px solid rgba(217,180,90,.4);
+  background:rgba(var(--gold-rgb),.16);
+  border:1px solid rgba(var(--gold-rgb),.4);
 }
 
 .order-points .dot svg{
@@ -1183,21 +1263,21 @@ p{
 }
 
 .panel{
-  background:#fff;
+  background:var(--card);
   color:var(--ink);
-  border-radius:30px;
+  border-radius:calc(30px * var(--rad));
   padding:28px 20px 24px;
   box-shadow:0 40px 80px -40px rgba(0,0,0,.7);
 }
 
 .panel h3{
-  font-size:21px;
+  font-size:calc(21px * var(--fs-h));
   margin-bottom:4px;
 }
 
 .panel .panel-sub{
   color:var(--muted);
-  font-size:15px;
+  font-size:calc(15px * var(--fs));
   margin-bottom:18px;
 }
 
@@ -1212,7 +1292,7 @@ p{
 }
 
 .lbl{
-  font-size:14px;
+  font-size:calc(14px * var(--fs));
   font-weight:700;
   margin-bottom:-6px;
 }
@@ -1223,11 +1303,11 @@ p{
   height:58px;
   padding:0 18px;
   border:1.5px solid var(--line);
-  border-radius:18px;
-  background:#F5F9F7;
+  border-radius:calc(18px * var(--rad));
+  background:var(--field);
   color:var(--ink);
   font-family:var(--font);
-  font-size:17px;
+  font-size:calc(17px * var(--fs));
   font-weight:500;
   outline:none;
   -webkit-appearance:none;
@@ -1245,8 +1325,8 @@ p{
 .field:focus,
 .select:focus{
   border-color:var(--em);
-  background-color:#fff;
-  box-shadow:0 0 0 4px rgba(19,144,108,.15);
+  background-color:var(--card);
+  box-shadow:0 0 0 4px rgba(var(--em-rgb),.15);
 }
 
 .phone{
@@ -1254,16 +1334,16 @@ p{
   align-items:center;
   height:58px;
   border:1.5px solid var(--line);
-  border-radius:18px;
-  background:#F5F9F7;
+  border-radius:calc(18px * var(--rad));
+  background:var(--field);
   overflow:hidden;
   transition:border-color .2s, box-shadow .2s, background .2s;
 }
 
 .phone:focus-within{
   border-color:var(--em);
-  background:#fff;
-  box-shadow:0 0 0 4px rgba(19,144,108,.15);
+  background:var(--card);
+  box-shadow:0 0 0 4px rgba(var(--em-rgb),.15);
 }
 
 .phone-code{
@@ -1272,7 +1352,7 @@ p{
   height:100%;
   padding:0 12px 0 18px;
   border-right:1.5px solid var(--line);
-  font-size:17px;
+  font-size:calc(17px * var(--fs));
   font-weight:800;
   white-space:nowrap;
   user-select:none;
@@ -1290,7 +1370,7 @@ p{
   background:transparent;
   color:var(--ink);
   font-family:var(--font);
-  font-size:17px;
+  font-size:calc(17px * var(--fs));
   font-weight:500;
   letter-spacing:.03em;
   -webkit-appearance:none;
@@ -1298,19 +1378,19 @@ p{
 }
 
 .phone.ok{
-  border-color:#2E9E6B;
+  border-color:var(--ok);
 }
 
 .is-error{
   border-color:var(--alarm) !important;
-  box-shadow:0 0 0 4px rgba(192,57,43,.12) !important;
+  box-shadow:0 0 0 4px rgba(var(--alarm-rgb),.12) !important;
 }
 
 .err{
   display:none;
   margin:-4px 0 0;
   color:var(--alarm);
-  font-size:14px;
+  font-size:calc(14px * var(--fs));
   font-weight:700;
 }
 
@@ -1331,12 +1411,12 @@ p{
   margin-top:8px;
   padding-right:20px;
   justify-content:center;
-  font-size:16px;
+  font-size:calc(16px * var(--fs));
   white-space:nowrap;
 }
 
 .privacy{
-  font-size:12.5px;
+  font-size:calc(12.5px * var(--fs));
   color:var(--muted);
   text-align:center;
   margin:0;
@@ -1353,12 +1433,12 @@ p{
   height:72px;
   margin:0 auto 14px;
   border-radius:50%;
-  background:linear-gradient(135deg, #1EB287, var(--em-2));
-  color:#fff;
+  background:linear-gradient(135deg, var(--em-3), var(--em-2));
+  color:var(--on-dark);
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 14px 30px -12px rgba(15,122,92,.7);
+  box-shadow:0 14px 30px -12px rgba(var(--em-2-rgb),.7);
 }
 
 .done-mark svg{
@@ -1367,7 +1447,7 @@ p{
 }
 
 .done h3{
-  font-size:22px;
+  font-size:calc(22px * var(--fs-h));
   margin-bottom:8px;
 }
 
@@ -1379,15 +1459,15 @@ p{
 /* ================= FOOTER ================= */
 
 .foot{
-  background:#06231C;
-  color:#97AFA6;
-  font-size:13.5px;
+  background:var(--foot);
+  color:var(--foot-txt);
+  font-size:calc(13.5px * var(--fs));
   line-height:1.6;
   padding:38px 0 40px;
 }
 
 .foot .logo{
-  color:#fff;
+  color:var(--on-dark);
   margin-bottom:14px;
 }
 
@@ -1397,7 +1477,7 @@ p{
 }
 
 .foot strong{
-  color:#fff;
+  color:var(--on-dark);
 }
 
 .foot a{
@@ -1417,10 +1497,10 @@ p{
   display:flex;
   gap:10px;
   padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.92);
+  background:rgba(var(--card-rgb),.92);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
-  border-top:1px solid rgba(10,58,47,.08);
+  border-top:1px solid rgba(var(--deep-rgb),.08);
   transition:transform .35s var(--ease);
 }
 
@@ -1431,7 +1511,7 @@ p{
 .sticky .btn{
   flex:1;
   min-height:56px;
-  font-size:16px;
+  font-size:calc(16px * var(--fs));
   justify-content:flex-start;
   padding-right:18px;
 }
@@ -1467,18 +1547,18 @@ p{
   gap:10px;
   padding:10px 12px;
   margin:0 0 18px;
-  border-radius:18px;
-  background:linear-gradient(135deg, #FFF8E4, #FBEFCF);
-  border:1px solid #F0DDA5;
-  font-size:14px;
+  border-radius:calc(18px * var(--rad));
+  background:linear-gradient(135deg, var(--tz-1), var(--tz-2));
+  border:1px solid var(--tz-line);
+  font-size:calc(14px * var(--fs));
   font-weight:600;
   line-height:1.35;
-  color:#4A3810;
+  color:var(--tz-ink);
 }
 
 .wheel-teaser .gift{
   flex:none;
-  font-size:24px;
+  font-size:calc(24px * var(--fs));
   line-height:1;
 }
 
@@ -1491,19 +1571,19 @@ p{
 
 .wheel-teaser .chips b{
   padding:4px 9px;
-  border-radius:10px;
-  font-size:14px;
+  border-radius:calc(10px * var(--rad));
+  font-size:calc(14px * var(--fs));
   font-weight:800;
 }
 
 .c20{
-  background:linear-gradient(135deg, #1EB287, var(--em-2));
-  color:#fff;
+  background:linear-gradient(135deg, var(--em-3), var(--em-2));
+  color:var(--on-dark);
 }
 
 .c50{
-  background:linear-gradient(135deg, #FBE7AE, var(--gold-3));
-  color:#2B1F05;
+  background:linear-gradient(135deg, var(--gold-4), var(--gold-3));
+  color:var(--on-gold);
 }
 
 .done .btn{
@@ -1514,11 +1594,11 @@ p{
   display:inline-block;
   margin:4px 0 10px;
   padding:6px 16px;
-  border-radius:14px;
-  background:linear-gradient(135deg, #FBE7AE, var(--gold));
-  color:#2B1F05;
+  border-radius:calc(14px * var(--rad));
+  background:linear-gradient(135deg, var(--gold-4), var(--gold));
+  color:var(--on-gold);
   font-weight:800;
-  font-size:18px;
+  font-size:calc(18px * var(--fs));
 }
 
 /* ================= SAHNA: PORLAB CHIQUVCHI BARABAN ================= */
@@ -1532,7 +1612,7 @@ p{
   justify-content:center;
   padding:16px;
   overflow-y:auto;
-  background:rgba(3,20,15,.78);
+  background:rgba(var(--night-rgb),.78);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
 }
@@ -1543,16 +1623,16 @@ p{
   max-width:430px;
   margin:auto;
   padding:30px 22px 26px;
-  border-radius:32px;
+  border-radius:calc(32px * var(--rad));
   overflow:hidden;
   text-align:center;
-  color:#fff;
+  color:var(--on-dark);
   background:
-    radial-gradient(90% 60% at 50% 0%, rgba(30,178,135,.4) 0%, transparent 70%),
-    radial-gradient(70% 40% at 50% 100%, rgba(217,180,90,.22) 0%, transparent 70%),
+    radial-gradient(90% 60% at 50% 0%, rgba(var(--em-3-rgb),.4) 0%, transparent 70%),
+    radial-gradient(70% 40% at 50% 100%, rgba(var(--gold-rgb),.22) 0%, transparent 70%),
     var(--deep);
-  border:1.5px solid rgba(217,180,90,.45);
-  box-shadow:0 40px 80px -30px rgba(0,0,0,.85), 0 0 0 8px rgba(217,180,90,.07);
+  border:1.5px solid rgba(var(--gold-rgb),.45);
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.85), 0 0 0 8px rgba(var(--gold-rgb),.07);
   animation:cardIn .6s cubic-bezier(.2,1.3,.35,1) both;
 }
 
@@ -1571,8 +1651,8 @@ p{
   border:0;
   border-radius:50%;
   background:rgba(255,255,255,.12);
-  color:#fff;
-  font-size:24px;
+  color:var(--on-dark);
+  font-size:calc(24px * var(--fs));
   line-height:1;
   cursor:pointer;
 }
@@ -1592,13 +1672,13 @@ p{
 }
 
 .step h3{
-  font-size:23px;
+  font-size:calc(23px * var(--fs-h));
   margin:4px 30px 6px;
 }
 
 .step .note{
-  color:#C9DDD5;
-  font-size:15px;
+  color:var(--dk-txt);
+  font-size:calc(15px * var(--fs));
   margin-bottom:12px;
 }
 
@@ -1613,7 +1693,7 @@ p{
   position:absolute;
   inset:-34%;
   border-radius:50%;
-  background:repeating-conic-gradient(from 0deg, rgba(217,180,90,.42) 0deg 7deg, transparent 7deg 22deg);
+  background:repeating-conic-gradient(from 0deg, rgba(var(--gold-rgb),.42) 0deg 7deg, transparent 7deg 22deg);
   -webkit-mask:radial-gradient(circle, #000 20%, transparent 68%);
   mask:radial-gradient(circle, #000 20%, transparent 68%);
   opacity:0;
@@ -1624,7 +1704,7 @@ p{
   position:absolute;
   inset:-12%;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(217,180,90,.5) 0%, rgba(30,178,135,.25) 45%, transparent 70%);
+  background:radial-gradient(circle, rgba(var(--gold-rgb),.5) 0%, rgba(var(--em-3-rgb),.25) 45%, transparent 70%);
   opacity:0;
   animation:halo 3.4s ease-in-out infinite;
 }
@@ -1638,7 +1718,7 @@ p{
   position:absolute;
   inset:-40%;
   border-radius:50%;
-  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(243,220,152,.6) 25%, transparent 60%);
+  background:radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(var(--gold-2-rgb),.6) 25%, transparent 60%);
   opacity:0;
   pointer-events:none;
 }
@@ -1700,7 +1780,7 @@ p{
 }
 
 .bulb{
-  fill:#FFF3C4;
+  fill:var(--bulb);
   animation:chase 1.1s steps(1, end) infinite;
   animation-delay:calc(var(--k) * -0.0458s);
 }
@@ -1710,8 +1790,8 @@ p{
 }
 
 @keyframes chase{
-  0%{ fill:#FFF3C4; }
-  50%{ fill:#9C7424; }
+  0%{ fill:var(--bulb); }
+  50%{ fill:var(--bulb-off); }
 }
 
 .hub{
@@ -1723,14 +1803,14 @@ p{
   aspect-ratio:1;
   transform:translate(-50%, -50%);
   border-radius:50%;
-  background:radial-gradient(circle at 35% 30%, #FFF6D6 0%, var(--gold) 50%, var(--gold-3) 100%);
+  background:radial-gradient(circle at 35% 30%, var(--hub-hi) 0%, var(--gold) 50%, var(--gold-3) 100%);
   border:4px solid #fff;
   box-shadow:0 6px 18px rgba(0,0,0,.5);
   display:flex;
   align-items:center;
   justify-content:center;
   color:var(--deep);
-  font-size:24px;
+  font-size:calc(24px * var(--fs));
   font-weight:800;
 }
 
@@ -1770,12 +1850,12 @@ p{
 
 .tiny{
   margin:14px 0 0;
-  font-size:12.5px;
-  color:#A9C4BA;
+  font-size:calc(12.5px * var(--fs));
+  color:var(--dk-txt-3);
 }
 
 .win-emoji{
-  font-size:62px;
+  font-size:calc(62px * var(--fs));
   line-height:1;
   margin-bottom:6px;
   animation:wiggle 1.5s ease-in-out infinite;
@@ -1791,16 +1871,16 @@ p{
 .win-num{
   display:inline-block;
   margin:8px 0 2px;
-  font-size:92px;
+  font-size:calc(92px * var(--fs));
   font-weight:800;
   line-height:1;
   letter-spacing:-.04em;
-  background:linear-gradient(100deg, #FBE7AE 0%, #FFFFFF 40%, var(--gold) 60%, #FBE7AE 100%);
+  background:linear-gradient(100deg, var(--gold-4) 0%, #FFFFFF 40%, var(--gold) 60%, var(--gold-4) 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  filter:drop-shadow(0 0 28px rgba(217,180,90,.55));
+  filter:drop-shadow(0 0 28px rgba(var(--gold-rgb),.55));
   animation:sheen 3s linear infinite, popIn .9s cubic-bezier(.2,1.35,.35,1) both;
 }
 
@@ -1815,14 +1895,14 @@ p{
 }
 
 .win-sub{
-  font-size:20px;
+  font-size:calc(20px * var(--fs));
   font-weight:800;
   margin-bottom:12px;
 }
 
 .win-text{
-  color:#C9DDD5;
-  font-size:15.5px;
+  color:var(--dk-txt);
+  font-size:calc(15.5px * var(--fs));
 }
 
 #fx{
@@ -1849,13 +1929,13 @@ body.locked{
   align-items:center;
   justify-content:center;
   padding:60px 14px 20px;
-  background:rgba(4,22,17,.94);
+  background:rgba(var(--night-rgb),.94);
 }
 
 .lightbox img{
   max-height:100%;
   max-width:100%;
-  border-radius:12px;
+  border-radius:calc(12px * var(--rad));
 }
 
 .lb-x{
@@ -1866,11 +1946,145 @@ body.locked{
   height:46px;
   border:0;
   border-radius:50%;
-  background:#fff;
+  background:var(--card);
   color:var(--ink);
-  font-size:26px;
+  font-size:calc(26px * var(--fs));
   line-height:1;
   cursor:pointer;
+}
+
+/* ================= ADMIN QO‘SHGAN BLOKLAR ================= */
+
+.cb-white{
+  background:var(--card);
+}
+
+.cb-dark{
+  position:relative;
+  color:var(--on-dark);
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgba(var(--em-3-rgb),.3) 0%, transparent 60%),
+    var(--deep);
+}
+
+.cb-dark h2{
+  color:var(--on-dark);
+}
+
+.cb-dark .sub{
+  color:var(--dk-txt);
+}
+
+.cb-gold{
+  background:linear-gradient(135deg, var(--tz-1), var(--tz-2));
+  color:var(--tz-ink);
+}
+
+.cb-gold .sub{
+  color:var(--tz-ink);
+}
+
+.cb .sub{
+  white-space:normal;
+}
+
+.cb-center .wrap{
+  text-align:center;
+}
+
+.cb-center .head,
+.cb-center .sub{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.cb-img{
+  margin:22px 0 0;
+}
+
+.cb-img img{
+  width:100%;
+  border-radius:calc(24px * var(--rad));
+  box-shadow:var(--shadow);
+}
+
+.cb-center .cb-img img{
+  margin:0 auto;
+}
+
+.cb-cap{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:calc(14px * var(--fs));
+}
+
+.cb-dark .cb-cap{
+  color:var(--dk-txt-2);
+}
+
+.cb-video{
+  position:relative;
+  display:block;
+  width:100%;
+  max-width:760px;
+  aspect-ratio:16 / 9;
+  margin:22px 0 0;
+  padding:0;
+  border:0;
+  border-radius:calc(24px * var(--rad));
+  overflow:hidden;
+  background:var(--vbg) center / cover no-repeat;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+}
+
+.cb-video.vert{
+  max-width:340px;
+  aspect-ratio:9 / 16;
+}
+
+.cb-center .cb-video{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.cb-video .play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:68px;
+  height:68px;
+  margin:-34px 0 0 -34px;
+  border-radius:50%;
+  background:rgba(255,255,255,.22);
+  border:1.5px solid rgba(255,255,255,.6);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.cb-video .play svg{
+  width:24px;
+  height:24px;
+  margin-left:3px;
+}
+
+.cb-video iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.cb-video.playing .play{
+  display:none;
+}
+
+.cb-btn{
+  margin-top:22px;
 }
 
 /* ================= ANIMATSIYA ================= */
@@ -1892,16 +2106,16 @@ body.locked{
 @media (min-width:900px){
 
   body{
-    font-size:18px;
+    font-size:calc(18px * var(--fs));
     padding-bottom:0;
   }
 
   section{
-    padding:92px 0;
+    padding:calc(92px * var(--sp)) 0;
   }
 
   .hero{
-    padding:72px 0 96px;
+    padding:calc(72px * var(--sp)) 0 calc(96px * var(--sp));
   }
 
   .hero-grid{
@@ -1919,7 +2133,7 @@ body.locked{
 
   .hcall-txt small{
     max-width:none;
-    font-size:12px;
+    font-size:calc(12px * var(--fs));
     white-space:nowrap;
   }
 
@@ -1993,11 +2207,633 @@ body.locked{
   }
 }
 </style>
+
+<!-- =====================================
+     DIZAYN — admin paneldagi "Dizayn" bo‘limidan boshqariladi
+     (abh_content jadvalidagi design.n, design.0, design.1 ... qatorlari)
+
+     Ranglar, shriftlar, o‘lchamlar, tugmalar, bo‘limlar tartibi,
+     yangi bloklar va istalgan elementning ko‘rinishi shu yerda
+     sahifaga qo‘yiladi. Dizayn saqlanmagan bo‘lsa — sayt asl
+     ko‘rinishida qoladi. Noto‘g‘ri qiymatlar e’tiborsiz qoldiriladi.
+===================================== -->
+<style id="abhDesign"></style>
+<script>
+(function(){
+  'use strict';
+
+  var CACHE = 'abh_content_v1';
+  var DRAFT = 'abh_design_draft';
+  var Q = window.location.search;
+  var PREVIEW = /[?&]korish=1(&|$)/.test(Q);
+  var EDIT = /[?&]tahrir=1(&|$)/.test(Q);
+  var root = document.documentElement;
+  var styleEl = document.getElementById('abhDesign');
+
+  /* ---------- asosiy ranglar (asl qiymatlar) ---------- */
+  var BASE = {
+    'deep':'#0A3A2F', 'deep-2':'#0E4D3E', 'em':'#13906C', 'em-2':'#0F7A5C',
+    'mint':'#E8F5EF', 'mint-2':'#D3EBDF', 'gold':'#D9B45A', 'gold-2':'#F3DC98',
+    'gold-3':'#B88E2F', 'ink':'#10211C', 'muted':'#53625C', 'line':'#DCE7E2',
+    'bg':'#F7FAF8', 'card':'#FFFFFF', 'foot':'#06231C', 'on-dark':'#FFFFFF', 'alarm':'#C0392B'
+  };
+
+  /* hosila ranglar: [qaysi asosiy rangdan, asl qiymati, (o‘qiladigan bo‘lishi kerak bo‘lgan fon)] */
+  var DER = {
+    'em-3':['em', '#1EB287'], 'gold-4':['gold', '#FBE7AE'],
+    'on-gold':['gold', '#2B1F05', 'gold'], 'on-gold-2':['gold', '#1C1606', 'gold'],
+    'dk-txt':['deep', '#C9DDD5', 'deep'], 'dk-txt-2':['deep', '#B9D0C7', 'deep'], 'dk-txt-3':['deep', '#A9C4BA', 'deep'],
+    'foot-txt':['foot', '#97AFA6', 'foot'], 'field':['bg', '#F5F9F7'],
+    'gold-bg':['gold', '#FBF3DE'], 'gold-ink':['gold', '#6B5214', 'gold-bg'],
+    'wave':['em', '#A8CDBE'], 'vbg':['deep', '#0B1A16'], 'ok':['em', '#2E9E6B'],
+    'tz-1':['gold', '#FFF8E4'], 'tz-2':['gold', '#FBEFCF'], 'tz-line':['gold', '#F0DDA5'], 'tz-ink':['gold', '#4A3810', 'tz-1'],
+    'bulb':['gold', '#FFF3C4'], 'bulb-off':['gold', '#9C7424'], 'hub-hi':['gold', '#FFF6D6'],
+    'seg-g':['gold', '#D2A947'], 'seg-e':['em-2', '#0A5A45'], 'mint-3':['mint-2', '#BFDCCF'], 'night':['deep', '#041611']
+  };
+  var RGB = ['deep', 'em', 'em-2', 'em-3', 'gold', 'gold-2', 'on-gold-2', 'card', 'alarm', 'night'];
+
+  /* ---------- shriftlar (faqat ў қ ғ ҳ harflari bor shriftlar) ---------- */
+  var FONTS = {
+    'Onest':'400..800', 'Montserrat':'400..800', 'Inter':'400..800', 'Roboto':'400..800',
+    'Open Sans':'400..800', 'Nunito':'400..800', 'Noto Sans':'400..800', 'Exo 2':'400..800',
+    'Raleway':'400..800', 'Golos Text':'400..800', 'Geologica':'400..800', 'Source Sans 3':'400..800',
+    'Commissioner':'400..800', 'Mulish':'400..800', 'IBM Plex Sans':'400..700', 'Oswald':'400..700',
+    'Fira Sans':'400;500;600;700;800', 'Ubuntu':'400;500;700', 'PT Sans':'400;700', 'Play':'400;700',
+    'PT Serif':'400;700', 'Lora':'400..700', 'Merriweather':'400..800', 'Noto Serif':'400..800',
+    'Alegreya':'400..800', 'Roboto Slab':'400..800', 'Cormorant Garamond':'400..700'
+  };
+  var SERIF = { 'PT Serif':1, 'Lora':1, 'Merriweather':1, 'Noto Serif':1, 'Alegreya':1, 'Roboto Slab':1, 'Cormorant Garamond':1 };
+
+  function own(o, k){ return !!o && Object.prototype.hasOwnProperty.call(o, k); }
+  function num(v, lo, hi, def){
+    var n = typeof v === 'number' ? v : parseFloat(v);
+    if(!isFinite(n)) return def;
+    return Math.min(hi, Math.max(lo, n));
+  }
+  function hex(v){ return typeof v === 'string' && /^#[0-9a-f]{6}$/i.test(v) ? v.toUpperCase() : ''; }
+  function pick(v, list, def){ return list.indexOf(v) > -1 ? v : def; }
+  function font(v){ return typeof v === 'string' && own(FONTS, v) ? v : ''; }
+  function fontStack(f){
+    return "'" + f + "', " + (SERIF[f] ? "Georgia, 'Times New Roman', serif" : "'Segoe UI', Roboto, Arial, sans-serif");
+  }
+  function httpsUrl(v){
+    if(typeof v !== 'string' || v.length > 2000) return '';
+    if(/^https:\/\/[^\s"'()<>\\]+$/i.test(v)) return v;
+    /* admin paneldagi ko‘rinishda — hali yuklanmagan (tanlangan) rasm */
+    if((EDIT || PREVIEW) && /^blob:https?:\/\/[^\s"'()<>\\]+$/i.test(v)) return v;
+    return '';
+  }
+  function plain(v, max){
+    if(typeof v !== 'string') return '';
+    v = v.replace(/\r\n?/g, '\n').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+    return v.length <= (max || 300) ? v : v.slice(0, max || 300);
+  }
+
+  /* ---------- rang hisoblari ---------- */
+  function toRgb(h){ return [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; }
+  function toHex(r, g, b){
+    return '#' + [r, g, b].map(function(x){
+      x = Math.round(Math.min(255, Math.max(0, x))).toString(16);
+      return x.length < 2 ? '0' + x : x;
+    }).join('').toUpperCase();
+  }
+  function toHsl(h){
+    var c = toRgb(h), r = c[0] / 255, g = c[1] / 255, b = c[2] / 255;
+    var mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, s = 0, hh = 0, d = mx - mn;
+    if(d){
+      s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn);
+      if(mx === r) hh = (g - b) / d + (g < b ? 6 : 0);
+      else if(mx === g) hh = (b - r) / d + 2;
+      else hh = (r - g) / d + 4;
+      hh *= 60;
+    }
+    return [hh, s, l];
+  }
+  function fromHsl(h, s, l){
+    h = ((h % 360) + 360) % 360 / 360;
+    function f(p, q, t){
+      if(t < 0) t += 1; if(t > 1) t -= 1;
+      if(t < 1 / 6) return p + (q - p) * 6 * t;
+      if(t < 1 / 2) return q;
+      if(t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    }
+    if(!s) return toHex(l * 255, l * 255, l * 255);
+    var q = l < .5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q;
+    return toHex(f(p, q, h + 1 / 3) * 255, f(p, q, h) * 255, f(p, q, h - 1 / 3) * 255);
+  }
+  function lum(h){
+    var c = toRgb(h).map(function(v){ v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+  }
+  function contrast(a, b){
+    var x = lum(a), y = lum(b);
+    return (Math.max(x, y) + .05) / (Math.min(x, y) + .05);
+  }
+  /* Asosiy rang o‘zgarganda hosila rang ham shunga mos siljiydi */
+  function shift(orig, pOld, pNew){
+    if(pOld === pNew) return orig;
+    var o = toHsl(orig), a = toHsl(pOld), b = toHsl(pNew);
+    var s = a[1] > .04 ? o[1] * b[1] / a[1] : b[1];
+    var w = 1 - Math.abs(2 * o[2] - 1);
+    var l = o[2] + (b[2] - a[2]) * w;
+    return fromHsl(o[0] + b[0] - a[0], Math.min(1, Math.max(0, s)), Math.min(1, Math.max(0, l)));
+  }
+  /* Matn foniga nisbatan o‘qiladigan bo‘lsin */
+  function readable(fg, bg, min){
+    if(contrast(fg, bg) >= min) return fg;
+    var h = toHsl(fg), dark = lum(bg) > .35, l = h[2];
+    for(var i = 0; i < 40; i++){
+      l = dark ? Math.max(0, l - .025) : Math.min(1, l + .025);
+      var c = fromHsl(h[0], h[1], l);
+      if(contrast(c, bg) >= min) return c;
+    }
+    return dark ? '#000000' : '#FFFFFF';
+  }
+  function mix(a, b, t){
+    var x = toRgb(a), y = toRgb(b);
+    return toHex(x[0] + (y[0] - x[0]) * t, x[1] + (y[1] - x[1]) * t, x[2] + (y[2] - x[2]) * t);
+  }
+
+  /* ---------- dizaynni tekshirish (faqat to‘g‘ri qiymatlar qoladi) ---------- */
+  var SECTIONS = ['hero', 'bemorlar', 'videolar', 'mahsulot', 'sertifikat', 'faq', 'murojaat'];
+  var HIDEABLE = SECTIONS.concat(['header', 'footer', 'sticky']);
+  var BLOCK_ID = /^b_[a-z0-9]{3,12}$/;
+  var SEL_OK = /^[A-Za-z0-9_\-\s\[\]="'.#:>()+~*,]{1,300}$/;
+
+  function okSel(sel){
+    if(typeof sel !== 'string' || !SEL_OK.test(sel) || /\/\*|\\/.test(sel)) return false;
+    try{ document.querySelector(sel); return true; }catch(e){ return false; }
+  }
+
+  function cleanStyle(st){
+    if(!st || typeof st !== 'object') return null;
+    var o = {}, n = 0;
+    function put(k, v){ if(v !== '' && v != null){ o[k] = v; n++; } }
+    put('c', hex(st.c));
+    put('bg', hex(st.bg));
+    put('bgi', httpsUrl(st.bgi));
+    if(o.bgi) put('ov', num(st.ov, 0, 85, 0));
+    if(st.fs != null) put('fs', num(st.fs, 8, 140, null));
+    if(st.fw != null) put('fw', pick(Math.round(num(st.fw, 100, 900, 0) / 100) * 100, [300, 400, 500, 600, 700, 800, 900], null));
+    put('ff', font(st.ff));
+    if(st.lh != null) put('lh', num(st.lh, .8, 3, null));
+    if(st.ls != null) put('ls', num(st.ls, -5, 20, null));
+    put('ta', pick(st.ta, ['left', 'center', 'right', 'justify'], ''));
+    put('tt', pick(st.tt, ['uppercase', 'none', 'capitalize'], ''));
+    if(st.fi) put('fi', 1);
+    if(st.gc) put('gc', 1);
+    ['p', 'm'].forEach(function(k){
+      if(!Array.isArray(st[k])) return;
+      var lo = k === 'p' ? 0 : -200, a = [];
+      for(var i = 0; i < 4; i++) a.push(st[k][i] == null || st[k][i] === '' ? null : num(st[k][i], lo, 300, null));
+      if(a.some(function(x){ return x != null; })) put(k, a);
+    });
+    if(st.r != null) put('r', num(st.r, 0, 300, null));
+    if(st.bw != null) put('bw', num(st.bw, 0, 20, null));
+    put('bc', hex(st.bc));
+    put('sh', pick(st.sh, ['none', 'soft', 'strong', 'glow'], ''));
+    if(st.op != null) put('op', num(st.op, 0, 100, null));
+    if(st.mw != null) put('mw', num(st.mw, 20, 2000, null));
+    put('hide', pick(st.hide, ['all', 'm', 'd'], ''));
+    put('fx', pick(st.fx, ['float', 'pulse', 'glow', 'shake'], ''));
+    return n ? o : null;
+  }
+
+  function cleanBlock(b){
+    if(!b || typeof b !== 'object') return null;
+    var t = pick(b.t, ['text', 'image', 'video'], '');
+    if(!t) return null;
+    return {
+      t:t,
+      h:plain(b.h, 200),
+      p:plain(b.p, 2000),
+      btn:plain(b.btn, 60),
+      to:pick(b.to, ['form', 'tel'], 'form'),
+      al:pick(b.al, ['left', 'center'], 'left'),
+      bg:pick(b.bg, ['bg', 'white', 'dark', 'gold'], 'bg'),
+      img:httpsUrl(b.img),
+      cap:plain(b.cap, 300),
+      yt:typeof b.yt === 'string' && /^[A-Za-z0-9_-]{11}$/.test(b.yt) ? b.yt : '',
+      vert:b.vert ? 1 : 0
+    };
+  }
+
+  function clean(d){
+    if(!d || typeof d !== 'object') return null;
+    var o = { c:{} }, k;
+    var c = d.c && typeof d.c === 'object' ? d.c : {};
+    for(k in BASE) if(own(BASE, k) && hex(c[k])) o.c[k] = hex(c[k]);
+    o.font = font(d.font);
+    o.fontH = font(d.fontH);
+    o.fs = num(d.fs, 80, 135, 100);
+    o.fsH = num(d.fsH, 70, 150, 100);
+    o.wH = pick(Math.round(num(d.wH, 300, 900, 800) / 100) * 100, [400, 500, 600, 700, 800, 900], 800);
+    o.lsH = num(d.lsH, -6, 12, -2);
+    o.ttH = !!d.ttH;
+    o.lh = num(d.lh, 120, 220, 160);
+    o.rad = num(d.rad, 0, 200, 100);
+    o.sp = num(d.sp, 40, 180, 100);
+    o.gut = num(d.gut, 10, 40, 20);
+    o.maxw = num(d.maxw, 800, 1600, 1140);
+    var b = d.btn && typeof d.btn === 'object' ? d.btn : {};
+    o.btn = {
+      r:pick(b.r, ['pill', 'round', 'square'], 'pill'),
+      h:num(b.h, 44, 80, 60),
+      w:pick(Math.round(num(b.w, 400, 900, 700) / 100) * 100, [400, 500, 600, 700, 800, 900], 700),
+      tt:!!b.tt,
+      flat:!!b.flat,
+      shadow:b.shadow !== false,
+      shine:b.shine !== false,
+      icon:b.icon !== false,
+      c1:hex(b.c1), t1:hex(b.t1), c2:hex(b.c2), t2:hex(b.t2)
+    };
+    o.anim = d.anim !== false;
+    o.reveal = d.reveal !== false;
+
+    o.blocks = {};
+    if(d.blocks && typeof d.blocks === 'object'){
+      for(k in d.blocks){
+        if(own(d.blocks, k) && BLOCK_ID.test(k)){
+          var cb = cleanBlock(d.blocks[k]);
+          if(cb) o.blocks[k] = cb;
+        }
+      }
+    }
+    var seen = {};
+    o.order = (Array.isArray(d.order) ? d.order : []).filter(function(id){
+      if(seen[id] || !(SECTIONS.indexOf(id) > -1 || own(o.blocks, id))) return false;
+      seen[id] = 1;
+      return true;
+    });
+    SECTIONS.forEach(function(id){ if(!seen[id]){ o.order.push(id); seen[id] = 1; } });
+    for(k in o.blocks) if(own(o.blocks, k) && !seen[k]){ o.order.splice(Math.max(0, o.order.indexOf('murojaat')), 0, k); seen[k] = 1; }
+    o.hide = (Array.isArray(d.hide) ? d.hide : []).filter(function(id){
+      return HIDEABLE.indexOf(id) > -1 || own(o.blocks, id);
+    });
+
+    o.els = {};
+    var nEls = 0;
+    if(d.els && typeof d.els === 'object'){
+      for(k in d.els){
+        if(own(d.els, k) && nEls < 400 && okSel(k)){
+          var st = cleanStyle(d.els[k]);
+          if(st){ o.els[k] = st; nEls++; }
+        }
+      }
+    }
+    o.css = typeof d.css === 'string'
+      ? d.css.slice(0, 20000).replace(/@import[^;]*;?/gi, '').replace(/expression\s*\(|javascript:|behavior\s*:|-moz-binding/gi, '')
+      : '';
+    return o;
+  }
+
+  /* ---------- CSS yasash ---------- */
+  function colors(d){
+    var C = {}, k;
+    for(k in BASE) if(own(BASE, k)) C[k] = (d && d.c[k]) || BASE[k];
+    for(k in DER){
+      if(!own(DER, k)) continue;
+      var p = DER[k];
+      C[k] = shift(p[1], BASE[p[0]], C[p[0]]);
+    }
+    for(k in DER){
+      if(own(DER, k) && DER[k][2]){
+        var bgK = DER[k][2];
+        C[k] = readable(C[k], C[bgK], bgK === 'deep' || bgK === 'foot' ? 5 : 4.5);
+      }
+    }
+    return C;
+  }
+
+  function changed(d){
+    for(var k in BASE) if(own(BASE, k) && d.c[k] && d.c[k] !== BASE[k]) return true;
+    return false;
+  }
+
+  function pattern(color, opacity){
+    return 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 80 80\'%3E%3Cg fill=\'none\' stroke=\'%23' +
+      color.slice(1) + '\' stroke-opacity=\'' + opacity + '\' stroke-width=\'1.2\'%3E%3Crect x=\'27\' y=\'27\' width=\'26\' height=\'26\'/%3E%3Crect x=\'27\' y=\'27\' width=\'26\' height=\'26\' transform=\'rotate(45 40 40)\'/%3E%3C/g%3E%3C/svg%3E")';
+  }
+
+  function px(v){ return Math.round(v * 100) / 100 + 'px'; }
+
+  function styleCss(sel, st){
+    var a = [], I = ' !important';
+    if(st.c){
+      a.push('color:' + st.c + I);
+      if(st.gc) a.push('-webkit-text-fill-color:' + st.c + I, 'background:none' + I);
+    }
+    if(st.bgi){
+      var ov = st.ov ? 'linear-gradient(rgba(0,0,0,' + st.ov / 100 + '),rgba(0,0,0,' + st.ov / 100 + ')),' : '';
+      a.push('background:' + ov + 'url("' + st.bgi + '") center / cover no-repeat' + (st.bg ? ' ' + st.bg : '') + I);
+    }else if(st.bg && !st.gc){
+      a.push('background:' + st.bg + I);
+    }
+    if(st.fs != null) a.push('font-size:' + px(st.fs) + I);
+    if(st.fw != null) a.push('font-weight:' + st.fw + I);
+    if(st.ff) a.push('font-family:' + fontStack(st.ff) + I);
+    if(st.lh != null) a.push('line-height:' + st.lh + I);
+    if(st.ls != null) a.push('letter-spacing:' + px(st.ls) + I);
+    if(st.ta) a.push('text-align:' + st.ta + I);
+    if(st.tt) a.push('text-transform:' + st.tt + I);
+    if(st.fi) a.push('font-style:italic' + I);
+    var sides = ['top', 'right', 'bottom', 'left'];
+    ['p', 'm'].forEach(function(k){
+      if(!st[k]) return;
+      st[k].forEach(function(v, i){
+        if(v != null) a.push((k === 'p' ? 'padding-' : 'margin-') + sides[i] + ':' + px(v) + I);
+      });
+    });
+    if(st.r != null) a.push('border-radius:' + px(st.r) + I);
+    if(st.bw != null) a.push('border:' + px(st.bw) + ' solid ' + (st.bc || 'currentColor') + I);
+    else if(st.bc) a.push('border-color:' + st.bc + I);
+    if(st.sh === 'none') a.push('box-shadow:none' + I);
+    else if(st.sh === 'soft') a.push('box-shadow:0 18px 40px -24px rgba(var(--deep-rgb),.55)' + I);
+    else if(st.sh === 'strong') a.push('box-shadow:0 30px 60px -24px rgba(0,0,0,.6)' + I);
+    else if(st.sh === 'glow') a.push('box-shadow:0 0 0 1px rgba(var(--gold-rgb),.5), 0 0 34px -4px rgba(var(--gold-rgb),.75)' + I);
+    if(st.op != null) a.push('opacity:' + st.op / 100 + I);
+    if(st.mw != null) a.push('max-width:' + px(st.mw) + I, 'margin-left:auto' + I, 'margin-right:auto' + I);
+    var out = a.length ? sel + '{' + a.join(';') + '}\n' : '';
+    if(st.hide === 'all') out += sel + '{display:none !important}\n';
+    if(st.hide === 'm') out += '@media (max-width:899px){' + sel + '{display:none !important}}\n';
+    if(st.hide === 'd') out += '@media (min-width:900px){' + sel + '{display:none !important}}\n';
+    if(st.fx){
+      var anim = { float:'abhFloat 4s ease-in-out infinite', pulse:'abhPulse 2.2s ease-in-out infinite',
+        glow:'abhGlow 2.6s ease-in-out infinite', shake:'abhShake 4s ease-in-out infinite' }[st.fx];
+      out += '@media (prefers-reduced-motion: no-preference){' + sel + '{animation:' + anim + I + '}}\n';
+    }
+    return out;
+  }
+
+  function buildCss(d){
+    if(!d) return '';
+    var C = colors(d), v = [], k, css = '';
+    for(k in C) if(own(C, k)) v.push('--' + k + ':' + C[k]);
+    RGB.forEach(function(k2){ v.push('--' + k2 + '-rgb:' + toRgb(C[k2]).join(',')); });
+    if(d.font) v.push('--font:' + fontStack(d.font));
+    if(d.fontH) v.push('--font-h:' + fontStack(d.fontH));
+    v.push('--fs:' + d.fs / 100, '--fs-h:' + d.fsH / 100, '--w-h:' + d.wH, '--ls-h:' + d.lsH / 100 + 'em',
+      '--tt-h:' + (d.ttH ? 'uppercase' : 'none'), '--lh:' + d.lh / 100, '--rad:' + d.rad / 100,
+      '--sp:' + d.sp / 100, '--gut:' + d.gut + 'px', '--maxw:' + d.maxw + 'px',
+      '--btn-r:' + (d.btn.r === 'pill' ? '999px' : d.btn.r === 'round' ? 'calc(16px * var(--rad))' : 'calc(6px * var(--rad))'),
+      '--btn-h:' + d.btn.h + 'px', '--btn-w:' + d.btn.w, '--btn-tt:' + (d.btn.tt ? 'uppercase' : 'none'));
+    css += 'html:root{' + v.join(';') + '}\n';
+
+    if(changed(d)){
+      css += '.hero::before{background-image:' + pattern(C.gold, '.09') + '}\n';
+      css += '.order::before{background-image:' + pattern(C.gold, '.08') + '}\n';
+      css += '.select{background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'9\' viewBox=\'0 0 14 9\'%3E%3Cpath d=\'M1 1l6 6 6-6\' fill=\'none\' stroke=\'%23' +
+        C['em-2'].slice(1) + '\' stroke-width=\'2.2\' stroke-linecap=\'round\'/%3E%3C/svg%3E")}\n';
+    }
+
+    var b = d.btn;
+    if(b.tt) css += '.btn{letter-spacing:.04em}\n';
+    if(!b.icon) css += '.btn .ic{display:none !important}\n.btn{padding-left:26px !important;padding-right:26px !important}\n';
+    function btnBg(c, flat){
+      return flat ? c : 'linear-gradient(135deg, ' + mix(c, '#FFFFFF', .45) + ' 0%, ' + c + ' 52%, ' + mix(c, '#000000', .22) + ' 100%)';
+    }
+    if(b.c1 || b.flat) css += '.btn-gold{background:' + btnBg(b.c1 || C.gold, b.flat) + ' !important}\n';
+    if(b.c2 || b.flat) css += '.btn-em{background:' + btnBg(b.c2 || C.em, b.flat) + ' !important}\n';
+    if(b.c1) css += '.btn-gold{box-shadow:0 16px 34px -14px rgba(' + toRgb(b.c1).join(',') + ',.85), inset 0 1px 0 rgba(255,255,255,.5)}\n';
+    if(b.c2) css += '.btn-em{box-shadow:0 16px 30px -14px rgba(' + toRgb(b.c2).join(',') + ',.75), inset 0 1px 0 rgba(255,255,255,.35)}\n';
+    if(b.t1) css += '.btn-gold{color:' + b.t1 + ' !important}\n';
+    if(b.t2) css += '.btn-em{color:' + b.t2 + ' !important}\n';
+    if(!b.shadow) css += '.btn{box-shadow:none !important}\n';
+    if(!b.shine) css += '.shine::after{display:none !important}\n';
+
+    if(!d.anim) css += '.hcall-ic::after,.float-chip,.seal-ring,.shine::after{animation:none !important}\n';
+    if(!d.reveal) css += '.js .rv{opacity:1 !important;transform:none !important;transition:none !important}\n';
+
+    d.order.forEach(function(id, i){ css += 'main > [data-s="' + id + '"]{order:' + i + '}\n'; });
+    d.hide.forEach(function(id){ css += '[data-s="' + id + '"]{display:none !important}\n'; });
+    if(d.hide.indexOf('sticky') > -1) css += 'body{padding-bottom:0 !important}\n';
+
+    var hasFx = false;
+    for(k in d.els){
+      if(own(d.els, k)){
+        css += styleCss(k, d.els[k]);
+        if(d.els[k].fx) hasFx = true;
+      }
+    }
+    if(hasFx){
+      css += '@keyframes abhFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}\n' +
+        '@keyframes abhPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}\n' +
+        '@keyframes abhGlow{0%,100%{filter:drop-shadow(0 0 0 rgba(var(--gold-rgb),0))}50%{filter:drop-shadow(0 0 14px rgba(var(--gold-rgb),.85))}}\n' +
+        '@keyframes abhShake{0%,84%,100%{transform:rotate(0)}87%{transform:rotate(-5deg)}91%{transform:rotate(5deg)}95%{transform:rotate(-3deg)}}\n';
+    }
+    if(d.css) css += '\n/* qo‘shimcha CSS */\n' + d.css + '\n';
+    return css;
+  }
+
+  /* ---------- shriftni yuklash ---------- */
+  function loadFonts(d){
+    var want = {};
+    if(d){
+      if(d.font) want[d.font] = 1;
+      if(d.fontH) want[d.fontH] = 1;
+      for(var k in d.els) if(own(d.els, k) && d.els[k].ff) want[d.els[k].ff] = 1;
+    }
+    delete want.Onest;
+    var fams = Object.keys(want).sort().map(function(f){
+      return 'family=' + encodeURIComponent(f).replace(/%20/g, '+') + ':wght@' + FONTS[f];
+    });
+    var link = document.getElementById('abhFonts');
+    if(!fams.length){
+      if(link) link.parentNode.removeChild(link);
+      return;
+    }
+    var href = 'https://fonts.googleapis.com/css2?' + fams.join('&') + '&display=swap';
+    if(link && link.getAttribute('href') === href) return;
+    if(!link){
+      link = document.createElement('link');
+      link.id = 'abhFonts';
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', href);
+  }
+
+  /* ---------- yangi bloklar va bo‘limlar tartibi ---------- */
+  var ICON_INFO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+  var ICON_TEL = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>';
+
+  function mk(tag, cls, text){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(text) n.textContent = text;
+    return n;
+  }
+  function multiline(el, text){
+    text.split('\n').forEach(function(line, i){
+      if(i) el.appendChild(document.createElement('br'));
+      el.appendChild(document.createTextNode(line));
+    });
+  }
+
+  function renderBlock(id, b){
+    var sec = mk('section', 'cb cb-' + b.bg + (b.al === 'center' ? ' cb-center' : ''));
+    sec.setAttribute('data-s', id);
+    sec.setAttribute('data-cb', b.t);
+    var wrap = mk('div', 'wrap');
+    var head = mk('div', 'head');
+    if(b.h) head.appendChild(mk('h2', '', b.h));
+    if(b.p){
+      var p = mk('p', 'sub');
+      multiline(p, b.p);
+      head.appendChild(p);
+    }
+    if(head.childNodes.length) wrap.appendChild(head);
+
+    if(b.t === 'image' && b.img){
+      var fig = mk('figure', 'cb-img');
+      var img = mk('img');
+      img.src = b.img;
+      img.alt = b.cap || b.h || '';
+      img.loading = 'lazy';
+      fig.appendChild(img);
+      if(b.cap) fig.appendChild(mk('figcaption', 'cb-cap', b.cap));
+      wrap.appendChild(fig);
+    }
+    if(b.t === 'video' && b.yt){
+      var v = mk('button', 'cb-video' + (b.vert ? ' vert' : ''));
+      v.type = 'button';
+      v.setAttribute('aria-label', b.h || 'Видео');
+      v.style.backgroundImage = 'url("https://i.ytimg.com/vi/' + b.yt + '/hqdefault.jpg")';
+      v.innerHTML = '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4l14 8-14 8z" fill="#fff"/></svg></span>';
+      v.addEventListener('click', function(){
+        if(v.querySelector('iframe')) return;
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube.com/embed/' + b.yt + '?autoplay=1&rel=0&playsinline=1&modestbranding=1';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.allowFullscreen = true;
+        f.title = b.h || 'Видео';
+        v.appendChild(f);
+        v.classList.add('playing');
+      });
+      wrap.appendChild(v);
+    }
+    if(b.btn){
+      var a = mk('a', 'btn ' + (b.bg === 'gold' ? 'btn-em' : 'btn-gold') + ' shine cb-btn');
+      if(b.to === 'tel'){
+        var tel = document.querySelector('a.hcall[href^="tel:"]');
+        a.href = tel ? tel.getAttribute('href') : 'tel:+998555155558';
+      }else{
+        a.href = '#murojaat';
+      }
+      a.innerHTML = '<span class="ic">' + (b.to === 'tel' ? ICON_TEL : ICON_INFO) + '</span>';
+      a.appendChild(mk('span', '', b.btn));
+      wrap.appendChild(a);
+    }
+    sec.appendChild(wrap);
+    return sec;
+  }
+
+  var lastBlocks = '';
+  function applyDom(d){
+    var main = document.querySelector('main');
+    if(!main) return;
+    var blocks = d ? d.blocks : {};
+    var sig = JSON.stringify(blocks);
+    if(sig !== lastBlocks){
+      lastBlocks = sig;
+      Array.prototype.slice.call(main.querySelectorAll(':scope > [data-cb]')).forEach(function(n){ main.removeChild(n); });
+      Object.keys(blocks).forEach(function(id){ main.appendChild(renderBlock(id, blocks[id])); });
+    }
+    /* DOM tartibi ham ko‘rinish bilan bir xil bo‘lsin (klaviatura, ekran o‘quvchi) */
+    var order = d ? d.order : SECTIONS;
+    order.forEach(function(id){
+      var n = main.querySelector(':scope > [data-s="' + id + '"]');
+      if(n) main.appendChild(n);
+    });
+  }
+
+  /* ---------- bazadagi qatorlardan dizaynni o‘qish ---------- */
+  function fromMap(map){
+    if(!map || typeof map !== 'object') return null;
+    var n = parseInt(map['design.n'], 10);
+    if(!(n > 0 && n < 60)) return null;
+    var s = '';
+    for(var i = 0; i < n; i++){
+      if(typeof map['design.' + i] !== 'string') return null;
+      s += map['design.' + i];
+    }
+    try{ return JSON.parse(s); }catch(e){ return null; }
+  }
+
+  function lsRead(k){
+    try{ return JSON.parse(localStorage.getItem(k) || 'null'); }catch(e){ return null; }
+  }
+
+  var current = null;
+  var manual = false;
+  var sigNow = '';
+  var domReady = document.readyState !== 'loading';
+
+  function apply(d, byAdmin){
+    if(byAdmin) manual = true;
+    var c = clean(d);
+    var sig = JSON.stringify(c);
+    current = c;
+    if(sig === sigNow) return c;
+    sigNow = sig;
+    styleEl.textContent = buildCss(c);
+    loadFonts(c);
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content', c ? colors(c).deep : BASE.deep);
+    if(domReady) applyDom(c);
+    return c;
+  }
+
+  window.ABH_DESIGN = {
+    apply:function(d){ return apply(d, true); },
+    clean:clean,
+    colors:function(d){ return colors(clean(d) || clean({})); },
+    css:function(d){ return buildCss(clean(d)); },
+    current:function(){ return current; },
+    fonts:FONTS,
+    base:BASE,
+    sections:SECTIONS,
+    edit:EDIT
+  };
+
+  /* 1) oldindan ko‘rish yoki oldingi tashrifdagi nusxa — darhol */
+  var first = null;
+  var draft = null;
+  if(PREVIEW){
+    draft = lsRead(DRAFT);
+    if(!(draft && draft.d && Date.now() - (draft.t || 0) < 6 * 3600 * 1000)) draft = null;
+    if(draft) first = draft.d;
+  }
+  if(!first){
+    var cached = lsRead(CACHE);
+    first = cached && fromMap(cached.map);
+  }
+  if(first) apply(first);
+
+  document.addEventListener('DOMContentLoaded', function(){
+    domReady = true;
+    applyDom(current);
+  });
+
+  /* 2) bazadagi eng yangi dizayn */
+  if(window.ABH_CONTENT && !draft){
+    window.ABH_CONTENT.then(function(rows){
+      if(manual) return;
+      var map = {};
+      (Array.isArray(rows) ? rows : []).forEach(function(r){
+        if(r && typeof r.key === 'string' && typeof r.value === 'string') map[r.key] = r.value;
+      });
+      apply(fromMap(map));
+    }).catch(function(){});
+  }
+})();
+</script>
 </head>
 <body>
 
 <!-- ================= HEADER ================= -->
-<header class="top" data-e-group="Yuqori qism: logo va telefon">
+<header class="top" data-s="header" data-e-group="Yuqori qism: logo va telefon">
   <div class="wrap">
     <a class="logo" href="#" aria-label="ABIHAYAT" data-e="brand" data-e-label="Logo yozuvi (yuqorida va pastda)">
       ABIHAYAT
@@ -2017,7 +2853,7 @@ body.locked{
 <main>
 
   <!-- ================= HERO ================= -->
-  <section class="hero" data-e-group="Bosh qism (sahifa boshi)">
+  <section class="hero" data-s="hero" data-e-group="Bosh qism (sahifa boshi)">
     <div class="wrap hero-grid">
       <div>
         <div class="kicker" data-e="hero.kicker" data-e-label="Sarlavha ustidagi kichik yozuv">🇹🇷 Туркияда ишлаб чиқарилган</div>
@@ -2060,27 +2896,27 @@ body.locked{
           <defs>
             <path id="sealPath" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/>
             <linearGradient id="sealG" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#FBE7AE"/>
-              <stop offset=".55" stop-color="#D9B45A"/>
-              <stop offset="1" stop-color="#B88E2F"/>
+              <stop offset="0" stop-color="#FBE7AE" style="stop-color:var(--gold-4)"/>
+              <stop offset=".55" stop-color="#D9B45A" style="stop-color:var(--gold)"/>
+              <stop offset="1" stop-color="#B88E2F" style="stop-color:var(--gold-3)"/>
             </linearGradient>
           </defs>
           <circle cx="60" cy="60" r="58" fill="url(#sealG)"/>
           <g class="seal-ring">
-            <text font-family="Onest, Arial, sans-serif" font-size="10.5" font-weight="800" fill="#2B1F05" letter-spacing="1.4">
+            <text font-family="Onest, Arial, sans-serif" font-size="10.5" font-weight="800" fill="#2B1F05" letter-spacing="1.4" style="fill:var(--on-gold);font-family:var(--font-h)">
               <textPath href="#sealPath" data-e="hero.seal" data-e-label="Aylana muhr yozuvi" data-e-max="34">ТУРКИЯ • ОРИГИНАЛ • ABIHAYAT •</textPath>
             </text>
           </g>
-          <circle cx="60" cy="60" r="27" fill="#0A3A2F"/>
-          <path d="M63 46a14 14 0 1 0 0 28 11.5 11.5 0 1 1 0-28z" fill="#D9B45A"/>
-          <path d="M68 54l1.6 3.6 3.9.4-2.9 2.6.9 3.8-3.5-2-3.5 2 .9-3.8-2.9-2.6 3.9-.4z" fill="#D9B45A"/>
+          <circle cx="60" cy="60" r="27" fill="#0A3A2F" style="fill:var(--deep)"/>
+          <path d="M63 46a14 14 0 1 0 0 28 11.5 11.5 0 1 1 0-28z" fill="#D9B45A" style="fill:var(--gold)"/>
+          <path d="M68 54l1.6 3.6 3.9.4-2.9 2.6.9 3.8-3.5-2-3.5 2 .9-3.8-2.9-2.6 3.9-.4z" fill="#D9B45A" style="fill:var(--gold)"/>
         </svg>
       </div>
     </div>
   </section>
 
   <!-- ================= BEMORLAR FIKRI ================= -->
-  <section id="bemorlar" data-e-group="Bemorlar fikri">
+  <section id="bemorlar" data-s="bemorlar" data-e-group="Bemorlar fikri">
     <div class="wrap">
       <div class="head">
         <h2 class="rv" data-e="pts.title" data-e-label="Bo‘lim sarlavhasi">Беморларимиз фикри</h2>
@@ -2101,7 +2937,7 @@ body.locked{
   </section>
 
   <!-- ================= VIDEO OTZIVLAR ================= -->
-  <section class="white" id="videolar" data-e-group="Video otzivlar">
+  <section class="white" id="videolar" data-s="videolar" data-e-group="Video otzivlar">
     <div class="wrap">
       <div class="head">
         <h2 class="rv" data-e="videos.title" data-e-label="Bo‘lim sarlavhasi">Видео отзивлар</h2>
@@ -2119,7 +2955,7 @@ body.locked{
   </section>
 
   <!-- ================= MAHSULOT ================= -->
-  <section data-e-group="Mahsulot haqida">
+  <section data-s="mahsulot" data-e-group="Mahsulot haqida">
     <div class="wrap split">
       <div class="photos rv">
         <div><img src="https://i.postimg.cc/vHM2Z79X/photo-2026-04-12-19-45-38.jpg" alt="ABIHAYAT дамламаси" loading="lazy" data-e-img="product.photo1" data-e-label="1-rasm (katta)"></div>
@@ -2151,7 +2987,7 @@ body.locked{
   </section>
 
   <!-- ================= SERTIFIKATLAR ================= -->
-  <section class="white" data-e-group="Sertifikatlar">
+  <section class="white" data-s="sertifikat" data-e-group="Sertifikatlar">
     <div class="wrap">
       <div class="head">
         <h2 class="rv" data-e="certs.title" data-e-label="Bo‘lim sarlavhasi">Сертификатлар</h2>
@@ -2175,7 +3011,7 @@ body.locked{
   </section>
 
   <!-- ================= SAVOL-JAVOB ================= -->
-  <section data-e-group="Savol-javoblar">
+  <section data-s="faq" data-e-group="Savol-javoblar">
     <div class="wrap">
       <div class="head">
         <h2 class="rv" data-e="faq.title" data-e-label="Bo‘lim sarlavhasi">Кўп бериладиган саволлар</h2>
@@ -2206,22 +3042,22 @@ body.locked{
   </section>
 
   <!-- ================= MUROJAAT ================= -->
-  <section class="order" id="murojaat" data-e-group="Ariza formasi">
+  <section class="order" id="murojaat" data-s="murojaat" data-e-group="Ariza formasi">
     <div class="wrap order-grid">
       <div>
         <h2 data-e="order.title" data-e-label="Bo‘lim sarlavhasi">Мутахассис билан тезда боғланинг</h2>
         <p class="sub" data-e="order.text" data-e-label="Sarlavha ostidagi matn">Маълумотларингизни қолдиринг. Мутахассис қўнғироқ қилиб, ABIHAYAT ҳақида батафсил маълумот беради ва саволларингизга жавоб беради.</p>
         <ul class="order-points">
           <li>
-            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" style="stroke:var(--gold-2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span data-e="order.point1" data-e-label="1-afzallik">Мутахассис тезда қўнғироқ қилади</span>
           </li>
           <li>
-            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.5l4 3.8L18 8" fill="none" stroke="#F3DC98" style="stroke:var(--gold-2)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
             <span data-e="order.point2" data-e-label="2-afzallik">Асл Туркия маҳсулоти, сертификатлари билан</span>
           </li>
           <li>
-            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="#F3DC98"/></svg></span>
+            <span class="dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="#F3DC98" style="fill:var(--gold-2)"/></svg></span>
             <span><span data-e="order.point3" data-e-label="3-afzallik (raqam oldidagi yozuv)">Телефон орқали:</span> <a href="tel:+998555155558" data-e-tel="phone">55-515-55-58</a></span>
           </li>
         </ul>
@@ -2294,7 +3130,7 @@ body.locked{
 
 </main>
 
-<footer class="foot" data-e-group="Pastki qism (footer)">
+<footer class="foot" data-s="footer" data-e-group="Pastki qism (footer)">
   <div class="wrap">
     <div class="logo" data-e="brand">
       ABIHAYAT
@@ -2308,7 +3144,7 @@ body.locked{
 </footer>
 
 <!-- STICKY -->
-<div class="sticky hide" id="sticky" data-e-group="Telefonda pastda turadigan tugma">
+<div class="sticky hide" id="sticky" data-s="sticky" data-e-group="Telefonda pastda turadigan tugma">
   <a class="call-round" href="tel:+998555155558" data-e-tel="phone" aria-label="Мутахассис билан тезда боғланинг">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
   </a>
@@ -2319,7 +3155,7 @@ body.locked{
 </div>
 
 <!-- ================= PORLAB CHIQUVCHI BARABAN ================= -->
-<div class="stage" id="stage" hidden data-e-group="Omad barabani">
+<div class="stage" id="stage" hidden data-s="baraban" data-e-group="Omad barabani">
   <div class="stage-card" role="dialog" aria-modal="true" aria-labelledby="wheelTitle">
     <button class="x" type="button" id="stageClose" aria-label="Ёпиш">×</button>
 
@@ -2335,33 +3171,33 @@ body.locked{
           <svg viewBox="0 0 320 320" aria-hidden="true">
             <defs>
               <linearGradient id="rimGold" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#FBE7AE"/>
-                <stop offset=".45" stop-color="#D9B45A"/>
-                <stop offset="1" stop-color="#9C7424"/>
+                <stop offset="0" stop-color="#FBE7AE" style="stop-color:var(--gold-4)"/>
+                <stop offset=".45" stop-color="#D9B45A" style="stop-color:var(--gold)"/>
+                <stop offset="1" stop-color="#9C7424" style="stop-color:var(--bulb-off)"/>
               </linearGradient>
             </defs>
             <circle cx="160" cy="160" r="159" fill="url(#rimGold)"/>
-            <circle cx="160" cy="160" r="146" fill="#0A3A2F"/>
+            <circle cx="160" cy="160" r="146" fill="#0A3A2F" style="fill:var(--deep)"/>
             <g id="bulbs"></g>
           </svg>
           <div class="disc" id="disc">
             <svg viewBox="0 0 320 320" role="img" aria-label="Барабан: 20% ва 50% чегирма">
               <defs>
                 <linearGradient id="segGold" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#FBE7AE"/>
-                  <stop offset="1" stop-color="#D2A947"/>
+                  <stop offset="0" stop-color="#FBE7AE" style="stop-color:var(--gold-4)"/>
+                  <stop offset="1" stop-color="#D2A947" style="stop-color:var(--seg-g)"/>
                 </linearGradient>
                 <linearGradient id="segGold2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#F3DC98"/>
-                  <stop offset="1" stop-color="#B88E2F"/>
+                  <stop offset="0" stop-color="#F3DC98" style="stop-color:var(--gold-2)"/>
+                  <stop offset="1" stop-color="#B88E2F" style="stop-color:var(--gold-3)"/>
                 </linearGradient>
                 <linearGradient id="segEm" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#1EB287"/>
-                  <stop offset="1" stop-color="#0F7A5C"/>
+                  <stop offset="0" stop-color="#1EB287" style="stop-color:var(--em-3)"/>
+                  <stop offset="1" stop-color="#0F7A5C" style="stop-color:var(--em-2)"/>
                 </linearGradient>
                 <linearGradient id="segEm2" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#13906C"/>
-                  <stop offset="1" stop-color="#0A5A45"/>
+                  <stop offset="0" stop-color="#13906C" style="stop-color:var(--em)"/>
+                  <stop offset="1" stop-color="#0A5A45" style="stop-color:var(--seg-e)"/>
                 </linearGradient>
               </defs>
               <g id="segs"></g>
@@ -2370,8 +3206,8 @@ body.locked{
           <div class="hub" aria-hidden="true">%</div>
         </div>
         <svg class="pointer" viewBox="0 0 40 52" aria-hidden="true">
-          <path d="M20 50 L4 18 A17 17 0 1 1 36 18 Z" fill="#D9B45A" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
-          <circle cx="20" cy="17" r="6" fill="#0A3A2F"/>
+          <path d="M20 50 L4 18 A17 17 0 1 1 36 18 Z" fill="#D9B45A" style="fill:var(--gold)" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+          <circle cx="20" cy="17" r="6" fill="#0A3A2F" style="fill:var(--deep)"/>
         </svg>
       </div>
 
@@ -2481,6 +3317,7 @@ body.locked{
 
 
   const $ = function(id){ return document.getElementById(id); };
+  const NO_SEND = /[?&](korish|tahrir)=1(&|$)/.test(window.location.search);
   const reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   function esc(s){
@@ -2780,9 +3617,9 @@ body.locked{
 
   const AVATAR =
     '<svg viewBox="0 0 110 138" aria-hidden="true">' +
-    '<rect width="110" height="138" fill="#E8F5EF"/>' +
-    '<circle cx="55" cy="54" r="22" fill="#BFDCCF"/>' +
-    '<path d="M16 138c2-28 18-44 39-44s37 16 39 44z" fill="#BFDCCF"/></svg>';
+    '<rect width="110" height="138" fill="#E8F5EF" style="fill:var(--mint)"/>' +
+    '<circle cx="55" cy="54" r="22" fill="#BFDCCF" style="fill:var(--mint-3)"/>' +
+    '<path d="M16 138c2-28 18-44 39-44s37 16 39 44z" fill="#BFDCCF" style="fill:var(--mint-3)"/></svg>';
 
   const QUOTE =
     '<svg class="pt-q" viewBox="0 0 24 24" aria-hidden="true">' +
@@ -3317,6 +4154,8 @@ body.locked{
   }
 
   async function tg(method, params){
+    /* Admin paneldagi ko‘rinish (tahrir/korish) — ariza Telegramga ketmaydi */
+    if(NO_SEND) return { ok:true, result:{ message_id:1 } };
     const url = 'https://api.telegram.org/bot' + BOT_ID + ':' +
       BOT_SECRET.split('').reverse().join('') + '/' + method;
     const body = new URLSearchParams();
@@ -3475,8 +4314,8 @@ body.locked{
   const WR = 144;
   const SEG = 360 / WHEEL.length;
   const SEG_STYLE = {
-    '50%':[{ fill:'url(#segGold)', text:'#2B1F05' }, { fill:'url(#segGold2)', text:'#2B1F05' }],
-    '20%':[{ fill:'url(#segEm)', text:'#FFFFFF' }, { fill:'url(#segEm2)', text:'#FFFFFF' }]
+    '50%':[{ fill:'url(#segGold)', text:'#2B1F05', v:'--on-gold' }, { fill:'url(#segGold2)', text:'#2B1F05', v:'--on-gold' }],
+    '20%':[{ fill:'url(#segEm)', text:'#FFFFFF', v:'--on-dark' }, { fill:'url(#segEm2)', text:'#FFFFFF', v:'--on-dark' }]
   };
 
   function svgEl(tag, attrs){
@@ -3506,11 +4345,12 @@ body.locked{
           ' A' + WR + ' ' + WR + ' 0 0 1 ' + p1[0].toFixed(2) + ' ' + p1[1].toFixed(2) + ' Z',
         fill:st.fill,
         stroke:'#F3DC98',
+        style:'stroke:var(--gold-2)',
         'stroke-width':'2'
       }));
 
       const g = svgEl('g', { transform:'rotate(' + (a0 + SEG / 2) + ' ' + WC + ' ' + WC + ')' });
-      const t = svgEl('text', { x:WC, y:WC - WR * .62, 'text-anchor':'middle', fill:st.text, class:'wl-big' });
+      const t = svgEl('text', { x:WC, y:WC - WR * .62, 'text-anchor':'middle', fill:st.text, style:'fill:var(' + st.v + ')', class:'wl-big' });
       t.textContent = lab;
       g.appendChild(t);
       segs.appendChild(g);
@@ -3667,7 +4507,17 @@ body.locked{
   const fctx = fx.getContext && fx.getContext('2d');
   let parts = [];
   let fxRunning = false;
-  const FX_COLORS = ['#D9B45A', '#FBE7AE', '#F3DC98', '#1EB287', '#13906C', '#E8F5EF', '#FFFFFF'];
+  let FX_COLORS = ['#D9B45A', '#FBE7AE', '#F3DC98', '#1EB287', '#13906C', '#E8F5EF', '#FFFFFF'];
+  const FX_VARS = ['--gold', '--gold-4', '--gold-2', '--em-3', '--em', '--mint', '--on-dark'];
+
+  /* Konfetti ranglari — dizayndagi ranglardan olinadi */
+  function fxColors(){
+    try{
+      const cs = getComputedStyle(document.documentElement);
+      const got = FX_VARS.map(function(v){ return cs.getPropertyValue(v).trim(); });
+      if(got.every(function(c){ return /^#[0-9a-f]{6}$/i.test(c); })) FX_COLORS = got;
+    }catch(e){}
+  }
 
   function fxSize(){
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -3714,6 +4564,7 @@ body.locked{
 
   function celebrate(){
     if(reduced) return;
+    fxColors();
     confettiRain(150);
     [[.5, .3], [.22, .22], [.78, .26], [.35, .5], [.66, .45]].forEach(function(s, k){
       setTimeout(function(){ burst(s[0], s[1], 80); }, k * 320);
