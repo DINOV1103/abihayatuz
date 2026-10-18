@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://abihayatuz-lake.vercel.app/</loc>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="uz-Cyrl" href="https://abihayatuz-lake.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://abihayatuz-lake.vercel.app/"/>
+    <image:image>
+      <image:loc>https://abihayatuz-lake.vercel.app/og-image.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/XvgKPrPH/IMG-8373.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/vHM2Z79X/photo-2026-04-12-19-45-38.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/kX9YgN8c/photo-2026-04-12-20-16-35.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://i.postimg.cc/RV9pZ1fd/photo-2026-04-12-20-16-39.jpg</image:loc>
+    </image:image>
+  </url>
+</urlset>
