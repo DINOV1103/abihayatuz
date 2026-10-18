@@ -2395,6 +2395,7 @@ body.locked{
     put('sh', pick(st.sh, ['none', 'soft', 'strong', 'glow'], ''));
     if(st.op != null) put('op', num(st.op, 0, 100, null));
     if(st.mw != null) put('mw', num(st.mw, 20, 2000, null));
+    if(st.span) put('span', 1);
     put('hide', pick(st.hide, ['all', 'm', 'd'], ''));
     put('fx', pick(st.fx, ['float', 'pulse', 'glow', 'shake'], ''));
     return n ? o : null;
@@ -2554,6 +2555,7 @@ body.locked{
     else if(st.sh === 'glow') a.push('box-shadow:0 0 0 1px rgba(var(--gold-rgb),.5), 0 0 34px -4px rgba(var(--gold-rgb),.75)' + I);
     if(st.op != null) a.push('opacity:' + st.op / 100 + I);
     if(st.mw != null) a.push('max-width:' + px(st.mw) + I, 'margin-left:auto' + I, 'margin-right:auto' + I);
+    if(st.span) a.push('grid-column:1 / -1' + I);
     var out = a.length ? sel + '{' + a.join(';') + '}\n' : '';
     if(st.hide === 'all') out += sel + '{display:none !important}\n';
     if(st.hide === 'm') out += '@media (max-width:899px){' + sel + '{display:none !important}}\n';
