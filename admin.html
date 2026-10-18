@@ -728,7 +728,7 @@ h2{
 
 .tabs .wrap{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(3, 1fr);
   gap:6px;
   padding-top:8px;
   padding-bottom:8px;
@@ -736,12 +736,13 @@ h2{
 
 .tabs button{
   min-height:44px;
-  padding:6px 8px;
+  padding:6px 6px;
   border:1.5px solid var(--line);
   border-radius:12px;
   background:#fff;
   color:var(--ink);
-  font-size:14.5px;
+  font-size:14px;
+  line-height:1.2;
   font-weight:700;
   cursor:pointer;
 }
@@ -980,6 +981,762 @@ h2{
   font-size:12.5px;
 }
 
+/* ---------- DIZAYN (vizual muharrir) ---------- */
+
+body.dz-on{
+  padding-bottom:0;
+  overflow:hidden;
+}
+
+body.dz-on main.wrap{
+  max-width:none;
+  padding:0;
+}
+
+/* telefonda: tepada ko‘rinish, pastda alohida aylanadigan panel */
+.dz{
+  --dz-top:119px;
+  display:grid;
+  grid-template-columns:minmax(0, 1fr);
+  grid-template-rows:minmax(200px, 44%) minmax(0, 1fr);
+  height:calc(100vh - var(--dz-top));
+  height:calc(100dvh - var(--dz-top));
+}
+
+.dz.big{
+  grid-template-rows:minmax(200px, 70%) minmax(0, 1fr);
+}
+
+.dz-stage{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  min-height:0;
+  background:#DDE6E2;
+  border-bottom:1px solid var(--line);
+}
+
+.dz-tools{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+}
+
+.dz-tools::-webkit-scrollbar{
+  display:none;
+}
+
+.dz-tools .mini{
+  flex:none;
+  min-height:34px;
+  white-space:nowrap;
+}
+
+.dz-tools .mini.on{
+  background:var(--deep);
+  border-color:var(--deep);
+  color:#fff;
+}
+
+.dz-tools .sep{
+  flex:none;
+  width:1px;
+  height:22px;
+  background:var(--line);
+}
+
+@media (max-width:599px){
+  .dz-tools{
+    gap:5px;
+    padding:6px 8px;
+  }
+
+  .dz-tools .t,
+  .dz-tools .sep{
+    display:none;
+  }
+
+  .dz-tools .mini{
+    min-width:36px;
+    justify-content:center;
+    padding:4px 9px;
+  }
+}
+
+.dz-box{
+  position:relative;
+  flex:1;
+  overflow:hidden;
+}
+
+.dz-box iframe{
+  position:absolute;
+  top:0;
+  left:50%;
+  border:0;
+  background:#fff;
+  transform-origin:top center;
+  box-shadow:0 0 0 1px rgba(0,0,0,.08), 0 20px 50px -20px rgba(0,0,0,.35);
+}
+
+.dz-load{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  color:var(--muted);
+  font-weight:700;
+  font-size:14px;
+  background:#DDE6E2;
+}
+
+.dz-load .spinner{
+  width:28px;
+  height:28px;
+  border-width:3px;
+}
+
+.dz-panel{
+  min-width:0;
+  min-height:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  padding:0 14px 110px;
+}
+
+.dz-tabs{
+  position:sticky;
+  top:0;
+  z-index:3;
+  display:flex;
+  gap:6px;
+  margin:0 -14px 10px;
+  padding:10px 14px 8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  background:var(--bg);
+  box-shadow:0 1px 0 var(--line);
+}
+
+.dz-tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.dz-tabs button{
+  flex:none;
+  min-height:40px;
+  padding:4px 12px;
+  white-space:nowrap;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  color:var(--ink);
+  font-size:13.5px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.dz-tabs button.on{
+  background:var(--em-2);
+  border-color:var(--em-2);
+  color:#fff;
+}
+
+.dz-tabs button .dot{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  margin-left:4px;
+  border-radius:50%;
+  background:var(--gold);
+  vertical-align:middle;
+}
+
+.dz-pane > h2{
+  margin:4px 0 4px;
+}
+
+.dz-pane > .muted{
+  margin:0 0 10px;
+  font-size:13.5px;
+}
+
+.dz-card{
+  margin-top:10px;
+  padding:12px 14px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+}
+
+.dz-card > h3{
+  margin:0 0 4px;
+  font-size:15px;
+  font-weight:800;
+}
+
+details.dz-card > summary{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:-12px -14px;
+  padding:12px 14px;
+  font-size:15px;
+  font-weight:800;
+  list-style:none;
+  cursor:pointer;
+}
+
+details.dz-card > summary::-webkit-details-marker{
+  display:none;
+}
+
+details.dz-card > summary::after{
+  content:'+';
+  margin-left:auto;
+  color:var(--em-2);
+  font-size:20px;
+  line-height:1;
+}
+
+details.dz-card[open] > summary{
+  margin-bottom:4px;
+}
+
+details.dz-card[open] > summary::after{
+  content:'–';
+}
+
+.dz-card .cnt{
+  padding:1px 7px;
+  border-radius:8px;
+  background:#FFF4E0;
+  color:#7A4B00;
+  font-size:11.5px;
+  font-weight:800;
+}
+
+/* bitta sozlama qatori */
+.ctl{
+  display:grid;
+  gap:6px;
+  padding:9px 0;
+  border-top:1px dashed var(--line);
+}
+
+.ctl:first-of-type{
+  border-top:0;
+}
+
+.ctl-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:24px;
+}
+
+.ctl-label{
+  flex:1;
+  min-width:0;
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+.ctl-val{
+  color:var(--muted);
+  font-size:12.5px;
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+
+.ctl.set .ctl-val{
+  color:var(--em-2);
+}
+
+.ctl-x{
+  flex:none;
+  width:26px;
+  height:26px;
+  border:0;
+  border-radius:8px;
+  background:#F1F4F3;
+  color:var(--muted);
+  font-size:15px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.ctl-x:disabled{
+  visibility:hidden;
+}
+
+.ctl input[type=range]{
+  width:100%;
+  height:28px;
+  margin:0;
+  accent-color:var(--em-2);
+}
+
+.ctl .row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.ctl input[type=color]{
+  flex:none;
+  width:46px;
+  height:38px;
+  padding:2px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  cursor:pointer;
+}
+
+.ctl .hex::placeholder{
+  text-transform:none;
+}
+
+.ctl .hex{
+  flex:1;
+  min-width:0;
+  min-height:38px;
+  padding:6px 10px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:#F8FBFA;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  font-size:14px;
+  text-transform:uppercase;
+}
+
+.ctl select,
+.ctl .inp,
+.ctl .ta{
+  min-height:42px;
+  padding:8px 12px;
+  font-size:15px;
+  border-radius:12px;
+}
+
+.ctl select{
+  width:100%;
+  border:1.5px solid var(--line);
+  background:#F8FBFA;
+  color:var(--ink);
+}
+
+.ctl .ta{
+  min-height:84px;
+}
+
+.ctl .ta.code{
+  min-height:180px;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  font-size:13px;
+}
+
+.seg{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.seg button{
+  flex:1 1 auto;
+  min-height:36px;
+  padding:4px 10px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.seg button.on{
+  background:var(--deep);
+  border-color:var(--deep);
+  color:#fff;
+}
+
+.sw{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  cursor:pointer;
+}
+
+.sw input{
+  flex:none;
+  width:46px;
+  height:26px;
+  margin:0;
+  appearance:none;
+  -webkit-appearance:none;
+  border-radius:999px;
+  background:#C9D4CF;
+  position:relative;
+  cursor:pointer;
+  transition:background .2s;
+}
+
+.sw input::after{
+  content:'';
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);
+  transition:transform .2s;
+}
+
+.sw input:checked{
+  background:var(--em-2);
+}
+
+.sw input:checked::after{
+  transform:translateX(20px);
+}
+
+.box4{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:6px;
+}
+
+.box4 label{
+  display:grid;
+  gap:2px;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  text-align:center;
+}
+
+.box4 input{
+  width:100%;
+  min-height:38px;
+  padding:4px 6px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:#F8FBFA;
+  font-size:14px;
+  text-align:center;
+}
+
+/* tayyor ranglar */
+.presets{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:8px;
+}
+
+.preset{
+  display:grid;
+  gap:6px;
+  padding:8px;
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+  text-align:left;
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--ink);
+  cursor:pointer;
+}
+
+.preset.on{
+  border-color:var(--em-2);
+  box-shadow:0 0 0 2px var(--mint-2);
+}
+
+.preset .sws{
+  display:flex;
+  height:30px;
+  border-radius:9px;
+  overflow:hidden;
+}
+
+.preset .sws i{
+  flex:1;
+}
+
+.dz-warn{
+  margin-top:8px;
+  padding:8px 12px;
+  border-radius:10px;
+  background:#FFF4E0;
+  color:#7A4B00;
+  font-size:12.5px;
+  font-weight:600;
+}
+
+/* bo‘limlar ro‘yxati */
+.secs{
+  display:grid;
+  gap:6px;
+}
+
+.sec{
+  border:1.5px solid var(--line);
+  border-radius:14px;
+  background:#fff;
+}
+
+.sec.off{
+  background:#F6F7F6;
+  border-style:dashed;
+}
+
+.sec.off .sec-name{
+  opacity:.5;
+}
+
+.sec-row{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:6px 6px 6px 12px;
+}
+
+.sec-name{
+  flex:1;
+  min-width:0;
+  font-size:14px;
+  font-weight:700;
+  line-height:1.25;
+}
+
+.sec-name small{
+  display:block;
+  color:var(--muted);
+  font-size:11.5px;
+  font-weight:600;
+}
+
+.sec-row button{
+  flex:none;
+  min-width:34px;
+  height:34px;
+  padding:0 7px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:#fff;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.sec-row button:disabled{
+  opacity:.3;
+  cursor:default;
+}
+
+.sec-row .del{
+  color:var(--alarm);
+  border-color:#F2C9C4;
+}
+
+.sec-edit{
+  padding:2px 12px 12px;
+  border-top:1px dashed var(--line);
+}
+
+.add-block{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px;
+  margin-top:8px;
+}
+
+.add-block button{
+  min-height:58px;
+  padding:6px;
+  border:1.5px dashed var(--em);
+  border-radius:12px;
+  background:var(--mint);
+  color:var(--em-2);
+  font-size:12.5px;
+  font-weight:800;
+  line-height:1.25;
+  cursor:pointer;
+}
+
+.add-block button b{
+  display:block;
+  font-size:18px;
+}
+
+/* tanlangan element */
+.el-empty{
+  padding:18px 14px;
+  border:1.5px dashed var(--mint-2);
+  border-radius:16px;
+  background:#FAFDFC;
+  color:var(--muted);
+  font-size:14px;
+  text-align:center;
+}
+
+.el-head{
+  display:grid;
+  gap:8px;
+  padding:12px 14px;
+  border-radius:16px;
+  background:var(--deep);
+  color:#fff;
+}
+
+.el-title{
+  font-size:16px;
+  font-weight:800;
+  line-height:1.3;
+}
+
+.el-title small{
+  display:block;
+  margin-top:2px;
+  color:#A9C4BA;
+  font-size:11.5px;
+  font-weight:600;
+  font-family:ui-monospace, Menlo, Consolas, monospace;
+  word-break:break-all;
+}
+
+.crumbs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+
+.crumbs button{
+  padding:3px 9px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.crumbs button.on{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:#2B1F05;
+}
+
+.scope{
+  display:flex;
+  gap:5px;
+}
+
+.scope button{
+  flex:1;
+  min-height:34px;
+  padding:4px 8px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:10px;
+  background:transparent;
+  color:#fff;
+  font-size:12.5px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.scope button.on{
+  background:#fff;
+  color:var(--deep);
+}
+
+.el-list{
+  display:grid;
+  gap:6px;
+  margin-top:8px;
+}
+
+.el-list .item2{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 6px 6px 10px;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  font-size:13px;
+  font-weight:700;
+}
+
+.el-list .item2 span{
+  flex:1;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.media2{
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:10px;
+  align-items:center;
+}
+
+.media2 .shot{
+  width:72px;
+  height:72px;
+  border-radius:12px;
+  overflow:hidden;
+  background:var(--mint) center / cover no-repeat;
+}
+
+@media (min-width:980px){
+  .dz,
+  .dz.big{
+    grid-template-rows:none;
+    grid-template-columns:420px minmax(0, 1fr);
+  }
+
+  .dz-panel{
+    order:-1;
+    border-right:1px solid var(--line);
+  }
+
+  .dz-tabs{
+    flex-wrap:wrap;
+  }
+
+  .dz-stage{
+    border-bottom:0;
+  }
+
+  body.dz-on #dBar{
+    right:auto;
+    width:420px;
+  }
+
+  #dzBig{
+    display:none;
+  }
+}
+
 @media (min-width:700px){
   .pt{
     grid-template-columns:130px 1fr;
@@ -1008,6 +1765,7 @@ h2{
   <div class="wrap">
     <button type="button" data-view="vList">Bemorlar fikri</button>
     <button type="button" data-view="vContent">Sayt matnlari</button>
+    <button type="button" data-view="vDesign">🎨 Dizayn</button>
   </div>
 </nav>
 
@@ -1152,7 +1910,7 @@ h2{
   <!-- ================= SAYT MATNLARI ================= -->
   <section id="vContent" hidden>
     <h1>Sayt matnlari va rasmlar</h1>
-    <p class="muted">Saytdagi mavjud matn, rasm, video va telefon raqamini almashtirasiz. Bo‘lim qo‘shilmaydi va o‘chirilmaydi — sayt tuzilishi o‘zgarmaydi.</p>
+    <p class="muted">Saytdagi mavjud matn, rasm, video va telefon raqamini almashtirasiz. Ranglar, shriftlar, bo‘limlar tartibi va yangi bloklar — “🎨 Dizayn” bo‘limida.</p>
 
     <div class="card" id="cSetup" hidden>
       <h2>Bir martalik sozlash</h2>
@@ -1178,6 +1936,98 @@ h2{
     </div>
   </section>
 
+  <!-- ================= DIZAYN (vizual muharrir) ================= -->
+  <section id="vDesign" hidden>
+    <div class="dz">
+      <div class="dz-stage">
+        <div class="dz-tools">
+          <button class="mini on" type="button" id="dzPick" title="Saytdagi elementni bosib tanlash">👆 Tanlash</button>
+          <span class="sep"></span>
+          <button class="mini on" type="button" data-dev="390" title="Telefon">📱<span class="t"> Telefon</span></button>
+          <button class="mini" type="button" data-dev="1280" title="Kompyuter">🖥<span class="t"> Kompyuter</span></button>
+          <span class="sep"></span>
+          <button class="mini" type="button" id="dzUndo" title="Orqaga qaytarish" disabled>↶</button>
+          <button class="mini" type="button" id="dzRedo" title="Qayta qilish" disabled>↷</button>
+          <span class="sep"></span>
+          <button class="mini" type="button" id="dzWheel" title="Omad barabanini ko‘rsatish">🎡<span class="t"> Baraban</span></button>
+          <button class="mini" type="button" id="dzReload" title="Ko‘rinishni yangilash">⟳</button>
+          <button class="mini" type="button" id="dzBig" title="Ko‘rinishni kattalashtirish">⇕</button>
+        </div>
+        <div class="dz-box" id="dzBox">
+          <iframe id="dzFrame" title="Sayt ko‘rinishi"></iframe>
+          <div class="dz-load" id="dzLoad"><div class="spinner"></div>Sayt yuklanmoqda...</div>
+        </div>
+      </div>
+
+      <div class="dz-panel">
+        <div class="err" id="dzErr" hidden></div>
+        <nav class="dz-tabs" id="dzTabs">
+          <button type="button" data-p="pColors" class="on">🎨 Ranglar</button>
+          <button type="button" data-p="pType">Aa Shrift</button>
+          <button type="button" data-p="pBtn">⬭ Tugmalar</button>
+          <button type="button" data-p="pSecs">☰ Bo‘limlar</button>
+          <button type="button" data-p="pEl">👆 Element</button>
+          <button type="button" data-p="pMore">⚙ Boshqa</button>
+        </nav>
+
+        <div class="dz-pane" id="pColors">
+          <h2>Ranglar</h2>
+          <p class="muted">Tayyor uslubni tanlang yoki har bir rangni o‘zingiz o‘zgartiring. O‘zgarish chapdagi/tepadagi ko‘rinishda darhol chiqadi.</p>
+          <div class="dz-card"><h3>Tayyor uslublar</h3><div class="presets" id="dzPresets"></div></div>
+          <div class="dz-card"><h3>Saytning ranglari</h3><div id="dzColors"></div><div id="dzContrast"></div></div>
+        </div>
+
+        <div class="dz-pane" id="pType" hidden>
+          <h2>Shrift va o‘lchamlar</h2>
+          <p class="muted">Ro‘yxatdagi hamma shriftlarda ў, қ, ғ, ҳ harflari bor.</p>
+          <div class="dz-card" id="dzType"></div>
+          <div class="dz-card" id="dzSpace"></div>
+        </div>
+
+        <div class="dz-pane" id="pBtn" hidden>
+          <h2>Tugmalar</h2>
+          <p class="muted">Saytdagi barcha tugmalar uchun. Bitta tugmani alohida o‘zgartirish uchun uni ko‘rinishda bosing.</p>
+          <div class="dz-card" id="dzBtn"></div>
+          <div class="dz-card" id="dzBtnColors"></div>
+        </div>
+
+        <div class="dz-pane" id="pSecs" hidden>
+          <h2>Bo‘limlar</h2>
+          <p class="muted">↑ ↓ — joyini almashtirish, 👁 — yashirish yoki ko‘rsatish, 🎨 — bo‘lim foni va bo‘shliqlari.</p>
+          <div class="dz-card"><h3>Sahifa tartibi</h3><div class="secs" id="dzSecs"></div>
+            <div class="add-block">
+              <button type="button" data-add="text"><b>¶</b>Matn bloki</button>
+              <button type="button" data-add="image"><b>🖼</b>Rasm bloki</button>
+              <button type="button" data-add="video"><b>▶</b>Video bloki</button>
+            </div>
+          </div>
+          <div class="dz-card"><h3>Doimiy qismlar</h3><div class="secs" id="dzFixed"></div></div>
+        </div>
+
+        <div class="dz-pane" id="pEl" hidden>
+          <div id="dzEl"></div>
+        </div>
+
+        <div class="dz-pane" id="pMore" hidden>
+          <h2>Boshqa sozlamalar</h2>
+          <div class="dz-card" id="dzAnim"></div>
+          <div class="dz-card">
+            <h3>Qo‘shimcha CSS</h3>
+            <p class="muted" style="margin:0 0 6px;font-size:13px">Tajribali foydalanuvchilar uchun. Noto‘g‘ri yozilgan CSS saytni buzmaydi — shunchaki ishlamaydi.</p>
+            <div class="ctl"><textarea class="ta code" id="dzCss" spellcheck="false" placeholder=".hero h1 { letter-spacing: 0; }"></textarea></div>
+          </div>
+          <div class="dz-card">
+            <h3>Tiklash</h3>
+            <p class="muted" style="margin:0 0 8px;font-size:13px" id="dzPrevInfo">Har saqlashda oldingi dizayn nusxasi saqlab qo‘yiladi.</p>
+            <button class="btn btn-line btn-block" type="button" id="dzRestorePrev">↺ Oldingi saqlangan dizaynni qaytarish</button>
+            <button class="btn btn-red btn-block" type="button" id="dzResetAll" style="margin-top:8px">Butun dizaynni asliga qaytarish</button>
+            <p class="muted" style="margin:8px 0 0;font-size:12.5px">Ikkalasi ham faqat ko‘rinishda o‘zgaradi — “Saqlash”ni bosmaguningizcha saytga yozilmaydi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <div class="savebar" id="saveBar" hidden>
@@ -1191,6 +2041,13 @@ h2{
   <div class="wrap">
     <button class="btn btn-line" type="button" id="cPreview">Oldindan ko‘rish</button>
     <button class="btn btn-em" type="button" id="cSave" disabled>Saqlash</button>
+  </div>
+</div>
+
+<div class="savebar" id="dBar" hidden>
+  <div class="wrap">
+    <button class="btn btn-line" type="button" id="dPreview">Yangi oynada ko‘rish</button>
+    <button class="btn btn-em" type="button" id="dSave" disabled>Saqlash</button>
   </div>
 </div>
 
@@ -1373,7 +2230,7 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
      KO‘RINISHLAR
   ===================================== */
 
-  const views = ['vSetup', 'vLogin', 'vList', 'vEdit', 'vContent'];
+  const views = ['vSetup', 'vLogin', 'vList', 'vEdit', 'vContent', 'vDesign'];
   const TAB_KEY = 'abh_admin_tab';
   let currentView = null;
 
@@ -1382,8 +2239,10 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
     views.forEach(function(v){ $(v).hidden = v !== id; });
     $('saveBar').hidden = id !== 'vEdit';
     $('cBar').hidden = id !== 'vContent';
-    $('logoutBtn').hidden = !(id === 'vList' || id === 'vEdit' || id === 'vContent');
-    $('tabs').hidden = !(id === 'vList' || id === 'vContent');
+    $('dBar').hidden = id !== 'vDesign';
+    document.body.classList.toggle('dz-on', id === 'vDesign');
+    $('logoutBtn').hidden = !(id === 'vList' || id === 'vEdit' || id === 'vContent' || id === 'vDesign');
+    $('tabs').hidden = !(id === 'vList' || id === 'vContent' || id === 'vDesign');
     document.querySelectorAll('#tabs [data-view]').forEach(function(b){
       b.classList.toggle('on', b.getAttribute('data-view') === id);
     });
@@ -1395,6 +2254,7 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
     let tab = null;
     try{ tab = localStorage.getItem(TAB_KEY); }catch(e){}
     if(tab === 'vContent') openContent();
+    else if(tab === 'vDesign') openDesign();
     else openList();
   }
 
@@ -1523,8 +2383,10 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
   }
 
   $('logoutBtn').addEventListener('click', function(){
-    if(!leaveContentOk()) return;
+    if(currentView === 'vContent' && !leaveContentOk()) return;
+    if(currentView === 'vDesign' && !leaveDesignOk()) return;
     discardContent();
+    discardDesign();
     if(session && session.access_token){
       fetch(BASE + '/auth/v1/logout', {
         method:'POST',
@@ -2923,6 +3785,7 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
       toast('Brauzer xotirasi to‘la — oldindan ko‘rib bo‘lmadi.', true);
       return;
     }
+    try{ localStorage.removeItem('abh_design_draft'); }catch(e){}
     window.open(SITE_FILE + '?korish=1', '_blank');
   });
 
@@ -2947,10 +3810,14 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
       const v = b.getAttribute('data-view');
       if(v === currentView) return;
       if(currentView === 'vContent' && !leaveContentOk()) return;
+      if(currentView === 'vDesign' && !leaveDesignOk()) return;
+      if(currentView === 'vContent') discardContent();
+      if(currentView === 'vDesign') discardDesign();
       if(v === 'vContent'){
         openContent();
+      }else if(v === 'vDesign'){
+        openDesign();
       }else{
-        discardContent();
         try{ localStorage.setItem(TAB_KEY, 'vList'); }catch(e){}
         openList();
       }
@@ -2958,9 +3825,1757 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
   });
 
   window.addEventListener('beforeunload', function(e){
-    if(currentView === 'vContent' && contentDirty()){
+    if((currentView === 'vContent' && contentDirty()) || (currentView === 'vDesign' && designDirty())){
       e.preventDefault();
       e.returnValue = '';
+    }
+  });
+
+
+
+  /* =====================================
+     DIZAYN — VIZUAL MUHARRIR
+
+     Saytning o‘zi (index.html?tahrir=1) ko‘rinish oynasida ochiladi.
+     Ranglar, shriftlar, tugmalar, bo‘limlar tartibi, yangi bloklar va
+     bosilgan istalgan elementning ko‘rinishi shu yerda o‘zgartiriladi.
+
+     Saqlanishi: abh_content jadvalida
+       design.n            — nechta bo‘lak
+       design.0, design.1  — dizayn (JSON, 3800 belgidan bo‘linadi)
+       designprev.*        — oldingi saqlangan dizayn (tiklash uchun)
+     Matn va rasm o‘zgarishlari — “Sayt matnlari” bilan bir xil kalitlarga.
+  ===================================== */
+
+  const DZ_CHUNK = 3800;
+  const DZ_DRAFT = 'abh_design_draft';
+  const DZ_FOLDER = 'dizayn';
+  const DZ_SECTIONS = ['hero', 'bemorlar', 'videolar', 'mahsulot', 'sertifikat', 'faq', 'murojaat'];
+  const DZ_FIXED = ['header', 'footer', 'sticky'];
+  const DZ_SEC_NAMES = {
+    hero:'Bosh qism (sahifa boshi)', bemorlar:'Bemorlar fikri', videolar:'Video otzivlar',
+    mahsulot:'Mahsulot haqida', sertifikat:'Sertifikatlar', faq:'Savol-javoblar',
+    murojaat:'Ariza formasi', header:'Yuqori qism: logo va telefon', footer:'Pastki qism (footer)',
+    sticky:'Telefonda pastda turadigan tugma', baraban:'Omad barabani'
+  };
+  const DZ_BLOCK_TYPES = { text:'Matn bloki', image:'Rasm bloki', video:'Video bloki' };
+
+  const DZ_BASE = {
+    'deep':'#0A3A2F', 'deep-2':'#0E4D3E', 'em':'#13906C', 'em-2':'#0F7A5C',
+    'mint':'#E8F5EF', 'mint-2':'#D3EBDF', 'gold':'#D9B45A', 'gold-2':'#F3DC98',
+    'gold-3':'#B88E2F', 'ink':'#10211C', 'muted':'#53625C', 'line':'#DCE7E2',
+    'bg':'#F7FAF8', 'card':'#FFFFFF', 'foot':'#06231C', 'on-dark':'#FFFFFF', 'alarm':'#C0392B'
+  };
+  const DZ_COLOR_LABELS = [
+    ['deep', 'To‘q fon — bosh qism, forma, baraban'],
+    ['deep-2', 'To‘q fon 2 — rasm orqasi'],
+    ['em', 'Yashil — tugmalar, belgilar'],
+    ['em-2', 'Yashil (to‘qroq) — havolalar, ikonkalar'],
+    ['gold', 'Oltin — asosiy tugma, bezaklar'],
+    ['gold-2', 'Oltin (och) — to‘q fondagi yozuvlar'],
+    ['gold-3', 'Oltin (to‘q) — tugma soyasi, chegirma'],
+    ['bg', 'Sahifa foni'],
+    ['card', 'Kartochkalar va oq bo‘limlar foni'],
+    ['mint', 'Och fon — tugmalar, pleer'],
+    ['mint-2', 'Och chegara'],
+    ['ink', 'Asosiy matn'],
+    ['muted', 'Kulrang (ikkinchi darajali) matn'],
+    ['line', 'Chiziqlar va chegaralar'],
+    ['on-dark', 'To‘q va yashil fondagi matn'],
+    ['foot', 'Pastki qism (footer) foni'],
+    ['alarm', 'Xato xabari']
+  ];
+  const DZ_PRESETS = [
+    { name:'Zumrad va oltin (asl)', c:{} },
+    { name:'Tun moviy va oltin', c:{ 'deep':'#0B1F3A', 'deep-2':'#12305A', 'em':'#1E6FD9', 'em-2':'#1757AD', 'mint':'#E8F0FB', 'mint-2':'#D2E0F5', 'gold':'#E0B65A', 'gold-2':'#F5DFA0', 'gold-3':'#B98C2E', 'ink':'#0F1B2D', 'muted':'#55627A', 'line':'#DCE4EF', 'bg':'#F6F8FC', 'foot':'#071426' } },
+    { name:'Bordo va oltin', c:{ 'deep':'#3E0D1A', 'deep-2':'#5A1426', 'em':'#B0263F', 'em-2':'#8E1C31', 'mint':'#FBEDEF', 'mint-2':'#F2D3D9', 'ink':'#2A1016', 'muted':'#6B5157', 'line':'#EEDDE0', 'bg':'#FCF8F8', 'foot':'#26070F' } },
+    { name:'Qora va oltin (premium)', c:{ 'deep':'#111111', 'deep-2':'#1C1C1C', 'em':'#2D2D2D', 'em-2':'#1A1A1A', 'mint':'#F3F1EC', 'mint-2':'#E4DFD3', 'gold':'#D4AF37', 'gold-2':'#F1DC8E', 'gold-3':'#A8862A', 'ink':'#141414', 'muted':'#5E5A52', 'line':'#E6E1D6', 'bg':'#FAF8F4', 'foot':'#0A0A0A' } },
+    { name:'Binafsha', c:{ 'deep':'#2A1446', 'deep-2':'#3A1D60', 'em':'#7B3FE4', 'em-2':'#6430C4', 'mint':'#F1EBFC', 'mint-2':'#E0D3F7', 'gold':'#F2B544', 'gold-2':'#F9DB98', 'gold-3':'#C98E1E', 'ink':'#1E1530', 'muted':'#625A73', 'line':'#E6DFF2', 'bg':'#F9F7FD', 'foot':'#170A28' } },
+    { name:'Yorqin yashil', c:{ 'deep':'#14532D', 'deep-2':'#166534', 'em':'#16A34A', 'em-2':'#15803D', 'mint':'#ECFDF3', 'mint-2':'#D1FADF', 'gold':'#F59E0B', 'gold-2':'#FCD34D', 'gold-3':'#B45309', 'ink':'#0F2417', 'muted':'#4B6355', 'line':'#DCEBE1', 'bg':'#F7FBF8', 'foot':'#0B2E19' } },
+    { name:'Firuza', c:{ 'deep':'#073B4C', 'deep-2':'#0A4F63', 'em':'#0E9AA7', 'em-2':'#0B7C87', 'mint':'#E6F6F7', 'mint-2':'#CDEDEF', 'gold':'#F6C453', 'gold-2':'#FBE3A1', 'gold-3':'#C99A2E', 'ink':'#0B2229', 'muted':'#4F6469', 'line':'#D9E8EA', 'bg':'#F5FAFB', 'foot':'#04252F' } },
+    { name:'Shokolad va krem', c:{ 'deep':'#3B2416', 'deep-2':'#4E3020', 'em':'#A0522D', 'em-2':'#874420', 'mint':'#F7EFE7', 'mint-2':'#EBDCCB', 'gold':'#D9A55B', 'gold-2':'#F0D3A4', 'gold-3':'#A97834', 'ink':'#2B1B12', 'muted':'#6E5B4F', 'line':'#EADFD3', 'bg':'#FCF8F3', 'foot':'#24150C' } }
+  ];
+  const DZ_FONTS = [
+    ['Oddiy (zamonaviy) shriftlar', ['Onest', 'Montserrat', 'Inter', 'Roboto', 'Open Sans', 'Nunito', 'Noto Sans', 'Golos Text', 'Geologica', 'Exo 2', 'Raleway', 'Source Sans 3', 'Commissioner', 'Mulish', 'IBM Plex Sans', 'Fira Sans', 'Ubuntu', 'PT Sans', 'Play', 'Oswald']],
+    ['Kitobiy (serifli) shriftlar', ['PT Serif', 'Lora', 'Merriweather', 'Noto Serif', 'Alegreya', 'Roboto Slab', 'Cormorant Garamond']]
+  ];
+  const DZ_STATE_CLS = /^(in|on|rv|shown|playing|lit|hide|spinning|won|ok|show|is-error|is-done|locked|js|cms-wait|shine)$|^abh-/;
+  const DZ_LABELS = [
+    ['.btn', 'Tugma'], ['.pt', 'Bemor kartochkasi'], ['.pt-photo', 'Bemor rasmi'], ['.pt-text', 'Bemor so‘zlari'],
+    ['.pt-who', 'Bemor ismi'], ['.pt-call', 'Raqam tugmasi'], ['.ap', 'Audio pleer'], ['.vcard', 'Video kartochka'],
+    ['.cert', 'Sertifikat'], ['.faq details', 'Savol-javob'], ['.panel', 'Forma oynasi'], ['.facts li', 'Fakt kartochkasi'],
+    ['.facts', 'Faktlar'], ['.kicker', 'Sarlavha ustidagi yozuv'], ['.float-chip', 'Rasm ustidagi belgi'], ['.seal', 'Aylana muhr'],
+    ['.frame', 'Rasm ramkasi'], ['.hcall', 'Telefon'], ['.logo', 'Logo'], ['.wheel-teaser', 'Baraban eslatmasi'],
+    ['.field, .select, .phone', 'Forma maydoni'], ['.comp', 'Ma’lumotlar jadvali'], ['.photos', 'Rasmlar'],
+    ['.order-points li', 'Afzallik qatori'], ['.hero-photo', 'Asosiy rasm qismi'], ['.wrap', 'Ichki konteyner'],
+    ['.head', 'Sarlavha bloki'], ['.cb-img', 'Rasm'], ['.cb-video', 'Video'], ['.ic', 'Tugma ikonkasi'],
+    ['.stage-card', 'Baraban oynasi'], ['.wheel-zone', 'Baraban'], ['.win-num', 'Yutuq foizi'], ['.sub', 'Sarlavha ostidagi matn']
+  ];
+  const DZ_TAGS = {
+    h1:'Asosiy sarlavha', h2:'Sarlavha', h3:'Kichik sarlavha', p:'Matn', a:'Havola', button:'Tugma', img:'Rasm',
+    span:'Yozuv', b:'Qalin yozuv', strong:'Qalin yozuv', small:'Kichik yozuv', li:'Ro‘yxat qatori', ul:'Ro‘yxat',
+    div:'Blok', section:'Bo‘lim', svg:'Ikonka', label:'Maydon nomi', input:'Maydon', form:'Forma', dt:'Nomi',
+    dd:'Qiymati', dl:'Jadval', details:'Savol', summary:'Savol', figure:'Rasm', figcaption:'Rasm izohi',
+    header:'Yuqori qism', footer:'Pastki qism', iframe:'Video', textPath:'Aylana yozuv', select:'Tanlov maydoni'
+  };
+
+  let dz = null;
+
+  function dzDefaults(){
+    return {
+      v:1, c:{}, font:'', fontH:'', fs:100, fsH:100, wH:800, lsH:-2, ttH:false, lh:160,
+      rad:100, sp:100, gut:20, maxw:1140,
+      btn:{ r:'pill', h:60, w:700, tt:false, flat:false, shadow:true, shine:true, icon:true, c1:'', t1:'', c2:'', t2:'' },
+      anim:true, reveal:true,
+      order:DZ_SECTIONS.slice(), hide:[], blocks:{}, els:{}, css:''
+    };
+  }
+
+  /* Saqlangan dizaynni standart qiymatlar ustiga qo‘yish */
+  function dzMerge(src){
+    const d = dzDefaults();
+    if(!src || typeof src !== 'object') return d;
+    Object.keys(d).forEach(function(k){
+      if(!Object.prototype.hasOwnProperty.call(src, k) || src[k] == null) return;
+      if(k === 'btn') Object.assign(d.btn, src.btn || {});
+      else if(k === 'c' || k === 'blocks' || k === 'els') d[k] = JSON.parse(JSON.stringify(src[k] || {}));
+      else if(k === 'order' || k === 'hide') d[k] = Array.isArray(src[k]) ? src[k].slice() : d[k];
+      else d[k] = src[k];
+    });
+    Object.keys(d.blocks).forEach(function(id){ if(d.order.indexOf(id) < 0) d.order.splice(Math.max(0, d.order.indexOf('murojaat')), 0, id); });
+    DZ_SECTIONS.forEach(function(id){ if(d.order.indexOf(id) < 0) d.order.push(id); });
+    return d;
+  }
+
+  function dzRead(map, prefix){
+    const n = parseInt(map[prefix + 'n'], 10);
+    if(!(n > 0 && n < 60)) return { raw:'', d:null };
+    let s = '';
+    for(let i = 0; i < n; i++){
+      if(typeof map[prefix + i] !== 'string') return { raw:'', d:null };
+      s += map[prefix + i];
+    }
+    try{ return { raw:s, d:JSON.parse(s) }; }catch(e){ return { raw:'', d:null }; }
+  }
+
+  function dzSplit(s){
+    const out = [];
+    for(let i = 0; i < s.length; i += DZ_CHUNK) out.push(s.slice(i, i + DZ_CHUNK));
+    return out;
+  }
+
+  function dzHas(o, k){ return !!o && Object.prototype.hasOwnProperty.call(o, k); }
+
+  /* --- rang yordamchilari (ogohlantirish uchun) --- */
+  function dzRgb(h){ return [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)]; }
+  function dzLum(h){
+    const c = dzRgb(h).map(function(v){ v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); });
+    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+  }
+  function dzContrast(a, b){
+    const x = dzLum(a), y = dzLum(b);
+    return (Math.max(x, y) + .05) / (Math.min(x, y) + .05);
+  }
+  function dzHex(css){
+    const m = String(css || '').match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?/);
+    if(!m) return /^#[0-9a-f]{6}$/i.test(css || '') ? css.toUpperCase() : '';
+    if(m[4] != null && parseFloat(m[4]) === 0) return '';
+    return '#' + [m[1], m[2], m[3]].map(function(x){ x = (+x).toString(16); return x.length < 2 ? '0' + x : x; }).join('').toUpperCase();
+  }
+
+  /* --- holat --- */
+
+  function dzTextsDirty(){
+    if(!dz) return [];
+    return Object.keys(dz.texts).filter(function(k){
+      const f = dz.fieldsByKey[k];
+      if(!f) return false;
+      const v = normText(dz.texts[k], f.multi);
+      const want = (!v || v === f.def) ? null : v;
+      const cur = typeof dz.rows[k] === 'string' ? dz.rows[k] : null;
+      return want !== cur;
+    });
+  }
+
+  function dzImgsDirty(){
+    if(!dz) return [];
+    return Object.keys(dz.imgs).filter(function(k){
+      const o = dz.imgs[k];
+      const cur = typeof dz.rows[k] === 'string' ? dz.rows[k] : null;
+      if(o.blob) return true;
+      const f = dz.fieldsByKey[k];
+      const want = o.reset || !o.url || (f && o.url === f.def) ? null : o.url;
+      return want !== cur;
+    });
+  }
+
+  function dzDirtyCount(){
+    if(!dz) return 0;
+    const designChanged = JSON.stringify(dz.state) !== dz.savedJson ? 1 : 0;
+    return designChanged + dzTextsDirty().length + dzImgsDirty().length;
+  }
+
+  function designDirty(){
+    return !!dz && dzDirtyCount() > 0;
+  }
+
+  function leaveDesignOk(){
+    return !designDirty() || confirm('Dizaynda saqlanmagan o‘zgarishlar bor. Ular yo‘qoladi. Davom etasizmi?');
+  }
+
+  function discardDesign(){
+    if(dz){
+      Object.keys(dz.blobs).forEach(function(u){ try{ URL.revokeObjectURL(u); }catch(e){} });
+      clearTimeout(dz.histTimer);
+    }
+    dz = null;
+    document.body.classList.remove('dz-on');
+    const f = $('dzFrame');
+    if(f){ f.onload = null; f.removeAttribute('src'); }
+  }
+
+  function dzRefreshSave(){
+    const n = dzDirtyCount();
+    $('dSave').disabled = !n;
+    $('dSave').textContent = n ? 'Saqlash •' : 'Saqlash';
+  }
+
+  /* o‘zgarish bo‘ldi: ko‘rinish yangilanadi, tarixga yoziladi */
+  function dzChange(noHist){
+    dzSchedulePreview();
+    if(!noHist){
+      clearTimeout(dz.histTimer);
+      dz.histTimer = setTimeout(dzCommit, 450);
+    }
+    dzRefreshSave();
+  }
+
+  function dzCommit(){
+    if(!dz) return;
+    clearTimeout(dz.histTimer);
+    const j = JSON.stringify(dz.state);
+    if(dz.hist[dz.hi] === j) return;
+    dz.hist = dz.hist.slice(0, dz.hi + 1);
+    dz.hist.push(j);
+    if(dz.hist.length > 100) dz.hist.shift();
+    dz.hi = dz.hist.length - 1;
+    dzUndoButtons();
+  }
+
+  function dzUndoButtons(){
+    $('dzUndo').disabled = !dz || dz.hi <= 0;
+    $('dzRedo').disabled = !dz || dz.hi >= dz.hist.length - 1;
+  }
+
+  function dzGo(step){
+    dzCommit();
+    const to = dz.hi + step;
+    if(to < 0 || to >= dz.hist.length) return;
+    dz.hi = to;
+    dz.state = JSON.parse(dz.hist[to]);
+    dzRebuild();
+    dzPreviewNow();
+    dzUndoButtons();
+    dzRefreshSave();
+  }
+
+  /* --- ko‘rinish oynasi (iframe) --- */
+
+  function dzSchedulePreview(){
+    if(!dz || dz.raf) return;
+    dz.raf = requestAnimationFrame(function(){
+      if(!dz) return;
+      dz.raf = 0;
+      dzPreviewNow();
+    });
+  }
+
+  function dzPreviewNow(){
+    if(!dz || !dz.win) return;
+    try{ dz.win.ABH_DESIGN.apply(dz.state); }catch(e){ console.warn('Dizayn qo‘yilmadi', e); }
+    dzContrastWarn();
+    dzOverlay();
+  }
+
+  function dzTop(){
+    const t = $('tabs');
+    const y = t && !t.hidden ? t.getBoundingClientRect().bottom : 58;
+    document.querySelector('.dz').style.setProperty('--dz-top', Math.round(y) + 'px');
+  }
+
+  function dzFit(){
+    if(!dz) return;
+    dzTop();
+    const f = $('dzFrame');
+    const box = $('dzBox').getBoundingClientRect();
+    if(!box.width) return;
+    const W = dz.dev;
+    const k = Math.min(1, (box.width - (W > 600 ? 0 : 16)) / W);
+    f.style.width = W + 'px';
+    f.style.height = Math.round(box.height / k) + 'px';
+    f.style.transform = 'translateX(-50%) scale(' + k + ')';
+  }
+
+  function dzLoadFrame(){
+    if(!dz) return;
+    dz.win = null;
+    dz.doc = null;
+    $('dzLoad').hidden = false;
+    const f = $('dzFrame');
+    f.onload = dzFrameLoaded;
+    f.src = SITE_FILE + '?tahrir=1&v=' + Date.now();
+    dzFit();
+  }
+
+  function dzFrameLoaded(){
+    if(!dz) return;
+    const f = $('dzFrame');
+    try{
+      dz.win = f.contentWindow;
+      dz.doc = f.contentDocument;
+      if(!dz.win.ABH_DESIGN) throw new Error('no api');
+    }catch(e){
+      dz.win = null;
+      $('dzLoad').hidden = true;
+      $('dzErr').textContent = 'Sayt ko‘rinishi ochilmadi. admin.html va index.html bitta saytda (bitta papkada) turishi kerak.';
+      $('dzErr').hidden = false;
+      return;
+    }
+    dzInject();
+    dzPreviewNow();
+    dzBuildBtn();
+    dzFrameContent();
+    Promise.resolve(dz.win.ABH_CONTENT).catch(function(){}).then(function(){
+      setTimeout(dzFrameContent, 80);
+    });
+    $('dzLoad').hidden = true;
+    if(dz.selKey){
+      const n = dzFind(dz.selKey);
+      if(n) dzSelect(n, dz.scope, true);
+    }
+  }
+
+  /* matn va rasm o‘zgarishlarini ko‘rinishga qo‘yish */
+  function dzFrameContent(){
+    if(!dz || !dz.doc) return;
+    Object.keys(dz.texts).forEach(dzFrameText);
+    Object.keys(dz.imgs).forEach(dzFrameImg);
+    dzOverlay();
+  }
+
+  function dzFrameText(k){
+    const f = dz.fieldsByKey[k];
+    if(!f || !dz.doc) return;
+    let v = normText(dz.texts[k], f.multi) || f.def;
+    dz.doc.querySelectorAll('[data-e="' + k + '"]').forEach(function(n){
+      if(n.children.length && !n.querySelector('br')) return;
+      n.textContent = '';
+      v.split('\n').forEach(function(line, i){
+        if(i) n.appendChild(dz.doc.createElement('br'));
+        n.appendChild(dz.doc.createTextNode(line));
+      });
+    });
+  }
+
+  function dzFrameImg(k){
+    const o = dz.imgs[k];
+    const f = dz.fieldsByKey[k];
+    if(!o || !dz.doc) return;
+    const src = o.reset ? (f ? f.def : '') : o.url;
+    if(!src) return;
+    dz.doc.querySelectorAll('[data-e-img="' + k + '"]').forEach(function(n){ n.setAttribute('src', src); });
+  }
+
+  function dzInject(){
+    const d = dz.doc;
+    const st = d.createElement('style');
+    st.textContent =
+      '.abh-ov{position:fixed;z-index:2147483646;pointer-events:none;border:2px solid #FF2D7A;border-radius:3px;display:none}' +
+      '.abh-ov.h{border:2px dashed #2D8CFF}' +
+      '.abh-ov b{position:absolute;left:-2px;top:-21px;padding:1px 7px;border-radius:5px 5px 5px 0;background:#FF2D7A;color:#fff;font:700 11px/18px Arial,sans-serif;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}' +
+      '.abh-ov.h b{background:#2D8CFF}' +
+      '.abh-ov.dn b{top:auto;bottom:-21px;border-radius:0 5px 5px 5px}' +
+      'html.abh-pick body *{cursor:pointer !important}' +
+      'html.abh-nosticky #sticky{display:none !important}' +
+      'html.abh-showsticky #sticky{transform:none !important}';
+    d.head.appendChild(st);
+    dz.ovSel = d.createElement('div');
+    dz.ovSel.className = 'abh-ov';
+    dz.ovSel.appendChild(d.createElement('b'));
+    dz.ovHov = d.createElement('div');
+    dz.ovHov.className = 'abh-ov h';
+    dz.ovHov.appendChild(d.createElement('b'));
+    d.body.appendChild(dz.ovSel);
+    d.body.appendChild(dz.ovHov);
+
+    d.addEventListener('click', dzFrameClick, true);
+    d.addEventListener('submit', function(e){ if(dz && dz.pick){ e.preventDefault(); e.stopPropagation(); } }, true);
+    d.addEventListener('mouseover', function(e){
+      if(!dz || !dz.pick) return;
+      const n = dzTarget(e.target);
+      if(!n || n === dz.selEl){ dz.ovHov.style.display = 'none'; return; }
+      dz.hovEl = n;
+      dzPlace(dz.ovHov, n);
+    }, true);
+    d.addEventListener('mouseout', function(){ if(dz && dz.ovHov){ dz.ovHov.style.display = 'none'; dz.hovEl = null; } }, true);
+    dz.win.addEventListener('scroll', dzOverlay, { passive:true });
+    dz.win.addEventListener('resize', dzOverlay);
+    dzPickClass();
+  }
+
+  function dzPickClass(){
+    if(dz && dz.doc){
+      const r = dz.doc.documentElement;
+      const inSticky = !!(dz.selEl && dz.selEl.closest && dz.selEl.closest('#sticky'));
+      r.classList.toggle('abh-pick', !!dz.pick);
+      /* saytning pastki tugmalari ko‘rinishni to‘sib qo‘ymasin (o‘zi tanlanmagan bo‘lsa) */
+      r.classList.toggle('abh-nosticky', !!dz.pick && !inSticky);
+      r.classList.toggle('abh-showsticky', inSticky);
+    }
+    $('dzPick').classList.toggle('on', !!(dz && dz.pick));
+  }
+
+  function dzTarget(t){
+    if(!t || !t.closest || !dz) return null;
+    if(t.closest('.abh-ov')) return null;
+    if(t.closest('svg')){
+      t = t.closest('[data-e]') || t.closest('svg');
+      const up = t.parentElement && t.parentElement.closest('svg');
+      if(up && !t.hasAttribute('data-e')) t = up;
+    }
+    /* tugma ichidagi yozuv yoki ikonka bosilsa — butun tugma tanlanadi */
+    const btn = t.closest('.btn, .pt-call, .call-round');
+    if(btn && btn !== t && (t.closest('.ic') || t.localName === 'svg' || t.parentElement === btn)) t = btn;
+    if(t === dz.doc.body || t === dz.doc.documentElement) return null;
+    if(!t.closest('[data-s]')) return null;
+    return t;
+  }
+
+  /* faqat ko‘rinish oynasi ichida aylantirish */
+  function dzScrollTo(n, start){
+    if(!n || !dz.win) return;
+    const r = n.getBoundingClientRect();
+    const vh = dz.win.innerHeight;
+    if(!start && r.top >= 0 && r.bottom <= vh) return;
+    const y = dz.win.scrollY + r.top - (start ? 70 : Math.max(70, vh / 2 - r.height / 2));
+    try{ dz.win.scrollTo({ top:Math.max(0, y), behavior:'smooth' }); }catch(e){ dz.win.scrollTo(0, Math.max(0, y)); }
+  }
+
+  function dzFrameClick(e){
+    if(!dz || !dz.pick) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const n = dzTarget(e.target);
+    if(n) dzSelect(n, null);
+  }
+
+  function dzPlace(ov, n){
+    if(!n || !n.isConnected){ ov.style.display = 'none'; return; }
+    const r = n.getBoundingClientRect();
+    if(!r.width && !r.height){ ov.style.display = 'none'; return; }
+    ov.style.display = 'block';
+    ov.style.left = (r.left - 2) + 'px';
+    ov.style.top = (r.top - 2) + 'px';
+    ov.style.width = (r.width + 4) + 'px';
+    ov.style.height = (r.height + 4) + 'px';
+    ov.classList.toggle('dn', r.top < 24);
+    ov.firstChild.textContent = dzLabel(n);
+  }
+
+  function dzOverlay(){
+    if(!dz || !dz.ovSel) return;
+    if(dz.selEl && !dz.selEl.isConnected && dz.selKey){
+      dz.selEl = dzFind(dz.selKey);
+    }
+    dzPlace(dz.ovSel, dz.selEl);
+    if(dz.hovEl) dzPlace(dz.ovHov, dz.hovEl);
+  }
+
+  /* --- elementni aniqlash --- */
+
+  function dzQ(v){ return '"' + String(v).replace(/["\\]/g, '\\$&') + '"'; }
+
+  function dzAttrSel(n){
+    const at = ['data-e', 'data-e-img', 'data-e-yt'];
+    for(let i = 0; i < at.length; i++){
+      if(n.hasAttribute(at[i])) return '[' + at[i] + '=' + dzQ(n.getAttribute(at[i])) + ']';
+    }
+    if(n.id && /^[A-Za-z][\w-]*$/.test(n.id)) return '#' + n.id;
+    return '';
+  }
+
+  function dzSecSel(A){ return '[data-s=' + dzQ(A.getAttribute('data-s')) + ']'; }
+
+  function dzPrecise(n){
+    const A = n.closest('[data-s]');
+    if(!A) return '';
+    const aSel = dzSecSel(A);
+    if(n === A) return aSel;
+    const segs = [];
+    let cur = n;
+    while(cur && cur !== A){
+      const at = dzAttrSel(cur);
+      if(at && A.querySelectorAll(at).length === 1){
+        return aSel + ' ' + [at].concat(segs).join(' > ');
+      }
+      let k = 1;
+      for(let s = cur.previousElementSibling; s; s = s.previousElementSibling) if(s.localName === cur.localName) k++;
+      segs.unshift(cur.localName + ':nth-of-type(' + k + ')');
+      cur = cur.parentElement;
+    }
+    return aSel + ' > ' + segs.join(' > ');
+  }
+
+  function dzClasses(n){
+    return Array.prototype.filter.call(n.classList || [], function(c){
+      return /^[A-Za-z_][\w-]*$/.test(c) && !DZ_STATE_CLS.test(c);
+    });
+  }
+
+  function dzSimilarBase(n){
+    const cls = dzClasses(n).slice(0, 2);
+    if(cls.length) return n.localName + '.' + cls.join('.');
+    const p = n.parentElement;
+    const pc = p ? dzClasses(p)[0] : '';
+    return (pc ? '.' + pc + ' > ' : '') + n.localName;
+  }
+
+  function dzScopes(n){
+    const out = [{ id:'one', label:'Faqat shu', sel:dzPrecise(n) }];
+    const A = n.closest('[data-s]');
+    if(A && n !== A && !n.hasAttribute('data-s')){
+      const base = dzSimilarBase(n);
+      if(base.indexOf('.') > -1 || /^(h[1-3]|p|li|img|summary|dt|dd|figure)$/.test(base)){
+        out.push({ id:'sec', label:'Bo‘limdagi o‘xshashlari', sel:dzSecSel(A) + ' ' + base });
+      }
+      if(base.indexOf('.') > -1 || /^h[1-3]$/.test(base)) out.push({ id:'all', label:'Saytdagi o‘xshashlari', sel:base });
+    }
+    out.forEach(function(s){
+      try{ s.count = dz.doc.querySelectorAll(s.sel).length; }catch(e){ s.count = 0; }
+    });
+    const res = [out[0]];
+    for(let i = 1; i < out.length; i++){
+      if(out[i].sel && out[i].count > res[res.length - 1].count) res.push(out[i]);
+    }
+    return res;
+  }
+
+  function dzFind(sel){
+    if(!dz || !dz.doc) return null;
+    try{ return dz.doc.querySelector(sel); }catch(e){ return null; }
+  }
+
+  function dzLabel(n){
+    if(n.hasAttribute('data-e-label')) return n.getAttribute('data-e-label');
+    if(n.hasAttribute('data-s')){
+      const id = n.getAttribute('data-s');
+      if(/^b_/.test(id) && dz.state.blocks[id]) return dzBlockTitle(dz.state.blocks[id]);
+      return DZ_SEC_NAMES[id] || 'Bo‘lim';
+    }
+    for(let i = 0; i < DZ_LABELS.length; i++){
+      try{ if(n.matches(DZ_LABELS[i][0])) return DZ_LABELS[i][1]; }catch(e){}
+    }
+    return DZ_TAGS[n.localName] || n.localName;
+  }
+
+  function dzSelKey(){
+    if(!dz || !dz.scopes) return '';
+    const s = dz.scopes.filter(function(x){ return x.id === dz.scope; })[0] || dz.scopes[0];
+    return s ? s.sel : '';
+  }
+
+  function dzSelect(n, scope, quiet){
+    dz.selEl = n;
+    if(dz.ovHov) dz.ovHov.style.display = 'none';
+    dz.hovEl = null;
+    dz.scopes = dzScopes(n);
+    const ids = dz.scopes.map(function(s){ return s.id; });
+    if(!scope || ids.indexOf(scope) < 0){
+      /* avval shu element uchun saqlangan sozlama bor bo‘lgan doirani tanlaymiz */
+      scope = 'one';
+      for(let i = dz.scopes.length - 1; i >= 0; i--){
+        if(dz.state.els[dz.scopes[i].sel]){ scope = dz.scopes[i].id; break; }
+      }
+    }
+    dz.scope = scope;
+    dz.selKey = dzSelKey();
+    const cs = dz.win.getComputedStyle(n);
+    dz.comp = {
+      c:dzHex(cs.color), bg:dzHex(cs.backgroundColor), fs:parseFloat(cs.fontSize) || 16,
+      fw:parseInt(cs.fontWeight, 10) || 400, lh:parseFloat(cs.lineHeight), ls:parseFloat(cs.letterSpacing) || 0,
+      ta:cs.textAlign, tt:cs.textTransform, r:parseFloat(cs.borderTopLeftRadius) || 0,
+      bw:parseFloat(cs.borderTopWidth) || 0, bc:dzHex(cs.borderTopColor), op:Math.round(parseFloat(cs.opacity) * 100),
+      p:[cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft].map(function(v){ return Math.round(parseFloat(v) || 0); }),
+      m:[cs.marginTop, cs.marginRight, cs.marginBottom, cs.marginLeft].map(function(v){ return Math.round(parseFloat(v) || 0); }),
+      gc:/text/.test(cs.webkitBackgroundClip || cs.backgroundClip || '')
+    };
+    if(!isFinite(dz.comp.lh)) dz.comp.lh = dz.comp.fs * 1.5;
+    if(!quiet) dzShowPane('pEl');
+    dzPickClass();
+    dzRenderEl();
+    dzOverlay();
+  }
+
+  function dzSelectSel(sel){
+    const n = dzFind(sel);
+    if(!n){
+      toast('Bu element hozir ko‘rinishda yo‘q (yashirilgan yoki o‘chirilgan bo‘lishi mumkin).', true);
+      return;
+    }
+    dzScrollTo(n, false);
+    let scope = null;
+    const sc = dzScopes(n);
+    sc.forEach(function(s){ if(s.sel === sel) scope = s.id; });
+    dzSelect(n, scope);
+  }
+
+  /* --- boshqaruv elementlari --- */
+
+  function dzCtl(parent, label, set){
+    const r = el('div', 'ctl');
+    const h = el('div', 'ctl-head');
+    const lb = el('span', 'ctl-label', label);
+    const val = el('span', 'ctl-val');
+    const x = el('button', 'ctl-x', '↺');
+    x.type = 'button';
+    x.title = 'Asliga qaytarish';
+    h.appendChild(lb);
+    h.appendChild(val);
+    h.appendChild(x);
+    r.appendChild(h);
+    parent.appendChild(r);
+    x.addEventListener('click', function(){ set(null); });
+    return { root:r, val:val, x:x };
+  }
+
+  function dzMark(c, isSet, text){
+    c.root.classList.toggle('set', !!isSet);
+    c.x.disabled = !isSet;
+    if(text != null) c.val.textContent = text;
+  }
+
+  function dzColor(parent, label, get, set, fallback){
+    const c = dzCtl(parent, label, function(){ set(''); sync(); dzChange(); });
+    const row = el('div', 'row');
+    const pick = el('input');
+    pick.type = 'color';
+    const hx = el('input', 'hex');
+    hx.maxLength = 7;
+    hx.spellcheck = false;
+    hx.autocomplete = 'off';
+    row.appendChild(pick);
+    row.appendChild(hx);
+    c.root.appendChild(row);
+    function sync(){
+      const v = get();
+      const fb = fallback() || '';
+      pick.value = (v || fb || '#ffffff').toLowerCase();
+      hx.value = v || '';
+      hx.placeholder = fb ? fb + ' (asl)' : 'shaffof';
+      dzMark(c, !!v, '');
+    }
+    pick.addEventListener('input', function(){
+      const v = pick.value.toUpperCase();
+      set(v);
+      hx.value = v;
+      dzMark(c, true);
+      dzChange();
+    });
+    hx.addEventListener('input', function(){
+      let v = hx.value.trim();
+      if(/^[0-9a-f]{6}$/i.test(v)) v = '#' + v;
+      if(/^#[0-9a-f]{6}$/i.test(v)){
+        set(v.toUpperCase());
+        pick.value = v.toLowerCase();
+        dzMark(c, true);
+        dzChange();
+      }
+    });
+    hx.addEventListener('blur', sync);
+    sync();
+    return sync;
+  }
+
+  function dzRange(parent, label, o, get, set, fallback){
+    const c = dzCtl(parent, label, function(){ set(null); sync(); dzChange(); });
+    const inp = el('input');
+    inp.type = 'range';
+    inp.min = o.min;
+    inp.max = o.max;
+    inp.step = o.step || 1;
+    c.root.appendChild(inp);
+    const fmt = o.fmt || function(v){ return v + (o.unit || ''); };
+    function sync(){
+      const v = get();
+      const fb = fallback ? fallback() : o.def;
+      const show = v == null ? fb : v;
+      inp.value = show;
+      dzMark(c, v != null && v !== o.def, fmt(+(+show).toFixed(2)) + (v == null || v === o.def ? ' · asl' : ''));
+    }
+    inp.addEventListener('input', function(){
+      const v = parseFloat(inp.value);
+      set(v);
+      dzMark(c, v !== o.def, fmt(v) + (v === o.def ? ' · asl' : ''));
+      dzChange();
+    });
+    sync();
+    return sync;
+  }
+
+  function dzSeg(parent, label, opts, get, set, def){
+    const c = dzCtl(parent, label, function(){ set(null); sync(); dzChange(); });
+    const seg = el('div', 'seg');
+    const btns = opts.map(function(o){
+      const b = el('button', '', o[1]);
+      b.type = 'button';
+      if(o[2]) b.title = o[2];
+      b.addEventListener('click', function(){ set(o[0]); sync(); dzChange(); });
+      seg.appendChild(b);
+      return b;
+    });
+    c.root.appendChild(seg);
+    function sync(){
+      const v = get();
+      const cur = v == null || v === '' ? def : v;
+      btns.forEach(function(b, i){ b.classList.toggle('on', opts[i][0] === cur); });
+      dzMark(c, v != null && v !== '' && v !== def, '');
+    }
+    sync();
+    return sync;
+  }
+
+  function dzSwitch(parent, label, get, set, hint){
+    const r = el('label', 'ctl sw');
+    const t = el('span', 'ctl-label', label);
+    if(hint){
+      t.appendChild(document.createElement('br'));
+      const s = el('small', 'muted', hint);
+      s.style.fontWeight = '500';
+      s.style.fontSize = '12px';
+      t.appendChild(s);
+    }
+    const inp = el('input');
+    inp.type = 'checkbox';
+    r.appendChild(t);
+    r.appendChild(inp);
+    parent.appendChild(r);
+    function sync(){ inp.checked = !!get(); }
+    inp.addEventListener('change', function(){ set(inp.checked); dzChange(); });
+    sync();
+    return sync;
+  }
+
+  function dzFontSelect(parent, label, get, set, emptyText){
+    const c = dzCtl(parent, label, function(){ set(''); sync(); dzChange(); });
+    const s = el('select');
+    const o0 = el('option', '', emptyText);
+    o0.value = '';
+    s.appendChild(o0);
+    DZ_FONTS.forEach(function(g){
+      const og = document.createElement('optgroup');
+      og.label = g[0];
+      g[1].forEach(function(f){
+        const o = el('option', '', f + (f === 'Onest' ? ' (asl)' : ''));
+        o.value = f;
+        og.appendChild(o);
+      });
+      s.appendChild(og);
+    });
+    c.root.appendChild(s);
+    function sync(){
+      s.value = get() || '';
+      dzMark(c, !!get(), '');
+    }
+    s.addEventListener('change', function(){ set(s.value); sync(); dzChange(); });
+    sync();
+    return sync;
+  }
+
+  function dzTextInput(parent, label, o, get, set){
+    const c = dzCtl(parent, label, function(){ set(o.reset ? o.reset() : ''); sync(); dzChange(); });
+    const inp = el(o.multi ? 'textarea' : 'input', o.multi ? 'ta' : 'inp');
+    if(!o.multi) inp.type = 'text';
+    if(o.placeholder) inp.placeholder = o.placeholder;
+    inp.maxLength = o.max || 300;
+    c.root.appendChild(inp);
+    const tools = el('div', 'cf-tools');
+    const count = el('span', 'cf-count');
+    tools.appendChild(count);
+    const cyr = el('button', 'mini', '→ Кирилл');
+    cyr.type = 'button';
+    cyr.title = 'Lotincha yozuvni kirillga o‘girish';
+    tools.appendChild(cyr);
+    c.root.appendChild(tools);
+    function counter(){
+      const n = inp.value.length;
+      count.textContent = n + ' / ' + (o.max || 300);
+      count.classList.toggle('over', n > (o.max || 300));
+    }
+    function sync(){
+      inp.value = get() || '';
+      counter();
+      dzMark(c, o.isSet ? o.isSet() : !!get(), '');
+    }
+    inp.addEventListener('input', function(){
+      set(inp.value);
+      counter();
+      dzMark(c, o.isSet ? o.isSet() : !!inp.value, '');
+      dzChange(o.noHist);
+    });
+    cyr.addEventListener('click', function(){
+      inp.value = toCyr(inp.value);
+      inp.dispatchEvent(new Event('input'));
+    });
+    sync();
+    return sync;
+  }
+
+  /* rasm tanlash (yuklash yoki havola) — tanlangani blob: manzil sifatida turadi, saqlaganda yuklanadi */
+  function dzImage(parent, label, get, set, fallback){
+    const c = dzCtl(parent, label, function(){ set(''); sync(); dzChange(); });
+    const box = el('div', 'media2');
+    const shot = el('div', 'shot');
+    const side = el('div');
+    const tools = el('div', 'cf-tools');
+    tools.style.marginTop = '0';
+    const pick = el('label', 'mini', '📷 Rasm yuklash');
+    const file = el('input');
+    file.type = 'file';
+    file.accept = 'image/*';
+    file.hidden = true;
+    pick.appendChild(file);
+    tools.appendChild(pick);
+    const url = el('input', 'inp');
+    url.type = 'url';
+    url.placeholder = 'yoki rasm havolasi: https://...';
+    url.style.marginTop = '6px';
+    side.appendChild(tools);
+    side.appendChild(url);
+    box.appendChild(shot);
+    box.appendChild(side);
+    c.root.appendChild(box);
+    function sync(){
+      const v = get();
+      const show = v || (fallback ? fallback() : '');
+      shot.style.backgroundImage = show ? 'url("' + show.replace(/"/g, '%22') + '")' : '';
+      url.value = v && v.indexOf('blob:') !== 0 ? v : '';
+      url.placeholder = v && v.indexOf('blob:') === 0 ? 'yangi rasm tanlandi (saqlaganda yuklanadi)' : 'yoki rasm havolasi: https://...';
+      dzMark(c, !!v, '');
+    }
+    file.addEventListener('change', async function(){
+      const f = file.files && file.files[0];
+      file.value = '';
+      if(!f) return;
+      if(!/^image\//.test(f.type)){ toast('Rasm fayl tanlang', true); return; }
+      busy(true, 'Rasm tayyorlanmoqda...');
+      try{
+        const blob = await compressImage(f, 1600, .86);
+        const u = URL.createObjectURL(blob);
+        dz.blobs[u] = blob;
+        set(u);
+        sync();
+        dzChange();
+      }catch(e){
+        toast('Rasm ochilmadi. Boshqa rasm tanlang.', true);
+      }finally{
+        busy(false);
+      }
+    });
+    url.addEventListener('change', function(){
+      const v = url.value.trim();
+      if(!v){ set(''); sync(); dzChange(); return; }
+      if(!HTTPS_URL.test(v)){ toast('Havola https:// bilan boshlanishi kerak', true); sync(); return; }
+      set(v);
+      sync();
+      dzChange();
+    });
+    sync();
+    return sync;
+  }
+
+  function dzBox4(parent, label, get, set, fallback, sides){
+    const c = dzCtl(parent, label, function(){ set(null); sync(); dzChange(); });
+    const grid = el('div', 'box4');
+    const names = sides || ['Tepa', 'O‘ng', 'Past', 'Chap'];
+    const inputs = names.map(function(nm, i){
+      const l = el('label', '', nm);
+      const inp = el('input');
+      inp.type = 'number';
+      inp.inputMode = 'numeric';
+      inp.step = 1;
+      l.appendChild(inp);
+      grid.appendChild(l);
+      inp.addEventListener('input', function(){
+        const cur = (get() || [null, null, null, null]).slice();
+        cur[i] = inp.value === '' ? null : Math.round(parseFloat(inp.value));
+        set(cur.some(function(x){ return x != null; }) ? cur : null);
+        dzMark(c, !!get(), '');
+        dzChange();
+      });
+      return inp;
+    });
+    c.root.appendChild(grid);
+    function sync(){
+      const v = get();
+      const fb = fallback ? fallback() : [];
+      inputs.forEach(function(inp, i){
+        inp.value = v && v[i] != null ? v[i] : '';
+        inp.placeholder = fb[i] != null ? fb[i] : '';
+      });
+      dzMark(c, !!v, '');
+    }
+    sync();
+    return sync;
+  }
+
+  function dzDetails(parent, title, open){
+    const d = el('details', 'dz-card');
+    const s = el('summary', '', title);
+    d.appendChild(s);
+    d.open = !!open;
+    parent.appendChild(d);
+    return d;
+  }
+
+  /* --- panellar --- */
+
+  function dzShowPane(id){
+    const changed = dz.pane !== id;
+    dz.pane = id;
+    const bar = $('dzTabs');
+    document.querySelectorAll('#dzTabs [data-p]').forEach(function(b){
+      const on = b.getAttribute('data-p') === id;
+      b.classList.toggle('on', on);
+      if(on && bar.scrollWidth > bar.clientWidth){
+        const x = b.offsetLeft - (bar.clientWidth - b.offsetWidth) / 2;
+        try{ bar.scrollTo({ left:Math.max(0, x), behavior:'smooth' }); }catch(e){ bar.scrollLeft = Math.max(0, x); }
+      }
+    });
+    if(changed) document.querySelector('.dz-panel').scrollTop = 0;
+    ['pColors', 'pType', 'pBtn', 'pSecs', 'pEl', 'pMore'].forEach(function(p){ $(p).hidden = p !== id; });
+  }
+
+  function dzRebuild(){
+    dzBuildColors();
+    dzBuildType();
+    dzBuildBtn();
+    dzBuildSecs();
+    dzBuildMore();
+    if(dz.selEl && dz.doc){
+      const n = dz.selEl.isConnected ? dz.selEl : dzFind(dz.selKey);
+      if(n){ dzSelect(n, dz.scope, true); return; }
+      dz.selEl = null;
+    }
+    dzRenderEl();
+  }
+
+  function dzEffColors(){
+    try{ if(dz.win) return dz.win.ABH_DESIGN.colors(dz.state); }catch(e){}
+    return Object.assign({ 'on-gold-2':'#1C1606' }, DZ_BASE, dz.state.c);
+  }
+
+  function dzBuildColors(){
+    const pr = $('dzPresets');
+    pr.innerHTML = '';
+    const cur = JSON.stringify(dz.state.c);
+    DZ_PRESETS.forEach(function(p){
+      const b = el('button', 'preset');
+      b.type = 'button';
+      const c = Object.assign({}, DZ_BASE, p.c);
+      const sws = el('div', 'sws');
+      ['deep', 'em', 'gold', 'bg'].forEach(function(k){
+        const i = document.createElement('i');
+        i.style.background = c[k];
+        sws.appendChild(i);
+      });
+      b.appendChild(sws);
+      b.appendChild(el('span', '', p.name));
+      if(JSON.stringify(p.c) === cur) b.classList.add('on');
+      b.addEventListener('click', function(){
+        dz.state.c = JSON.parse(JSON.stringify(p.c));
+        dzBuildColors();
+        dzChange();
+      });
+      pr.appendChild(b);
+    });
+
+    const box = $('dzColors');
+    box.innerHTML = '';
+    DZ_COLOR_LABELS.forEach(function(row){
+      const k = row[0];
+      dzColor(box, row[1], function(){ return dz.state.c[k] || ''; }, function(v){
+        if(v) dz.state.c[k] = v; else delete dz.state.c[k];
+        dzMarkPresets();
+      }, function(){ return DZ_BASE[k]; });
+    });
+    dzContrastWarn();
+  }
+
+  function dzMarkPresets(){
+    const cur = JSON.stringify(dz.state.c);
+    Array.prototype.forEach.call($('dzPresets').children, function(b, i){
+      b.classList.toggle('on', JSON.stringify(DZ_PRESETS[i].c) === cur);
+    });
+  }
+
+  function dzContrastWarn(){
+    const box = $('dzContrast');
+    if(!box || !dz) return;
+    const C = dzEffColors();
+    const bad = [];
+    function chk(fg, bg, min, text){ if(C[fg] && C[bg] && dzContrast(C[fg], C[bg]) < min) bad.push(text); }
+    chk('ink', 'bg', 4.5, 'asosiy matn sahifa fonida');
+    chk('ink', 'card', 4.5, 'asosiy matn kartochkalarda');
+    chk('muted', 'card', 3.5, 'kulrang matn kartochkalarda');
+    chk('on-dark', 'deep', 4.5, 'to‘q fondagi matn');
+    chk('on-dark', 'em', 3, 'yashil tugmadagi yozuv');
+    box.innerHTML = '';
+    if(bad.length){
+      box.appendChild(el('div', 'dz-warn', '⚠ O‘qish qiyin bo‘lishi mumkin: ' + bad.join(', ') + '. Matn va fon ranglari bir-biridan yaqqol farq qilsin.'));
+    }
+  }
+
+  function dzBuildType(){
+    const t = $('dzType');
+    t.innerHTML = '';
+    t.appendChild(el('h3', '', 'Shriftlar'));
+    const S = dz.state;
+    dzFontSelect(t, 'Asosiy shrift (matnlar)', function(){ return S.font; }, function(v){ S.font = v || ''; }, 'Onest (asl)');
+    dzFontSelect(t, 'Sarlavhalar shrifti', function(){ return S.fontH; }, function(v){ S.fontH = v || ''; }, 'Asosiy shrift bilan bir xil');
+    dzRange(t, 'Matnlar o‘lchami', { min:80, max:135, step:1, unit:'%', def:100 }, function(){ return S.fs; }, function(v){ S.fs = v == null ? 100 : v; });
+    dzRange(t, 'Sarlavhalar o‘lchami', { min:70, max:150, step:1, unit:'%', def:100 }, function(){ return S.fsH; }, function(v){ S.fsH = v == null ? 100 : v; });
+    dzSeg(t, 'Sarlavhalar qalinligi', [[400, 'Oddiy'], [600, 'Yarim'], [700, 'Qalin'], [800, 'Juda qalin'], [900, 'Eng qalin']],
+      function(){ return S.wH; }, function(v){ S.wH = v == null ? 800 : v; }, 800);
+    dzRange(t, 'Sarlavhalarda harflar orasi', { min:-6, max:12, step:1, def:-2, fmt:function(v){ return (v / 100).toFixed(2) + 'em'; } },
+      function(){ return S.lsH; }, function(v){ S.lsH = v == null ? -2 : v; });
+    dzSwitch(t, 'Sarlavhalar KATTA HARFLARDA', function(){ return S.ttH; }, function(v){ S.ttH = v; });
+    dzRange(t, 'Qatorlar orasi (matnda)', { min:120, max:220, step:5, def:160, fmt:function(v){ return (v / 100).toFixed(2); } },
+      function(){ return S.lh; }, function(v){ S.lh = v == null ? 160 : v; });
+
+    const s = $('dzSpace');
+    s.innerHTML = '';
+    s.appendChild(el('h3', '', 'Shakl va bo‘shliqlar'));
+    dzRange(s, 'Burchaklar yumaloqligi', { min:0, max:200, step:5, unit:'%', def:100 }, function(){ return S.rad; }, function(v){ S.rad = v == null ? 100 : v; });
+    dzRange(s, 'Bo‘limlar orasidagi bo‘shliq', { min:40, max:180, step:5, unit:'%', def:100 }, function(){ return S.sp; }, function(v){ S.sp = v == null ? 100 : v; });
+    dzRange(s, 'Ekran chetidan bo‘shliq', { min:10, max:40, step:1, unit:'px', def:20 }, function(){ return S.gut; }, function(v){ S.gut = v == null ? 20 : v; });
+    dzRange(s, 'Kompyuterda sahifa kengligi', { min:800, max:1600, step:20, unit:'px', def:1140 }, function(){ return S.maxw; }, function(v){ S.maxw = v == null ? 1140 : v; });
+  }
+
+  function dzBuildBtn(){
+    const t = $('dzBtn');
+    t.innerHTML = '';
+    const B = dz.state.btn;
+    t.appendChild(el('h3', '', 'Ko‘rinishi'));
+    dzSeg(t, 'Shakli', [['pill', '⬭ Yumaloq'], ['round', '▢ Burchakli'], ['square', '▭ To‘g‘ri']], function(){ return B.r; }, function(v){ B.r = v || 'pill'; }, 'pill');
+    dzSeg(t, 'Rangi', [[false, 'Gradient (o‘tishli)'], [true, 'Bir xil rang']], function(){ return B.flat; }, function(v){ B.flat = !!v; }, false);
+    dzRange(t, 'Balandligi', { min:44, max:80, step:2, unit:'px', def:60 }, function(){ return B.h; }, function(v){ B.h = v == null ? 60 : v; });
+    dzSeg(t, 'Yozuv qalinligi', [[500, 'Oddiy'], [600, 'Yarim'], [700, 'Qalin'], [800, 'Juda qalin']], function(){ return B.w; }, function(v){ B.w = v == null ? 700 : v; }, 700);
+    dzSwitch(t, 'Yozuv KATTA HARFLARDA', function(){ return B.tt; }, function(v){ B.tt = v; });
+    dzSwitch(t, 'Ikonka (doira ichidagi belgi)', function(){ return B.icon; }, function(v){ B.icon = v; });
+    dzSwitch(t, 'Soya', function(){ return B.shadow; }, function(v){ B.shadow = v; });
+    dzSwitch(t, 'Yaltiroq chiziq (harakatlanadi)', function(){ return B.shine; }, function(v){ B.shine = v; });
+
+    const c = $('dzBtnColors');
+    c.innerHTML = '';
+    c.appendChild(el('h3', '', 'Tugma ranglari'));
+    c.appendChild(el('p', 'muted', 'Bo‘sh qoldirsangiz — “Ranglar” bo‘limidagi oltin va yashil rang olinadi.')).style.margin = '0 0 4px';
+    const C = function(){ return dzEffColors(); };
+    dzColor(c, 'Asosiy tugma (oltin) rangi', function(){ return B.c1; }, function(v){ B.c1 = v || ''; }, function(){ return C().gold; });
+    dzColor(c, 'Asosiy tugma yozuvi', function(){ return B.t1; }, function(v){ B.t1 = v || ''; }, function(){ return C()['on-gold-2']; });
+    dzColor(c, 'Yashil tugma rangi', function(){ return B.c2; }, function(v){ B.c2 = v || ''; }, function(){ return C().em; });
+    dzColor(c, 'Yashil tugma yozuvi', function(){ return B.t2; }, function(v){ B.t2 = v || ''; }, function(){ return C()['on-dark']; });
+  }
+
+  function dzBlockTitle(b){
+    return (b && (b.h || b.btn || b.cap)) ? (b.h || b.btn || b.cap).slice(0, 40) : DZ_BLOCK_TYPES[b && b.t] || 'Blok';
+  }
+
+  function dzIsHidden(id){ return dz.state.hide.indexOf(id) > -1; }
+
+  function dzToggleHide(id){
+    const h = dz.state.hide;
+    const i = h.indexOf(id);
+    if(i > -1) h.splice(i, 1); else h.push(id);
+    dzBuildSecs();
+    dzChange();
+  }
+
+  function dzSecStyle(id){
+    const n = dzFind('[data-s="' + id + '"]');
+    if(!n || dzIsHidden(id)){
+      toast('Bu bo‘lim hozir yashirilgan — avval 👁 bilan ko‘rsating.', true);
+      return;
+    }
+    dzSelect(n, 'one');
+    if(id !== 'sticky' && id !== 'header') dzScrollTo(n, true);
+  }
+
+  function dzSecRow(box, id, i, movable){
+    const isB = /^b_/.test(id);
+    const b = isB ? dz.state.blocks[id] : null;
+    const row = el('div', 'sec' + (dzIsHidden(id) ? ' off' : ''));
+    const r = el('div', 'sec-row');
+    const nm = el('div', 'sec-name', isB ? dzBlockTitle(b) : DZ_SEC_NAMES[id]);
+    if(isB) nm.appendChild(el('small', '', DZ_BLOCK_TYPES[b.t] + ' · siz qo‘shgan'));
+    r.appendChild(nm);
+    function btn(text, title, fn, cls, dis){
+      const x = el('button', cls || '', text);
+      x.type = 'button';
+      x.title = title;
+      x.disabled = !!dis;
+      x.addEventListener('click', fn);
+      r.appendChild(x);
+      return x;
+    }
+    if(movable){
+      const order = dz.state.order;
+      btn('↑', 'Tepaga', function(){ const o = dz.state.order; o.splice(i - 1, 0, o.splice(i, 1)[0]); dzBuildSecs(); dzChange(); }, '', i === 0);
+      btn('↓', 'Pastga', function(){ const o = dz.state.order; o.splice(i + 1, 0, o.splice(i, 1)[0]); dzBuildSecs(); dzChange(); }, '', i === order.length - 1);
+    }
+    btn(dzIsHidden(id) ? '🚫' : '👁', dzIsHidden(id) ? 'Yashirilgan — ko‘rsatish' : 'Yashirish', function(){ dzToggleHide(id); });
+    btn('🎨', 'Fon, bo‘shliq va boshqa ko‘rinish', function(){ dzSecStyle(id); });
+    if(isB){
+      btn('✎', 'Tahrirlash', function(){ dz.openBlock = dz.openBlock === id ? null : id; dzBuildSecs(); });
+      btn('🗑', 'O‘chirish', function(){
+        if(!confirm('“' + dzBlockTitle(b) + '” blokini o‘chirasizmi?')) return;
+        delete dz.state.blocks[id];
+        dz.state.order = dz.state.order.filter(function(x){ return x !== id; });
+        dz.state.hide = dz.state.hide.filter(function(x){ return x !== id; });
+        Object.keys(dz.state.els).forEach(function(k){ if(k.indexOf('[data-s="' + id + '"]') === 0) delete dz.state.els[k]; });
+        dzBuildSecs();
+        dzChange();
+      }, 'del');
+    }
+    row.appendChild(r);
+    if(isB && dz.openBlock === id) row.appendChild(dzBlockEditor(id, b));
+    box.appendChild(row);
+  }
+
+  function dzBuildSecs(){
+    const box = $('dzSecs');
+    box.innerHTML = '';
+    dz.state.order.forEach(function(id, i){ dzSecRow(box, id, i, true); });
+    const fx = $('dzFixed');
+    fx.innerHTML = '';
+    DZ_FIXED.forEach(function(id){ dzSecRow(fx, id, 0, false); });
+  }
+
+  function dzBlockEditor(id, b){
+    const box = el('div', 'sec-edit');
+    function upd(){ dzChange(); }
+    dzTextInput(box, 'Sarlavha', { max:200, placeholder:'Масалан: Нима учун ABIHAYAT?' }, function(){ return b.h; }, function(v){ b.h = v; upd(); });
+    dzTextInput(box, 'Matn', { max:2000, multi:true, placeholder:'Блок матни' }, function(){ return b.p; }, function(v){ b.p = v; upd(); });
+    if(b.t === 'image'){
+      dzImage(box, 'Rasm', function(){ return b.img; }, function(v){ b.img = v || ''; });
+      dzTextInput(box, 'Rasm ostidagi izoh', { max:300 }, function(){ return b.cap; }, function(v){ b.cap = v; upd(); });
+    }
+    if(b.t === 'video'){
+      const c = dzCtl(box, 'YouTube havolasi', function(){ b.yt = ''; inp.value = ''; dzChange(); });
+      const inp = el('input', 'inp');
+      inp.type = 'url';
+      inp.placeholder = 'https://youtu.be/...';
+      inp.value = b.yt ? 'https://youtu.be/' + b.yt : '';
+      c.root.appendChild(inp);
+      const msg = el('div', 'cf-err');
+      c.root.appendChild(msg);
+      inp.addEventListener('input', function(){
+        const idv = ytId(inp.value);
+        msg.textContent = inp.value.trim() && !idv ? 'YouTube havolasi tanilmadi' : '';
+        b.yt = idv;
+        dzMark(c, !!idv, '');
+        dzChange();
+      });
+      dzMark(c, !!b.yt, '');
+      dzSwitch(box, 'Vertikal video (Shorts)', function(){ return !!b.vert; }, function(v){ b.vert = v ? 1 : 0; });
+    }
+    dzTextInput(box, 'Tugma yozuvi', { max:60, placeholder:'Bo‘sh qolsa — tugma bo‘lmaydi' }, function(){ return b.btn; }, function(v){ b.btn = v; upd(); });
+    dzSeg(box, 'Tugma bosilganda', [['form', 'Formaga o‘tadi'], ['tel', 'Qo‘ng‘iroq qiladi']], function(){ return b.to; }, function(v){ b.to = v || 'form'; }, 'form');
+    dzSeg(box, 'Fon', [['bg', 'Sahifa'], ['white', 'Oq'], ['dark', 'To‘q'], ['gold', 'Oltin']], function(){ return b.bg; }, function(v){ b.bg = v || 'bg'; }, 'bg');
+    dzSeg(box, 'Joylashuv', [['left', 'Chapda'], ['center', 'O‘rtada']], function(){ return b.al; }, function(v){ b.al = v || 'left'; }, 'left');
+    const go = el('button', 'btn btn-line btn-block', 'Ko‘rinishda ko‘rsatish');
+    go.type = 'button';
+    go.style.marginTop = '10px';
+    go.addEventListener('click', function(){
+      dzScrollTo(dzFind('[data-s="' + id + '"]'), true);
+    });
+    box.appendChild(go);
+    return box;
+  }
+
+  function dzAddBlock(type){
+    let id;
+    do{ id = 'b_' + Math.random().toString(36).slice(2, 8); }while(dz.state.blocks[id]);
+    const titles = { text:'Янги блок', image:'Расм', video:'Видео' };
+    dz.state.blocks[id] = { t:type, h:titles[type], p:'', btn:'', to:'form', al:'left', bg:type === 'text' ? 'white' : 'bg', img:'', cap:'', yt:'', vert:0 };
+    const o = dz.state.order;
+    o.splice(Math.max(0, o.indexOf('murojaat')), 0, id);
+    dz.openBlock = id;
+    dzBuildSecs();
+    dzChange();
+    setTimeout(function(){
+      dzScrollTo(dzFind('[data-s="' + id + '"]'), true);
+    }, 120);
+  }
+
+  /* --- tanlangan element paneli --- */
+
+  function dzStyleOf(create){
+    const k = dz.selKey;
+    let st = dz.state.els[k];
+    if(!st && create) st = dz.state.els[k] = {};
+    return st || {};
+  }
+
+  function dzSetStyle(prop, v){
+    const k = dz.selKey;
+    if(!k) return;
+    const st = dz.state.els[k] || (dz.state.els[k] = {});
+    if(v == null || v === '' || v === false) delete st[prop];
+    else st[prop] = v;
+    if(prop === 'c'){
+      if(v && dz.comp.gc) st.gc = 1; else delete st.gc;
+    }
+    if(!Object.keys(st).filter(function(x){ return x !== 'gc'; }).length) delete dz.state.els[k];
+    dzElCount();
+  }
+
+  function dzElCount(){
+    const n = Object.keys(dz.state.els).length;
+    const b = document.querySelector('#dzTabs [data-p="pEl"]');
+    b.innerHTML = '👆 Element' + (n ? '<span class="dot"></span>' : '');
+  }
+
+  function dzRenderEl(){
+    const box = $('dzEl');
+    box.innerHTML = '';
+    dzElCount();
+    const n = dz.selEl;
+    if(!n || !dz.doc){
+      box.appendChild(el('h2', '', 'Element'));
+      box.appendChild(el('div', 'el-empty', '👆 Ko‘rinishdagi istalgan joyni bosing: sarlavha, matn, tugma, rasm, kartochka yoki butun bo‘lim. Uning rangi, o‘lchami, shrifti, foni va bo‘shliqlari shu yerda ochiladi.'));
+      dzElList(box);
+      return;
+    }
+
+    /* sarlavha, “non bo‘laklari”, doira */
+    const head = el('div', 'el-head');
+    const title = el('div', 'el-title', dzLabel(n));
+    title.appendChild(el('small', '', dz.selKey));
+    head.appendChild(title);
+    const crumbs = el('div', 'crumbs');
+    const chain = [];
+    for(let c = n; c && c !== dz.doc.body; c = c.parentElement){
+      chain.unshift(c);
+      if(c.hasAttribute('data-s')) break;
+    }
+    chain.slice(-6).forEach(function(c){
+      const b = el('button', c === n ? 'on' : '', dzLabel(c));
+      b.type = 'button';
+      b.addEventListener('click', function(){ dzSelect(c, null); });
+      crumbs.appendChild(b);
+    });
+    head.appendChild(crumbs);
+    if(dz.scopes.length > 1){
+      const sc = el('div', 'scope');
+      dz.scopes.forEach(function(s){
+        const b = el('button', s.id === dz.scope ? 'on' : '', s.label + (s.count > 1 ? ' (' + s.count + ')' : ''));
+        b.type = 'button';
+        b.addEventListener('click', function(){ dzSelect(n, s.id, true); });
+        sc.appendChild(b);
+      });
+      head.appendChild(sc);
+    }
+    box.appendChild(head);
+
+    const comp = dz.comp;
+    const st = function(){ return dzStyleOf(false); };
+    const set = dzSetStyle;
+    function g(p){ return function(){ const v = st()[p]; return v == null ? null : v; }; }
+    function s(p){ return function(v){ set(p, v); }; }
+
+    /* matn / rasm / video — mazmun */
+    let eKey = n.getAttribute('data-e');
+    if(!eKey && n.matches('.btn, .pt-call, a, button') && n.querySelectorAll('[data-e]').length === 1){
+      eKey = n.querySelector('[data-e]').getAttribute('data-e');
+    }
+    const iKey = n.getAttribute('data-e-img');
+    if((eKey && dz.fieldsByKey[eKey]) || (iKey && dz.fieldsByKey[iKey])){
+      const card = el('div', 'dz-card');
+      card.appendChild(el('h3', '', 'Mazmuni'));
+      if(eKey){
+        const f = dz.fieldsByKey[eKey];
+        const saved = typeof dz.rows[eKey] === 'string' ? dz.rows[eKey] : f.def;
+        dzTextInput(card, 'Matn' + (f.count > 1 ? ' (saytda ' + f.count + ' joyda)' : ''), {
+          multi:f.multi || f.def.length > 60, max:f.max, noHist:true,
+          isSet:function(){ const v = dzHas(dz.texts, eKey) ? normText(dz.texts[eKey], f.multi) : saved; return !!v && v !== f.def; },
+          reset:function(){ return f.def; }
+        }, function(){ return dzHas(dz.texts, eKey) ? dz.texts[eKey] : saved; }, function(v){
+          dz.texts[eKey] = v;
+          dzFrameText(eKey);
+          dzOverlay();
+        });
+      }else{
+        const f = dz.fieldsByKey[iKey];
+        const saved = typeof dz.rows[iKey] === 'string' ? dz.rows[iKey] : f.def;
+        dzImage(card, 'Rasm', function(){
+          const o = dz.imgs[iKey];
+          if(o) return o.reset ? '' : o.url;
+          return saved !== f.def ? saved : '';
+        }, function(v){
+          dz.imgs[iKey] = v ? { url:v, blob:dz.blobs[v] || null } : { reset:true };
+          dzFrameImg(iKey);
+          dzRefreshSave();
+        }, function(){ return f.def; });
+      }
+      box.appendChild(card);
+    }else if(n.hasAttribute('data-e-yt') || n.hasAttribute('data-e-tel') || n.querySelector('[data-e-tel]') && n.matches('a')){
+      const card = el('div', 'dz-card');
+      card.appendChild(el('p', 'muted', n.hasAttribute('data-e-yt')
+        ? 'Video havolasi “Sayt matnlari” bo‘limida almashtiriladi.'
+        : 'Telefon raqami “Sayt matnlari” bo‘limida almashtiriladi (hamma joyda birdan).')).style.margin = '0';
+      box.appendChild(card);
+    }
+
+    /* matn ko‘rinishi */
+    const d1 = dzDetails(box, 'Aa  Matn ko‘rinishi', true);
+    dzColor(d1, 'Matn rangi', g('c'), s('c'), function(){ return comp.c; });
+    dzRange(d1, 'O‘lchami', { min:8, max:96, step:1, unit:'px' }, g('fs'), s('fs'), function(){ return Math.round(comp.fs); });
+    dzSeg(d1, 'Qalinligi', [[400, '400'], [500, '500'], [600, '600'], [700, '700'], [800, '800'], [900, '900']], g('fw'), s('fw'), comp.fw);
+    dzFontSelect(d1, 'Shrift', g('ff'), s('ff'), 'O‘zgarmasin');
+    dzSeg(d1, 'Tekislash', [['left', '⟸ Chap'], ['center', '≡ O‘rta'], ['right', 'O‘ng ⟹']], g('ta'), s('ta'), { start:'left', end:'right' }[comp.ta] || comp.ta);
+    dzSeg(d1, 'Harflar', [['none', 'Oddiy'], ['uppercase', 'KATTA'], ['capitalize', 'Bosh Harf']], g('tt'), s('tt'), comp.tt);
+    dzSwitch(d1, 'Qiyshiq (kursiv)', function(){ return !!st().fi; }, function(v){ set('fi', v ? 1 : null); });
+    dzRange(d1, 'Qatorlar orasi', { min:.8, max:2.6, step:.05, fmt:function(v){ return (+v).toFixed(2); } }, g('lh'), s('lh'),
+      function(){ return Math.round(comp.lh / comp.fs * 100) / 100; });
+    dzRange(d1, 'Harflar orasi', { min:-3, max:12, step:.1, unit:'px' }, g('ls'), s('ls'), function(){ return Math.round(comp.ls * 10) / 10; });
+
+    /* fon */
+    const d2 = dzDetails(box, '🎨  Fon', false);
+    dzColor(d2, 'Fon rangi', g('bg'), s('bg'), function(){ return comp.bg; });
+    dzImage(d2, 'Fon rasmi', g('bgi'), function(v){ set('bgi', v || null); });
+    dzRange(d2, 'Fon rasmini qoraytirish', { min:0, max:85, step:5, unit:'%', def:0 }, g('ov'), s('ov'));
+
+    /* chegara */
+    const d3 = dzDetails(box, '▢  Chegara, burchak, soya', false);
+    dzRange(d3, 'Burchak yumaloqligi', { min:0, max:80, step:1, unit:'px' }, g('r'), s('r'), function(){ return Math.round(comp.r); });
+    dzRange(d3, 'Chegara qalinligi', { min:0, max:10, step:.5, unit:'px' }, g('bw'), s('bw'), function(){ return comp.bw; });
+    dzColor(d3, 'Chegara rangi', g('bc'), s('bc'), function(){ return comp.bc; });
+    dzSeg(d3, 'Soya', [['none', 'Yo‘q'], ['soft', 'Yumshoq'], ['strong', 'Kuchli'], ['glow', 'Oltin nur']], g('sh'), s('sh'), '');
+
+    /* bo‘shliqlar */
+    const d4 = dzDetails(box, '↔  Bo‘shliqlar (px)', false);
+    dzBox4(d4, 'Ichki bo‘shliq (padding)', g('p'), s('p'), function(){ return comp.p; });
+    dzBox4(d4, 'Tashqi bo‘shliq (margin)', g('m'), s('m'), function(){ return comp.m; });
+
+    /* ko‘rinish */
+    const d5 = dzDetails(box, '👁  Ko‘rinish va harakat', false);
+    dzRange(d5, 'Shaffoflik', { min:0, max:100, step:5, unit:'%' }, g('op'), s('op'), function(){ return comp.op; });
+    dzRange(d5, 'Eng katta kengligi', { min:40, max:1200, step:10, unit:'px' }, g('mw'), s('mw'), function(){ return Math.round(n.getBoundingClientRect().width); });
+    dzSeg(d5, 'Yashirish', [['', 'Ko‘rinsin'], ['all', 'Hamma joyda'], ['m', 'Telefonda'], ['d', 'Kompyuterda']], g('hide'), s('hide'), '');
+    dzSeg(d5, 'Harakat', [['', 'Yo‘q'], ['float', 'Suzish'], ['pulse', 'Puls'], ['glow', 'Nur'], ['shake', 'Silkinish']], g('fx'), s('fx'), '');
+
+    const clr = el('button', 'btn btn-red btn-block', 'Bu element sozlamalarini tozalash');
+    clr.type = 'button';
+    clr.style.marginTop = '12px';
+    clr.disabled = !dz.state.els[dz.selKey];
+    clr.addEventListener('click', function(){
+      delete dz.state.els[dz.selKey];
+      dzRenderEl();
+      dzChange();
+    });
+    box.appendChild(clr);
+
+    const un = el('button', 'btn btn-line btn-block', 'Tanlovni bekor qilish');
+    un.type = 'button';
+    un.style.marginTop = '8px';
+    un.addEventListener('click', function(){
+      dz.selEl = null;
+      dz.selKey = '';
+      dzPickClass();
+      dzRenderEl();
+      dzOverlay();
+    });
+    box.appendChild(un);
+    dzElList(box);
+  }
+
+  function dzElList(box){
+    const keys = Object.keys(dz.state.els);
+    if(!keys.length) return;
+    const card = dzDetails(box, 'O‘zgartirilgan elementlar', !dz.selEl);
+    card.querySelector('summary').appendChild(el('span', 'cnt', String(keys.length)));
+    const list = el('div', 'el-list');
+    keys.forEach(function(k){
+      const it = el('div', 'item2');
+      const nn = dzFind(k);
+      const nm = el('span', '', nn ? dzLabel(nn) : k);
+      nm.title = k;
+      it.appendChild(nm);
+      const go = el('button', 'mini', 'Tanlash');
+      go.type = 'button';
+      go.addEventListener('click', function(){ dzSelectSel(k); });
+      const del = el('button', 'mini', '↺');
+      del.type = 'button';
+      del.title = 'Asliga qaytarish';
+      del.addEventListener('click', function(){ delete dz.state.els[k]; dzRenderEl(); dzChange(); });
+      it.appendChild(go);
+      it.appendChild(del);
+      list.appendChild(it);
+    });
+    card.appendChild(list);
+  }
+
+  function dzBuildMore(){
+    const a = $('dzAnim');
+    a.innerHTML = '';
+    a.appendChild(el('h3', '', 'Animatsiyalar'));
+    dzSwitch(a, 'Bezak animatsiyalari', function(){ return dz.state.anim; }, function(v){ dz.state.anim = v; },
+      'Telefon ikonkasi halqasi, aylanuvchi muhr, suzuvchi belgi, tugmadagi yaltiroq.');
+    dzSwitch(a, 'Paydo bo‘lish animatsiyasi', function(){ return dz.state.reveal; }, function(v){ dz.state.reveal = v; },
+      'Sahifa pastga surilganda bo‘limlar sekin paydo bo‘ladi.');
+    $('dzCss').value = dz.state.css || '';
+    $('dzRestorePrev').disabled = !dz.prev;
+    $('dzPrevInfo').textContent = dz.prev
+      ? 'Oldingi saqlangan dizayn nusxasi bor. Uni qaytarib, so‘ng “Saqlash”ni bossangiz — saytga qaytadi.'
+      : 'Har saqlashda oldingi dizayn nusxasi saqlab qo‘yiladi. Hozircha nusxa yo‘q.';
+  }
+
+  /* --- ochish --- */
+
+  async function openDesign(){
+    show('vDesign');
+    document.body.classList.add('dz-on');
+    try{ localStorage.setItem(TAB_KEY, 'vDesign'); }catch(e){}
+    discardDesign();
+    document.body.classList.add('dz-on');
+    $('dzErr').hidden = true;
+    $('dSave').disabled = true;
+    busy(true, 'Dizayn yuklanmoqda...');
+    try{
+      let html;
+      try{
+        const res = await fetch(SITE_FILE + '?v=' + Date.now(), { cache:'no-store' });
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+        html = await res.text();
+      }catch(e){
+        throw new Error('Sayt fayli (index.html) o‘qilmadi. admin.html va index.html bitta papkada turishi kerak.');
+      }
+      let rows;
+      try{
+        rows = await call('/rest/v1/' + CONTENT + '?select=key,value');
+      }catch(err){
+        if(missingTable(err.message)) throw new Error('Avval “Sayt matnlari” bo‘limini oching va u yerdagi bir martalik sozlashni bajaring.');
+        throw err;
+      }
+      const map = {};
+      (rows || []).forEach(function(r){ map[r.key] = r.value; });
+      const list = parseSite(html);
+      const byKey = {};
+      list.forEach(function(f){ byKey[f.key] = f; });
+      const cur = dzRead(map, 'design.');
+      const prev = dzRead(map, 'designprev.');
+      const state = dzMerge(cur.d);
+      dz = {
+        state:state, savedJson:JSON.stringify(state), savedRaw:cur.raw,
+        prev:prev.d, prevRaw:prev.raw, rows:map, fieldsByKey:byKey,
+        texts:{}, imgs:{}, blobs:{}, hist:[JSON.stringify(state)], hi:0, histTimer:0, raf:0,
+        win:null, doc:null, pick:true, dev:390, pane:'pColors', selEl:null, selKey:'', scope:'one', scopes:[], comp:{}, openBlock:null
+      };
+      document.querySelectorAll('[data-dev]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-dev') === '390'); });
+      $('dzWheel').classList.remove('on');
+      dzShowPane('pColors');
+      dzRebuild();
+      dzUndoButtons();
+      dzRefreshSave();
+      dzLoadFrame();
+    }catch(err){
+      $('dzErr').textContent = err.message;
+      $('dzErr').hidden = false;
+    }finally{
+      busy(false);
+    }
+  }
+
+  /* --- saqlash --- */
+
+  function dzUrls(obj, out){
+    out = out || [];
+    if(typeof obj === 'string'){
+      if(/^(blob:|https:\/\/)/.test(obj)) out.push(obj);
+    }else if(obj && typeof obj === 'object'){
+      Object.keys(obj).forEach(function(k){ dzUrls(obj[k], out); });
+    }
+    return out;
+  }
+
+  function dzReplaceUrls(obj, map){
+    if(typeof obj === 'string') return dzHas(map, obj) ? map[obj] : obj;
+    if(Array.isArray(obj)) return obj.map(function(x){ return dzReplaceUrls(x, map); });
+    if(obj && typeof obj === 'object'){
+      const o = {};
+      Object.keys(obj).forEach(function(k){ o[k] = dzReplaceUrls(obj[k], map); });
+      return o;
+    }
+    return obj;
+  }
+
+  async function dzSave(){
+    if(!dz) return;
+    dzCommit();
+    const bad = dzTextsDirty().filter(function(k){
+      const f = dz.fieldsByKey[k];
+      return normText(dz.texts[k], f.multi).length > f.max;
+    });
+    if(bad.length){
+      toast((dz.fieldsByKey[bad[0]].label || 'Matn') + ': juda uzun — qisqartiring.', true);
+      return;
+    }
+
+    const uploaded = [];
+    let written = false;
+    busy(true, 'Saqlanmoqda...');
+    try{
+      /* 1) yangi rasmlarni yuklash */
+      const blobUrls = dzUrls(dz.state).filter(function(u){ return u.indexOf('blob:') === 0; });
+      const umap = {};
+      for(let i = 0; i < blobUrls.length; i++){
+        const u = blobUrls[i];
+        if(umap[u] || !dz.blobs[u]) continue;
+        busy(true, 'Rasm yuklanmoqda...');
+        umap[u] = await uploadFile(dz.blobs[u], 'jpg', 'image/jpeg', DZ_FOLDER);
+        uploaded.push(umap[u]);
+      }
+      const imgKeys = dzImgsDirty();
+      const imgNew = {};
+      for(let i = 0; i < imgKeys.length; i++){
+        const o = dz.imgs[imgKeys[i]];
+        if(o.blob){
+          busy(true, 'Rasm yuklanmoqda...');
+          imgNew[imgKeys[i]] = await uploadFile(o.blob, 'jpg', 'image/jpeg', 'sayt');
+          uploaded.push(imgNew[imgKeys[i]]);
+        }
+      }
+
+      /* 2) dizaynni tekshirib, bo‘laklarga bo‘lish */
+      busy(true, 'Saqlanmoqda...');
+      const state = dzReplaceUrls(dz.state, umap);
+      const api = dz.win && dz.win.ABH_DESIGN;
+      const clean = api ? api.clean(state) : state;
+      const isDefault = api ? JSON.stringify(clean) === JSON.stringify(api.clean(dzDefaults())) : false;
+      const json = isDefault ? '' : JSON.stringify(clean);
+      const now = new Date().toISOString();
+      const ups = [];
+      const dels = [];
+      const parts = json ? dzSplit(json) : [];
+
+      if(json !== dz.savedRaw){
+        if(parts.length){
+          ups.push({ key:'design.n', value:String(parts.length), updated_at:now });
+          parts.forEach(function(p, i){ ups.push({ key:'design.' + i, value:p, updated_at:now }); });
+        }
+        Object.keys(dz.rows).forEach(function(k){
+          const m = k.match(/^design\.(\d+|n)$/);
+          if(m && (m[1] === 'n' ? !parts.length : +m[1] >= parts.length)) dels.push(k);
+        });
+        /* oldingi saqlangan dizayn — tiklash uchun */
+        if(dz.savedRaw){
+          const pp = dzSplit(dz.savedRaw);
+          ups.push({ key:'designprev.n', value:String(pp.length), updated_at:now });
+          pp.forEach(function(p, i){ ups.push({ key:'designprev.' + i, value:p, updated_at:now }); });
+          Object.keys(dz.rows).forEach(function(k){
+            const m = k.match(/^designprev\.(\d+)$/);
+            if(m && +m[1] >= pp.length) dels.push(k);
+          });
+        }
+      }
+
+      /* 3) matnlar va rasmlar (Sayt matnlari bilan bir xil kalitlar) */
+      const nextVals = {};
+      dzTextsDirty().forEach(function(k){
+        const f = dz.fieldsByKey[k];
+        const v = normText(dz.texts[k], f.multi);
+        nextVals[k] = (!v || v === f.def) ? null : v;
+      });
+      imgKeys.forEach(function(k){
+        const o = dz.imgs[k];
+        const f = dz.fieldsByKey[k];
+        nextVals[k] = imgNew[k] || (o.reset || !o.url || (f && o.url === f.def) ? null : o.url);
+      });
+      Object.keys(nextVals).forEach(function(k){
+        if(nextVals[k] == null){ if(typeof dz.rows[k] === 'string') dels.push(k); }
+        else ups.push({ key:k, value:nextVals[k], updated_at:now });
+      });
+
+      if(ups.length){
+        await call('/rest/v1/' + CONTENT + '?on_conflict=key', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'Prefer':'resolution=merge-duplicates,return=minimal' },
+          body:JSON.stringify(ups)
+        });
+        written = true;
+      }
+      if(dels.length){
+        const list = '(' + dels.map(function(k){ return '"' + k + '"'; }).join(',') + ')';
+        await call('/rest/v1/' + CONTENT + '?key=in.' + encodeURIComponent(list), { method:'DELETE' });
+        written = true;
+      }
+
+      /* 4) holatni yangilash */
+      const oldPrevRaw = dz.prevRaw;
+      const oldSavedRaw = dz.savedRaw;
+      const oldImgs = imgKeys.map(function(k){ return dz.rows[k]; }).filter(Boolean);
+      ups.forEach(function(r){ dz.rows[r.key] = r.value; });
+      dels.forEach(function(k){ delete dz.rows[k]; });
+      if(json !== oldSavedRaw && oldSavedRaw){
+        dz.prevRaw = oldSavedRaw;
+        try{ dz.prev = JSON.parse(oldSavedRaw); }catch(e){}
+      }
+      dz.savedRaw = json;
+      dz.state = dzMerge(state);
+      dz.savedJson = JSON.stringify(dz.state);
+      dz.hist = [dz.savedJson];
+      dz.hi = 0;
+      Object.keys(umap).forEach(function(u){ try{ URL.revokeObjectURL(u); }catch(e){} delete dz.blobs[u]; });
+      imgKeys.forEach(function(k){
+        const o = dz.imgs[k];
+        if(o && o.blob && o.url){ try{ URL.revokeObjectURL(o.url); }catch(e){} delete dz.blobs[o.url]; }
+      });
+      dz.texts = {};
+      dz.imgs = {};
+      try{ localStorage.removeItem(DZ_DRAFT); }catch(e){}
+      dzRebuild();
+      dzPreviewNow();
+      dzUndoButtons();
+      dzRefreshSave();
+
+      /* 5) endi hech qayerda ishlatilmayotgan eski rasmlarni o‘chirish */
+      const keep = dzUrls(json ? JSON.parse(json) : {}).concat(dzUrls(dz.prev || {}));
+      Object.keys(dz.rows).forEach(function(k){ if(typeof dz.rows[k] === 'string') keep.push(dz.rows[k]); });
+      const old = dzUrls(oldPrevRaw ? JSON.parse(oldPrevRaw) : {}).concat(dzUrls(oldSavedRaw ? JSON.parse(oldSavedRaw) : {})).concat(oldImgs);
+      const gone = old.filter(function(u, i){
+        return old.indexOf(u) === i && keep.indexOf(u) < 0 &&
+          (u.indexOf(PUBLIC_PREFIX + DZ_FOLDER + '/') === 0 || u.indexOf(PUBLIC_PREFIX + 'sayt/') === 0);
+      });
+      for(let i = 0; i < gone.length; i++) await removeFile(gone[i]);
+
+      toast('Saqlandi — saytda darhol ko‘rinadi');
+    }catch(err){
+      if(!written){
+        for(let i = 0; i < uploaded.length; i++) await removeFile(uploaded[i]);
+      }
+      toast(err.message, true);
+    }finally{
+      busy(false);
+    }
+  }
+
+  /* yangi oynada to‘liq ko‘rish (saqlanmagan holat) */
+  function dzOpenPreview(){
+    if(!dz) return;
+    dzCommit();
+    const map = {};
+    Object.keys(dz.rows).forEach(function(k){ if(!/^design/.test(k)) map[k] = dz.rows[k]; });
+    Object.keys(dz.texts).forEach(function(k){
+      const f = dz.fieldsByKey[k];
+      if(!f) return;
+      const v = normText(dz.texts[k], f.multi);
+      if(!v || v === f.def) delete map[k]; else map[k] = v;
+    });
+    Object.keys(dz.imgs).forEach(function(k){
+      const o = dz.imgs[k];
+      if(o.reset) delete map[k];
+      else if(o.url && o.url.indexOf('blob:') !== 0) map[k] = o.url;
+    });
+    try{
+      localStorage.setItem(DZ_DRAFT, JSON.stringify({ t:Date.now(), d:dz.state }));
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ t:Date.now(), map:map }));
+    }catch(e){
+      toast('Brauzer xotirasi to‘la — oldindan ko‘rib bo‘lmadi.', true);
+      return;
+    }
+    window.open(SITE_FILE + '?korish=1', '_blank');
+  }
+
+  /* --- tugmalar --- */
+
+  document.querySelectorAll('#dzTabs [data-p]').forEach(function(b){
+    b.addEventListener('click', function(){ if(dz) dzShowPane(b.getAttribute('data-p')); });
+  });
+  document.querySelectorAll('[data-dev]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(!dz) return;
+      dz.dev = parseInt(b.getAttribute('data-dev'), 10);
+      document.querySelectorAll('[data-dev]').forEach(function(x){ x.classList.toggle('on', x === b); });
+      dzFit();
+      setTimeout(dzOverlay, 60);
+    });
+  });
+  $('dzPick').addEventListener('click', function(){
+    if(!dz) return;
+    dz.pick = !dz.pick;
+    if(!dz.pick && dz.ovHov) dz.ovHov.style.display = 'none';
+    dzPickClass();
+    toast(dz.pick ? 'Tanlash yoqildi — elementni bosing' : 'Tanlash o‘chirildi — sayt odatdagidek ishlaydi');
+  });
+  $('dzUndo').addEventListener('click', function(){ if(dz) dzGo(-1); });
+  $('dzRedo').addEventListener('click', function(){ if(dz) dzGo(1); });
+  $('dzReload').addEventListener('click', function(){ if(dz) dzLoadFrame(); });
+  $('dzBig').addEventListener('click', function(){
+    const box = document.querySelector('.dz');
+    const on = !box.classList.contains('big');
+    box.classList.toggle('big', on);
+    this.classList.toggle('on', on);
+    setTimeout(function(){ dzFit(); dzOverlay(); }, 30);
+  });
+  $('dzWheel').addEventListener('click', function(){
+    if(!dz || !dz.doc) return;
+    const stg = dz.doc.getElementById('stage');
+    if(!stg) return;
+    const open = stg.hidden;
+    stg.hidden = !open;
+    if(open){
+      const z = dz.doc.getElementById('wheelZone');
+      if(z) z.classList.add('lit');
+      const w = dz.doc.getElementById('stepWheel');
+      if(w) w.classList.add('on');
+    }
+    $('dzWheel').classList.toggle('on', open);
+    setTimeout(dzOverlay, 50);
+  });
+  document.querySelectorAll('[data-add]').forEach(function(b){
+    b.addEventListener('click', function(){ if(dz) dzAddBlock(b.getAttribute('data-add')); });
+  });
+  $('dzCss').addEventListener('input', function(){
+    if(!dz) return;
+    dz.state.css = this.value.slice(0, 20000);
+    dzChange();
+  });
+  $('dzRestorePrev').addEventListener('click', function(){
+    if(!dz || !dz.prev) return;
+    if(!confirm('Oldingi saqlangan dizayn ko‘rinishga qo‘yilsinmi? (Saqlamaguningizcha saytda o‘zgarmaydi)')) return;
+    dz.state = dzMerge(dz.prev);
+    dzRebuild();
+    dzChange();
+    toast('Oldingi dizayn qo‘yildi. Ma’qul bo‘lsa — “Saqlash”.');
+  });
+  $('dzResetAll').addEventListener('click', function(){
+    if(!dz) return;
+    if(!confirm('Butun dizayn (ranglar, shriftlar, bloklar, elementlar) asliga qaytsinmi? (Saqlamaguningizcha saytda o‘zgarmaydi)')) return;
+    dz.state = dzDefaults();
+    dz.selEl = null;
+    dz.selKey = '';
+    dzRebuild();
+    dzChange();
+  });
+  $('dSave').addEventListener('click', dzSave);
+  $('dPreview').addEventListener('click', dzOpenPreview);
+  window.addEventListener('resize', function(){ if(dz){ dzFit(); setTimeout(dzOverlay, 60); } });
+  document.addEventListener('keydown', function(e){
+    if(!dz || currentView !== 'vDesign') return;
+    if(/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')) return;
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z'){
+      e.preventDefault();
+      dzGo(e.shiftKey ? 1 : -1);
     }
   });
 
