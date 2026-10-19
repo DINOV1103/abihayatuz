@@ -1822,6 +1822,132 @@ p{
   height:24px;
 }
 
+/* ================= CHEGIRMA YOZUVI (bosh qism) ================= */
+
+.offer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  max-width:540px;
+  margin:14px 0 0;
+  padding:11px 14px;
+  border-radius:calc(16px * var(--rad));
+  background:rgba(var(--gold-rgb),.12);
+  border:1.5px dashed rgba(var(--gold-rgb),.6);
+  color:var(--gold-2);
+  font-size:calc(14.5px * var(--fs));
+  font-weight:700;
+  line-height:1.35;
+  text-decoration:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.offer-ic{
+  flex:none;
+  font-size:calc(22px * var(--fs));
+  line-height:1;
+}
+
+/* ================= TEZ FORMA ================= */
+
+.qf{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.qf-bg{
+  position:absolute;
+  inset:0;
+  background:rgba(var(--night-rgb),.62);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  animation:qfFade .25s ease both;
+}
+
+.qf-sheet{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  max-height:92vh;
+  max-height:92dvh;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  border-radius:calc(28px * var(--rad)) calc(28px * var(--rad)) 0 0;
+  background:var(--card);
+  box-shadow:0 -20px 60px -20px rgba(0,0,0,.5);
+  padding-bottom:env(safe-area-inset-bottom);
+  animation:qfUp .35s var(--ease) both;
+}
+
+.qf-handle{
+  display:block;
+  width:44px;
+  height:5px;
+  margin:10px auto 0;
+  border-radius:3px;
+  background:var(--line);
+}
+
+.qf-x{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:2;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:var(--mint);
+  color:var(--ink);
+  font-size:24px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.qf-body .panel{
+  border-radius:0;
+  box-shadow:none;
+  padding-top:14px;
+}
+
+html.qf-open,
+body.qf-open{
+  overflow:hidden;
+}
+
+body.qf-open .sticky{
+  transform:translateY(120%);
+}
+
+@keyframes qfUp{
+  from{ transform:translateY(100%); }
+  to{ transform:none; }
+}
+
+@keyframes qfFade{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+
+@media (min-width:900px){
+  .qf{
+    align-items:center;
+  }
+
+  .qf-sheet{
+    border-radius:calc(28px * var(--rad));
+  }
+
+  .qf-handle{
+    display:none;
+  }
+}
+
 /* ================= BARABAN HAQIDA ESLATMA (formada) ================= */
 
 .wheel-teaser{
@@ -2782,6 +2908,7 @@ body.locked{
     };
     o.anim = d.anim !== false;
     o.reveal = d.reveal !== false;
+    o.qf = d.qf !== false;
 
     o.blocks = {};
     if(d.blocks && typeof d.blocks === 'object'){
@@ -3206,6 +3333,10 @@ body.locked{
             <span data-e="hero.btn2" data-e-label="Ikkinchi tugma">Беморлар фикри</span>
           </a>
         </div>
+        <a class="offer" href="#murojaat">
+          <span class="offer-ic" aria-hidden="true">🎁</span>
+          <span data-e="hero.offer" data-e-label="Tugmalar ostidagi chegirma yozuvi">Ариза қолдирганларга — омад барабанида 20% ёки 50% чегирма</span>
+        </a>
         <ul class="facts">
           <li><b data-e="hero.fact1_title" data-e-label="1-fakt — katta yozuv">4 давлат</b><span data-e="hero.fact1_text" data-e-label="1-fakt — kichik yozuv">Ўзбекистон, Туркия, Россия, Тожикистон</span></li>
           <li><b data-e="hero.fact2_title" data-e-label="2-fakt — katta yozuv">3 сертификат</b><span data-e="hero.fact2_text" data-e-label="2-fakt — kichik yozuv">ISO 22000, GMP ва хавфсизлик</span></li>
@@ -3523,6 +3654,19 @@ body.locked{
     <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 10.5v6M12 7.3v.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
     <span data-e="sticky.btn" data-e-label="Tugma">Батафсил маълумот олиш</span>
   </a>
+</div>
+
+<!-- ================= TEZ FORMA (pastdan ochiladigan oyna) =================
+     "Батафсил маълумот олиш" bosilganda sahifa pastga uchmaydi — pastdagi
+     forma shu oynaga ko‘chib ochiladi. Admin → Dizayn → Boshqa → "Tez forma"
+     dan o‘chirilsa, tugmalar avvalgidek formaga olib boradi. -->
+<div class="qf" id="qf" hidden>
+  <div class="qf-bg" data-qf-close></div>
+  <div class="qf-sheet" role="dialog" aria-modal="true" aria-label="Ариза">
+    <span class="qf-handle" aria-hidden="true"></span>
+    <button class="qf-x" type="button" data-qf-close aria-label="Ёпиш">×</button>
+    <div class="qf-body" id="qfBody"></div>
+  </div>
 </div>
 
 <!-- ================= PORLAB CHIQUVCHI BARABAN ================= -->
@@ -4728,6 +4872,78 @@ body.locked{
 
     showDone();
     openStage();
+  });
+
+
+  /* =====================================
+     TEZ FORMA — "Батафсил маълумот олиш" bosilganda forma
+     pastdan ochiladigan oynada chiqadi (sahifa pastga uchmaydi).
+     Admin → Dizayn → Boshqa → "Tez forma" o‘chirilsa — avvalgidek.
+  ===================================== */
+
+  const qf = $('qf');
+  const qfBody = $('qfBody');
+  const formPanel = form.closest('.panel');
+  const panelHome = formPanel.parentNode;
+  const panelNext = formPanel.nextSibling;
+  let qfOpen = false;
+  let qfTracked = false;
+
+  function quickFormOn(){
+    try{
+      const d = window.ABH_DESIGN && window.ABH_DESIGN.current();
+      return !(d && d.qf === false);
+    }catch(e){
+      return true;
+    }
+  }
+
+  function openQuickForm(){
+    if(qfOpen) return;
+    qfOpen = true;
+    qfBody.appendChild(formPanel);
+    qf.hidden = false;
+    document.documentElement.classList.add('qf-open');
+    document.body.classList.add('qf-open');
+    try{ history.pushState({ abhQf:1 }, ''); }catch(e){}
+    if(!formDone){
+      try{ fName.focus({ preventScroll:true }); }catch(e){}
+    }
+    if(!qfTracked){
+      qfTracked = true;
+      track('ViewContent', { content_name:'ABIHAYAT', content_type:'form' });
+    }
+  }
+
+  function closeQuickForm(fromHistory){
+    if(!qfOpen) return;
+    qfOpen = false;
+    qf.hidden = true;
+    document.documentElement.classList.remove('qf-open');
+    document.body.classList.remove('qf-open');
+    panelHome.insertBefore(formPanel, panelNext);
+    if(!fromHistory && history.state && history.state.abhQf){
+      try{ history.back(); }catch(e){}
+    }
+  }
+
+  document.addEventListener('click', function(e){
+    const a = e.target && e.target.closest ? e.target.closest('a[href="#murojaat"]') : null;
+    if(!a || !quickFormOn() || e.defaultPrevented) return;
+    e.preventDefault();
+    openQuickForm();
+  });
+
+  qf.addEventListener('click', function(e){
+    if(e.target.closest('[data-qf-close]')) closeQuickForm(false);
+  });
+
+  window.addEventListener('popstate', function(){
+    if(qfOpen) closeQuickForm(true);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && qfOpen && stage.hidden) closeQuickForm(false);
   });
 
 
