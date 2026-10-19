@@ -3909,7 +3909,8 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
     ['.field, .select, .phone', 'Forma maydoni'], ['.comp', 'Ma’lumotlar jadvali'], ['.photos', 'Rasmlar'],
     ['.order-points li', 'Afzallik qatori'], ['.hero-photo', 'Asosiy rasm qismi'], ['.wrap', 'Ichki konteyner'],
     ['.head', 'Sarlavha bloki'], ['.cb-img', 'Rasm'], ['.cb-video', 'Video'], ['.ic', 'Tugma ikonkasi'],
-    ['.stage-card', 'Baraban oynasi'], ['.wheel-zone', 'Baraban'], ['.win-num', 'Yutuq foizi'], ['.sub', 'Sarlavha ostidagi matn']
+    ['.stage-card', 'Baraban oynasi'], ['.wheel-zone', 'Baraban'], ['.win-num', 'Yutuq foizi'], ['.sub', 'Sarlavha ostidagi matn'],
+    ['.offer', 'Chegirma yozuvi']
   ];
   const DZ_TAGS = {
     h1:'Asosiy sarlavha', h2:'Sarlavha', h3:'Kichik sarlavha', p:'Matn', a:'Havola', button:'Tugma', img:'Rasm',
@@ -3926,7 +3927,7 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
       v:1, c:{}, font:'', fontH:'', fs:100, fsH:100, wH:800, lsH:-2, ttH:false, lh:160,
       rad:100, sp:100, gut:20, maxw:1140,
       btn:{ r:'pill', h:60, w:700, tt:false, flat:false, shadow:true, shine:true, icon:true, c1:'', t1:'', c2:'', t2:'' },
-      anim:true, reveal:true,
+      anim:true, reveal:true, qf:true,
       order:DZ_SECTIONS.slice(), hide:[], blocks:{}, els:{}, css:''
     };
   }
@@ -5239,6 +5240,9 @@ const SUPA_KEY = 'sb_publishable_QINLIFQ_SgO6jr4PLmd_0w_0u9pZ7Iq';
       'Telefon ikonkasi halqasi, aylanuvchi muhr, suzuvchi belgi, tugmadagi yaltiroq.');
     dzSwitch(a, 'Paydo bo‘lish animatsiyasi', function(){ return dz.state.reveal; }, function(v){ dz.state.reveal = v; },
       'Sahifa pastga surilganda bo‘limlar sekin paydo bo‘ladi.');
+    a.appendChild(el('h3', '', 'Ariza formasi')).style.marginTop = '14px';
+    dzSwitch(a, 'Tez forma', function(){ return dz.state.qf !== false; }, function(v){ dz.state.qf = v; },
+      '“Батафсил маълумот олиш” bosilganda forma ekran pastidan ochiladi. O‘chirilsa — tugma avvalgidek sahifa pastidagi formaga olib boradi.');
     $('dzCss').value = dz.state.css || '';
     $('dzRestorePrev').disabled = !dz.prev;
     $('dzPrevInfo').textContent = dz.prev
