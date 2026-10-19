@@ -3427,8 +3427,8 @@ body.locked{
           </div>
           <div class="err" id="ePhone" data-e="form.phone_err" data-e-label="Raqam to‘liq bo‘lmasa chiqadigan xato">Рақамни тўлиқ киритинг: 9 та рақам</div>
 
-          <label class="lbl" for="fRegion" data-e="form.region_label" data-e-label="Viloyat maydoni nomi">Вилоятингиз</label>
-          <select class="select" id="fRegion" name="region" required>
+          <label class="lbl" for="fRegion" data-e="form.region_label" data-e-label="Viloyat maydoni nomi (majburiy emas)">Вилоятингиз (ихтиёрий)</label>
+          <select class="select" id="fRegion" name="region">
             <option value="" selected disabled data-e="form.region_ph" data-e-label="Viloyat tanlanmaganda turadigan yozuv">Вилоятни танланг</option>
             <option>Тошкент шаҳри</option>
             <option>Тошкент вилояти</option>
@@ -3445,7 +3445,6 @@ body.locked{
             <option>Сирдарё вилояти</option>
             <option>Сурхондарё вилояти</option>
           </select>
-          <div class="err" id="eRegion" data-e="form.region_err" data-e-label="Viloyat tanlanmasa chiqadigan xato">Вилоятни танланг</div>
 
           <input type="text" id="fCompany" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -4455,9 +4454,6 @@ body.locked{
     if(fName.value.trim().length >= 2) good(fName, 'eName');
   });
 
-  fRegion.addEventListener('change', function(){
-    if(fRegion.value) good(fRegion, 'eRegion');
-  });
 
   let lastDigits = '';
 
@@ -4567,7 +4563,7 @@ body.locked{
       '',
       '👤 Исм: ' + esc(L.name),
       '📞 Тел: +998' + L.digits,
-      '📍 Вилоят: ' + esc(L.region),
+      '📍 Вилоят: ' + (L.region ? esc(L.region) : 'кўрсатилмаган'),
       '🎁 Чегирма: ' + (L.prize ? '<b>' + L.prize + '</b>' : '⏳ барабан ҳали айлантирилмаган'),
       '🕒 Вақт: ' + L.time
     ];
@@ -4666,7 +4662,6 @@ body.locked{
 
     if(name.length < 2){ bad(fName, 'eName'); first = first || fName; }
     if(digits.length !== 9){ bad(fPhoneWrap, 'ePhone'); first = first || fPhone; }
-    if(!region){ bad(fRegion, 'eRegion'); first = first || fRegion; }
     if(first){ first.focus(); return; }
 
     const key = 'abhr_' + digits;
